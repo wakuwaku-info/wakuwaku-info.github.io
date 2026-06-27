@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://kiroku-arg.com/case073/ogp.png">
 
 <style>
-  :root{ --bg:#0c0c0e; --ink:#ece8df; --dim:#8b857a; --gold:#d2b154; --line:rgba(210,177,84,.3); --red:#7c2b25; }
+  :root{ --bg:#0a0708; --ink:#d9d3c9; --dim:#7d716c; --gold:#9c2820; --line:rgba(156,40,32,.34); --red:#8c1f18; }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ height:100%; }
   body{
@@ -28,11 +28,15 @@
     min-height:100dvh; display:flex; flex-direction:column;
     overflow-x:hidden; position:relative;
   }
-  /* 粒子ノイズ＆ヴィネット */
+  /* 粒子ノイズ＆ヴィネット＆血の微光 */
   body::before{
     content:""; position:fixed; inset:0; pointer-events:none; z-index:2;
-    background:radial-gradient(125% 95% at 50% 32%, transparent 66%, rgba(0,0,0,.55) 100%);
+    background:
+      radial-gradient(58% 42% at 50% 28%, rgba(132,22,16,.24), transparent 62%),
+      radial-gradient(125% 95% at 50% 34%, transparent 58%, rgba(0,0,0,.78) 100%);
+    animation:pulse 6.5s ease-in-out infinite;
   }
+  @keyframes pulse{ 0%,100%{ opacity:.82; } 50%{ opacity:1; } }
   body::after{
     content:""; position:fixed; inset:0; pointer-events:none; z-index:2; opacity:.05;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
@@ -43,9 +47,10 @@
 
   .mark{ font-size:12px; letter-spacing:.5em; color:var(--dim); margin-bottom:26px; text-indent:.5em; }
   h1{ font-size:clamp(58px,17vw,128px); font-weight:600; letter-spacing:.12em; line-height:1;
-    text-indent:.12em; position:relative; }
-  h1 .a{ display:inline-block; animation:flick 7s steps(1) infinite; }
-  @keyframes flick{ 0%,96%,100%{opacity:1} 97%{opacity:.25} 98%{opacity:.9} 99%{opacity:.4} }
+    text-indent:.12em; position:relative; color:#e6ddd2;
+    text-shadow:0 0 26px rgba(150,26,18,.5), 0 0 70px rgba(110,16,12,.3), 0 2px 4px rgba(0,0,0,.7); }
+  h1 .a{ display:inline-block; color:#c4322a;
+    text-shadow:0 0 30px rgba(170,30,22,.7); }
   .romaji{ margin-top:16px; font-family:"Helvetica Neue",Arial,sans-serif; font-size:12px;
     letter-spacing:.62em; color:var(--gold); text-indent:.62em; }
   .rule{ width:54px; height:1px; background:var(--line); margin:30px auto; }
