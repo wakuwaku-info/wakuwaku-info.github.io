@@ -1,0 +1,2372 @@
+<!DOCTYPE html>
+<!--
+  在無 (ZAIMU) v4 — 偽OS型ホラーARG
+  ぎみっくらぼ / 忌録 archive
+  v4: ①melt（溶けて暗転）クライマックス ②チャット時刻からPIN ③全面ビジュアル強化
+  単一HTML・依存ゼロ。GitHub Pages可。スマホ/PC両対応。
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,interactive-widget=overlays-content">
+<title>在無</title>
+<meta name="robots" content="noindex">
+
+<!-- ▼ SNSサムネイル（OGP / Twitterカード）
+     下の YOUR-DOMAIN.example を、公開先の実アドレスに置き換えてください（例: GitHub Pages の URL）。
+     ※ 画像URLは必ず絶対URL（https://〜）にすること。Twitter/Discord等はキャッシュするため、
+        変更後は各社のカード検証ツール（Twitter Card Validator 等）で再取得してください。 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="忌録 archive ／ ぎみっくらぼ">
+<meta property="og:title" content="在無 — 忌録 case no.073">
+<meta property="og:description" content="肝試しで消息を絶った3人を調査せよ。── 偽OS型ホラーARG「在無」。">
+<meta property="og:image" content="https://kiroku-arg.com/case073/ogp.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1536">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:alt" content="在無 — ██神社・忌録 case no.073">
+<meta property="og:url" content="https://kiroku-arg.com/case073/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="在無 — 忌録 case no.073">
+<meta name="twitter:description" content="肝試しで消息を絶った3人を調査せよ。── 偽OS型ホラーARG「在無」。">
+<meta name="twitter:image" content="https://kiroku-arg.com/case073/ogp.png">
+<!-- コード内で文字列参照される画像資源（スタンドアロン用） -->
+<meta name="ext-resource-dependency" content="photo-shrine.png" data-resource-id="p01" />
+<meta name="ext-resource-dependency" content="photo-two.png" data-resource-id="p02" />
+<meta name="ext-resource-dependency" content="photo-two-gone.png" data-resource-id="p02g" />
+<meta name="ext-resource-dependency" content="photo-floor.png" data-resource-id="p03" />
+<meta name="ext-resource-dependency" content="photo-floor-gone.png" data-resource-id="p03g" />
+<meta name="ext-resource-dependency" content="photo-omamori.png" data-resource-id="p04" />
+<meta name="ext-resource-dependency" content="photo-omamori-gone.png" data-resource-id="p04g" />
+<meta name="ext-resource-dependency" content="photo-honden.png" data-resource-id="p05" />
+<meta name="ext-resource-dependency" content="photo-toilet.png" data-resource-id="p06" />
+<meta name="ext-resource-dependency" content="photo-torii.png" data-resource-id="p07" />
+<meta name="ext-resource-dependency" content="photo-cursed.png" data-resource-id="p08" />
+<meta name="ext-resource-dependency" content="photo-now.png" data-resource-id="p09" />
+<template id="__bundler_thumbnail" data-bg-color="#0a0c0d">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0a0c0d"/>
+    <g fill="none" stroke="#c2362a" stroke-width="14">
+      <rect x="360" y="250" width="480" height="320" rx="10"/>
+    </g>
+    <text x="600" y="470" font-family="serif" font-size="180" fill="#c2362a" text-anchor="middle" letter-spacing="10">在無</text>
+    <text x="600" y="640" font-family="monospace" font-size="34" fill="#5a6a64" text-anchor="middle" letter-spacing="8">case no.073</text>
+  </svg>
+</template>
+<style>
+:root{
+  --wall-1:#22323a; --wall-2:#101a1f; --wall-3:#070c0f;
+  --glass:rgba(28,38,42,.62);
+  --chrome:#eef2f0; --chrome-2:#e2e8e4; --edge:#cdd6d0; --ink:#1a221f; --ink-mute:#67756d;
+  --bar:rgba(13,18,21,.78); --bar-ink:#b7c2bc;
+  --ok:#3f7a69; --ok-2:#54a18b; --ok-ink:#eafaf4;
+  --bad:#8a2418; --bad-2:#cf3b2a;
+  --gold:#c19a55;
+  --r:13px;
+  --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
+  --mincho:"Hiragino Mincho ProN","Yu Mincho",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#000;font-family:var(--sans);color:var(--ink)}
+button{font-family:inherit}
+img{user-select:none;-webkit-user-drag:none}
+
+/* ───────── デスクトップ ───────── */
+#os{position:fixed;inset:0;overflow:hidden;
+  background:
+    radial-gradient(70% 50% at 78% 8%, rgba(150,168,160,.16), transparent 60%),
+    radial-gradient(130% 100% at 60% -8%, var(--wall-1) 0%, var(--wall-2) 52%, var(--wall-3) 100%);
+  transition:filter .5s ease}
+.fog{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;pointer-events:none;mix-blend-mode:screen}
+#fog1{width:60vw;height:40vw;left:-10vw;top:8vh;background:radial-gradient(circle,rgba(90,120,110,.5),transparent 65%);animation:drift1 26s ease-in-out infinite}
+#fog2{width:50vw;height:38vw;right:-8vw;top:30vh;background:radial-gradient(circle,rgba(70,95,110,.45),transparent 65%);animation:drift2 32s ease-in-out infinite}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-20px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-46px,24px)}}
+#ridge{position:absolute;left:0;right:0;bottom:0;width:100%;height:60%;pointer-events:none}
+#dark-figure{position:absolute;right:5%;bottom:0;height:62%;width:auto;z-index:6;pointer-events:none;
+  opacity:.04;filter:blur(8px) contrast(1.1);transition:opacity 3.5s ease,filter 3.5s ease}
+#dark-figure svg{height:100%;width:auto;display:block}
+#os.fig1 #dark-figure{opacity:.17;filter:blur(5.5px) contrast(1.15)}
+#os.fig2 #dark-figure{opacity:.38;filter:blur(3.4px) contrast(1.2)}
+#os.fig3 #dark-figure{opacity:.66;filter:blur(1.8px) contrast(1.3)}
+#vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 240px 60px rgba(0,0,0,.6)}
+
+/* 起動 */
+#boot{position:absolute;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;
+  background:radial-gradient(120% 100% at 50% 30%,#14202400,#0a1316 70%),linear-gradient(160deg,#101a1f,#070c0f);transition:opacity 1s ease}
+#boot-grid{display:grid;grid-template-columns:repeat(3,13px);grid-template-rows:repeat(3,13px);gap:7px}
+#boot-grid i{width:13px;height:13px;border-radius:4px;background:var(--ok-2);opacity:.14;transform:scale(.55);animation:bt 1.7s ease-in-out infinite;box-shadow:0 0 10px rgba(84,161,139,.5)}
+@keyframes bt{0%{opacity:.12;transform:scale(.55)}25%{opacity:.95;transform:scale(1)}55%{opacity:.95;transform:scale(1)}80%,100%{opacity:.12;transform:scale(.55)}}
+#boot-grid i:nth-child(1){animation-delay:0s}#boot-grid i:nth-child(2),#boot-grid i:nth-child(4){animation-delay:.12s}
+#boot-grid i:nth-child(3),#boot-grid i:nth-child(5),#boot-grid i:nth-child(7){animation-delay:.24s}
+#boot-grid i:nth-child(6),#boot-grid i:nth-child(8){animation-delay:.36s}#boot-grid i:nth-child(9){animation-delay:.48s}
+#boot-cap{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:#6a7d76}
+#boot-cap b{color:#aab4ae;font-weight:400}
+#boot-line{width:170px;height:1px;background:#21302e;overflow:hidden}
+#boot-line::after{content:"";display:block;height:100%;width:40%;background:linear-gradient(90deg,transparent,var(--ok-2),transparent);animation:bl 1.4s linear infinite}
+@keyframes bl{0%{transform:translateX(-100%)}100%{transform:translateX(420%)}}
+
+/* アイコン */
+#icons{position:absolute;top:100px;left:18px;display:flex;flex-direction:column;gap:8px;z-index:10}
+.icon{width:88px;padding:11px 6px 9px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;position:relative;
+  color:#e6ede9;text-shadow:0 1px 4px rgba(0,0,0,.7);opacity:0;transform:translateY(8px);animation:iconIn .55s ease forwards;transition:background .15s}
+.icon:hover{background:rgba(255,255,255,.07)}
+.icon .gl{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#223029;
+  background:linear-gradient(155deg,#f3f7f4 0%,#cfd9d2 100%);box-shadow:0 6px 16px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -2px 6px rgba(120,140,130,.4)}
+.icon .lbl{font-size:11.5px;letter-spacing:.03em}
+.icon .badge{position:absolute;top:2px;right:8px;background:linear-gradient(155deg,#6e0c0c,#160404);color:#ff5a48;font-size:13px;min-width:24px;height:24px;
+  border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);padding:0 6px;box-shadow:0 2px 7px rgba(0,0,0,.6),0 0 0 2px rgba(120,8,8,.5);text-shadow:0 0 5px rgba(255,40,30,.6)}
+/* ②とゴミ箱・シは「未解決」を読んだあとに同時点滅する */
+.icon .badge.drag-ok,.badge.free{animation:badgeGlow 1.8s ease-in-out infinite}
+/* アイコンから切り離して浮かせたバッジ（自由配置）。.icon配下を離れても見た目を保持 */
+.badge.free{position:fixed;z-index:9000;min-width:24px;height:24px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;padding:0 6px;background:linear-gradient(155deg,#6e0c0c,#160404);color:#ff5a48;box-shadow:0 2px 7px rgba(0,0,0,.6),0 0 0 2px rgba(120,8,8,.5);text-shadow:0 0 5px rgba(255,40,30,.6);cursor:grab}
+@keyframes badgeGlow{0%,100%{background:linear-gradient(155deg,#6e0c0c,#160404);color:#ff5a48;transform:scale(1);box-shadow:0 2px 7px rgba(0,0,0,.6),0 0 0 2px rgba(120,8,8,.5);text-shadow:0 0 5px rgba(255,40,30,.6)}50%{background:linear-gradient(155deg,#8a1410,#1c0606);color:#ff6e5c;transform:scale(1.06);box-shadow:0 2px 7px rgba(0,0,0,.6),0 0 0 2px rgba(170,22,14,.7),0 0 11px rgba(255,46,30,.6);text-shadow:0 0 8px rgba(255,70,50,.85)}}
+@keyframes iconIn{to{opacity:1;transform:none}}
+/* ゴミ箱 / シ */
+#trash{position:absolute;right:18px;bottom:62px;z-index:180;width:84px;display:flex;flex-direction:column;align-items:center;gap:7px;color:#e6ede9;text-shadow:0 1px 4px rgba(0,0,0,.7);user-select:none;transition:opacity .2s ease,transform .2s ease}
+/* スマホで文字入力中（キーボード表示中）またはチャット返信バー表示中はゴミ箱を隠す：浮き上がり／送信ボタン覆い防止 */
+#os.kbd-open #trash,#os.replybar #trash{opacity:0;pointer-events:none;transform:translateY(14px)}
+#trash .tcan{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#3a4641,#26302c);border:1px solid rgba(255,255,255,.12);box-shadow:0 6px 16px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.12);transition:transform .15s,border-color .15s}
+#trash .tcan svg{width:20px;height:20px;stroke:#cdd8d2;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#trash .tlbl{font-size:11.5px;letter-spacing:.03em}
+#trash.shi .tcan{background:linear-gradient(155deg,#3a1410,#1c0807);border-color:rgba(180,40,30,.4);box-shadow:0 0 16px rgba(150,20,12,.5),inset 0 1px 0 rgba(255,120,100,.18);animation:canGlow 1.8s ease-in-out infinite}
+@keyframes canGlow{0%,100%{transform:scale(1);border-color:rgba(180,40,30,.4);box-shadow:0 0 16px rgba(150,20,12,.5),inset 0 1px 0 rgba(255,120,100,.18)}50%{transform:scale(1.05);border-color:rgba(220,70,52,.75);box-shadow:0 0 18px rgba(190,30,18,.7),inset 0 1px 0 rgba(255,130,110,.28)}}
+#trash.shi .tcan svg{stroke:#e0726a;animation:canSvgGlow 1.8s ease-in-out infinite}
+@keyframes canSvgGlow{0%,100%{stroke:#e0726a}50%{stroke:#ff8576}}
+#trash.shi .tlbl{font-family:var(--mincho);color:#e0726a;letter-spacing:.34em;font-weight:700;text-shadow:0 0 8px rgba(180,0,0,.6);animation:shiGlow 1.8s ease-in-out infinite}
+@keyframes shiGlow{0%,100%{color:#e0726a;transform:scale(1);text-shadow:0 0 6px rgba(180,0,0,.5)}50%{color:#ff7a6a;transform:scale(1.05);text-shadow:0 0 11px rgba(255,46,30,.8),0 0 18px rgba(255,20,12,.45)}}
+#trash.over .tcan{transform:scale(1.14);border-color:#e0726a}
+/* ドラッグ可能バッジ */
+.icon .badge.drag-ok{cursor:grab}
+@keyframes badgeWob{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.08)}}
+.badge-ghost{position:fixed;z-index:9000;background:linear-gradient(155deg,#6e0c0c,#160404);color:#ff5a48;font-size:14px;min-width:26px;height:26px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);padding:0 6px;box-shadow:0 4px 14px rgba(0,0,0,.7);text-shadow:0 0 5px rgba(255,40,30,.6);pointer-events:none}
+/* 怪異モード：脱出ボタンを無効化（会話が終わるまで） */
+#os.ghosting #kaede-prof .kp-back,#os.ghosting #ghost-chat .gc-back{display:none!important}
+#os.ghosting.ghost-done #kaede-prof .kp-back,#os.ghosting.ghost-done #ghost-chat .gc-back{display:flex!important}
+/* 怪異の発話バブルは必ず1行 */
+#ghost-chat .gc-scroll .bub.bub-1line{white-space:nowrap!important;max-width:none!important;width:max-content}
+/* 砂嵐エンディング */
+#static-screen{position:absolute;inset:0;z-index:9400;display:none;background:#000;overflow:hidden;opacity:1;transition:opacity 1.2s ease}
+#static-screen.show{display:block}
+#static-screen.fade{opacity:0}
+#static-screen canvas{position:absolute;inset:0;width:100%;height:100%;display:block;image-rendering:pixelated}
+#static-screen .scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.4) 2px 4px);mix-blend-mode:multiply;animation:scanRoll 6s linear infinite}
+#static-screen .vline{position:absolute;left:0;right:0;height:2px;background:rgba(255,255,255,.7);box-shadow:0 0 8px rgba(255,255,255,.5);mix-blend-mode:screen;animation:vlineRoll 2.4s linear infinite}
+#static-screen .vline.b{animation-duration:3.7s;animation-delay:-1s;height:3px;opacity:.5}
+@keyframes scanRoll{to{background-position:0 120px}}
+@keyframes vlineRoll{0%{top:-4%}100%{top:104%}}
+/* 怪異トーク */
+#ghost-chat{position:absolute;width:min(440px,92vw);height:min(580px,82vh);left:50%;top:50%;transform:translate(-50%,-50%);border-radius:var(--r);z-index:640;display:none;flex-direction:column;background:#0a0606;opacity:0;transition:opacity .3s ease;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(120,30,25,.4)}
+#ghost-chat.show{display:flex;opacity:1}
+#notif{position:absolute;top:10px;left:50%;transform:translate(-50%,-200%);width:min(380px,90vw);z-index:9600;display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:15px;cursor:pointer;background:rgba(28,28,30,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 14px 36px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.09);opacity:0;transition:transform .42s cubic-bezier(.18,.9,.2,1),opacity .3s ease;pointer-events:none}
+#notif.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+#notif .nf-ic{width:34px;height:34px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mincho);font-size:15px;color:#fff;background:linear-gradient(160deg,#3a3a40,#222226);overflow:hidden}
+#notif .nf-ic img{width:100%;height:100%;object-fit:cover}
+#notif .nf-tx{flex:1;min-width:0;line-height:1.3}
+#notif .nf-nm{font-size:12px;font-weight:700;color:#f2f2f4;letter-spacing:.04em;display:flex;justify-content:space-between;gap:8px}
+#notif .nf-nm .nf-t{font-weight:400;font-size:10px;color:#9a9aa0;flex-shrink:0}
+#notif .nf-msg{font-size:12.5px;color:#d6d6da;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+#notif.alarm{background:rgba(42,12,10,.9)}
+#notif.alarm .nf-ic{background:linear-gradient(160deg,#6e1410,#240807);color:#e0726a}
+#notif.alarm .nf-nm,#notif.alarm .nf-msg{color:#f0b3ac}
+#ghost-chat .gc-head{display:flex;align-items:center;gap:11px;padding:12px 14px;background:linear-gradient(180deg,#1a0c0b,#120807);border-bottom:1px solid rgba(150,40,30,.3);flex-shrink:0}
+#ghost-chat .gc-back{order:3;margin-left:auto;background:rgba(0,0,0,.4);border:none;color:#e0726a;width:30px;height:30px;border-radius:9px;font-size:16px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center}
+#ghost-chat .gc-av{width:36px;height:36px;border-radius:50%;overflow:hidden;border:1px solid rgba(180,40,30,.5);box-shadow:0 0 10px rgba(150,0,0,.5)}
+#ghost-chat .gc-av img{width:100%;height:100%;object-fit:cover;filter:brightness(.6) saturate(1.5) contrast(1.2) hue-rotate(-12deg)}
+#ghost-chat .gc-nm{font-family:var(--mincho);font-size:15px;color:#e0726a;letter-spacing:.2em;text-shadow:0 0 8px rgba(180,0,0,.5)}
+#ghost-chat .gc-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 13px;display:flex;flex-direction:column;gap:3px;background:radial-gradient(120% 100% at 50% 0%,#150a0a,#080404)}
+#ghost-chat .gc-scroll .row.them .bub{background:#241312;color:#f0d9d6;box-shadow:none}
+#ghost-chat .gc-scroll .row.me .bub{background:linear-gradient(160deg,#5a2420,#3a1512);color:#f4e2df}
+#ghost-chat .gc-scroll .who-nm{color:#9a6b66}
+#ghost-chat .gc-scroll .meta{color:#6a4a47}
+#ghost-chat .gc-scroll .typing{background:#241312}
+#ghost-chat .gc-scroll .typing i{background:#7a4a45}
+
+/* ───────── ウィンドウ ───────── */
+.win{position:absolute;background:var(--chrome);border-radius:var(--r);overflow:hidden;z-index:50;display:none;flex-direction:column;
+  width:min(440px,92vw);height:min(580px,82vh);
+  box-shadow:0 30px 80px rgba(0,0,0,.55),0 2px 10px rgba(0,0,0,.4),inset 0 0 0 1px rgba(255,255,255,.5)}
+.win.show{display:flex;animation:winIn .28s cubic-bezier(.2,.85,.2,1)}
+@keyframes winIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1}}
+.win-head{display:flex;align-items:center;gap:9px;padding:11px 13px;cursor:move;user-select:none;flex-shrink:0;
+  background:linear-gradient(180deg,#fbfdfc,var(--chrome-2));border-bottom:1px solid var(--edge)}
+.lights{display:flex;gap:7px}
+.lights i{width:11px;height:11px;border-radius:50%;display:block}
+.lights .l1{background:#e06a5c}.lights .l2{background:#e3b14e}.lights .l3{background:var(--ok-2)}
+.win-head .t{font-size:12.5px;letter-spacing:.05em;color:var(--ink);flex:1;text-align:left;padding-left:4px;margin-right:30px}
+.win-head .x{position:absolute;right:12px;border:none;background:none;font-size:16px;color:var(--ink-mute);cursor:pointer;padding:4px}
+.win-body{flex:1;overflow:hidden;background:#f5f8f6;display:flex;flex-direction:column}
+.scrollable{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;min-height:0}
+
+/* ───────── メッセージ（リアル化） ───────── */
+.msgapp{display:flex;flex-direction:column;height:100%;min-height:0;background:#dfe7e2}
+.msg-head{display:flex;align-items:center;gap:11px;padding:11px 14px;background:linear-gradient(180deg,#fbfdfc,#eef3f0);border-bottom:1px solid var(--edge);flex-shrink:0}
+.msg-head .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(150deg,#5a6e66,#33433c);display:flex;align-items:center;justify-content:center;color:#dfeae4;font-size:14px}
+.msg-head .nm{font-size:14px;font-weight:600;color:var(--ink)}
+.msg-head .st{font-size:10.5px;color:var(--ink-mute)}
+.msg-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 12px;display:flex;flex-direction:column;gap:3px;
+  background:linear-gradient(180deg,#e4ebe6,#dde6e0)}
+.daychip{align-self:center;background:rgba(80,96,88,.16);color:#5a6b62;font-size:10.5px;letter-spacing:.06em;padding:3px 12px;border-radius:11px;margin:10px 0 6px}
+.row{display:flex;gap:8px;align-items:flex-end;margin-top:5px}
+.row.them{justify-content:flex-start}.row.me{justify-content:flex-end}
+.row .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(150deg,#5a6e66,#33433c);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:#dfeae4;font-size:10px}
+.av.kaede-av{overflow:hidden;cursor:pointer;background:none;padding:0}
+.av.kaede-av img{width:100%;height:100%;object-fit:cover;display:block}
+.av.kaede-av:active{transform:scale(.93)}
+
+/* LINE風プロフィール */
+#kaede-prof{position:absolute;inset:0;z-index:600;display:none;background:#0d1311;flex-direction:column;
+  font-family:var(--sans);opacity:0;transition:opacity .22s ease}
+#kaede-prof.show{display:flex;opacity:1}
+#kaede-prof .kp-bg{position:absolute;inset:0;background:#0d1311}
+#kaede-prof .kp-bg img,#kaede-prof .kp-ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+#kaede-prof .kp-img-a{filter:brightness(.62) saturate(1.05);opacity:1;transition:opacity 1.3s ease}
+#kaede-prof .kp-img-b{opacity:0;filter:brightness(.7) saturate(1.15) contrast(1.08);transition:opacity 1.3s ease}
+#kaede-prof .kp-bg::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(8,12,11,.35) 0%,rgba(8,12,11,.05) 32%,rgba(8,12,11,.55) 72%,rgba(8,12,11,.96) 100%)}
+/* 暗転レイヤー */
+#kaede-prof .kp-dark{position:absolute;inset:0;z-index:6;pointer-events:none;background:#000;opacity:0;transition:opacity 1.6s ease}
+#kaede-prof.dimming .kp-dark{opacity:.78}
+#kaede-prof.blackout .kp-dark{opacity:1;transition:opacity .5s ease}
+#kaede-prof.lifting .kp-dark{opacity:0;transition:opacity 1.8s ease}
+/* 砂嵐ノイズ */
+#kaede-prof .kp-static{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size:180px 180px}
+#kaede-prof.zaza .kp-static{opacity:.85;animation:zaza .07s steps(2) infinite}
+#kaede-prof.creep .kp-static{opacity:.32;animation:zaza .14s steps(2) infinite}
+@keyframes zaza{0%{background-position:0 0;opacity:.9}25%{background-position:-40px 30px;opacity:.55}50%{background-position:60px -50px;opacity:1}75%{background-position:-70px -20px;opacity:.6}100%{background-position:30px 70px;opacity:.95}}
+/* 赤フラッシュ */
+#kaede-prof .kp-flash{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 42%,rgba(140,8,4,.0) 0%,rgba(90,0,0,.0) 60%,rgba(40,0,0,0) 100%)}
+#kaede-prof.zaza .kp-flash{opacity:1;animation:redflash .9s ease-out;background:radial-gradient(circle at 50% 42%,rgba(190,12,8,.55) 0%,rgba(80,0,0,.35) 55%,rgba(10,0,0,.2) 100%)}
+@keyframes redflash{0%{opacity:0}12%{opacity:1}100%{opacity:.25}}
+/* シェイク */
+#kaede-prof.zaza{animation:kpshake .06s linear infinite}
+@keyframes kpshake{0%{transform:translate(0,0)}25%{transform:translate(-6px,4px)}50%{transform:translate(5px,-5px)}75%{transform:translate(-4px,-3px)}100%{transform:translate(6px,3px)}}
+#kaede-prof .kp-top{position:relative;z-index:5;display:flex;align-items:center;padding:14px 14px 0;flex-shrink:0}
+#kaede-prof .kp-back{background:rgba(0,0,0,.35);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+#kaede-prof .kp-body{position:relative;z-index:5;margin-top:auto;padding:0 26px 38px;display:flex;flex-direction:column;align-items:center;gap:14px}
+#kaede-prof .kp-ava{position:relative;width:96px;height:96px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 22px rgba(0,0,0,.5)}
+#kaede-prof .kp-name{color:#fff;font-size:22px;font-weight:600;letter-spacing:.04em;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+#kaede-prof .kp-msg{color:rgba(255,255,255,.96);font-size:14px;line-height:1.6;text-align:center;text-shadow:0 1px 6px rgba(0,0,0,.7);
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:9px 18px;border-radius:18px;backdrop-filter:blur(4px)}
+/* 赤黒モード（2回目） */
+#kaede-prof.corrupt .kp-img-a{opacity:0}
+#kaede-prof.corrupt .kp-img-b{opacity:1}
+#kaede-prof.corrupt{background:#0a0405}
+#kaede-prof.corrupt .kp-bg::after{background:linear-gradient(180deg,rgba(30,0,0,.5) 0%,rgba(20,0,0,.18) 30%,rgba(35,0,0,.6) 72%,rgba(8,0,0,.97) 100%)}
+#kaede-prof.corrupt .kp-img-b{filter:brightness(.6) saturate(1.5) contrast(1.22) hue-rotate(-12deg) sepia(.25)}
+#kaede-prof.corrupt .kp-ava{border-color:rgba(150,12,8,.85);box-shadow:0 0 18px rgba(150,0,0,.6),0 6px 22px rgba(0,0,0,.6)}
+#kaede-prof.corrupt .kp-name{color:#e3c9c9;text-shadow:0 0 12px rgba(170,0,0,.7),0 2px 8px rgba(0,0,0,.9)}
+#kaede-prof .kp-msg.bloody{color:#e11606;font-family:var(--mincho);font-weight:700;font-size:16px;letter-spacing:.1em;
+  background:linear-gradient(160deg,rgba(40,2,2,.72),rgba(12,0,0,.82));border-color:rgba(150,8,4,.6);
+  text-shadow:0 0 6px rgba(190,0,0,.9),0 2px 3px rgba(0,0,0,.95);
+  animation:redPulse 1.5s ease-in-out infinite}
+@keyframes redPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35) drop-shadow(0 0 7px rgba(200,0,0,.75))}}
+#kaede-prof .kp-acts{display:flex;gap:34px;margin-top:6px}
+#kaede-prof .kp-acts .b{display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(255,255,255,.92);font-size:11px}
+#kaede-prof .kp-acts .ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:19px}
+.av.ryu-av{cursor:pointer}
+.av.ryu-av:active{transform:scale(.93)}
+/* 龍之介プロフィール */
+#ryu-prof{position:absolute;inset:0;z-index:600;display:none;background:#0d1311;flex-direction:column;font-family:var(--sans);opacity:0;transition:opacity .22s ease}
+#ryu-prof.show{display:flex;opacity:1}
+#ryu-prof .kp-bg{position:absolute;inset:0;background:#0d1311}
+#ryu-prof .kp-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.7) saturate(1.02)}
+#ryu-prof .kp-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,11,.4) 0%,rgba(8,12,11,.08) 30%,rgba(8,12,11,.55) 70%,rgba(8,12,11,.96) 100%)}
+#ryu-prof .kp-top{position:relative;z-index:2;display:flex;align-items:center;padding:14px 14px 0;flex-shrink:0}
+#ryu-prof .kp-back{background:rgba(0,0,0,.35);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+#ryu-prof .kp-body{position:relative;z-index:2;margin-top:auto;padding:0 26px 38px;display:flex;flex-direction:column;align-items:center;gap:14px}
+#ryu-prof .kp-ava{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;color:#e9efe9;background:linear-gradient(150deg,#5a6e66,#2c3a34);border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 22px rgba(0,0,0,.5)}
+#ryu-prof .kp-name{color:#fff;font-size:22px;font-weight:600;letter-spacing:.04em;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+#ryu-prof .kp-msg{color:rgba(255,255,255,.96);font-size:13.5px;line-height:1.6;text-align:center;text-shadow:0 1px 6px rgba(0,0,0,.7);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:9px 18px;border-radius:18px;backdrop-filter:blur(4px)}
+#ryu-prof .kp-acts{display:flex;gap:34px;margin-top:6px}
+#ryu-prof .kp-acts .b{display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(255,255,255,.92);font-size:11px}
+#ryu-prof .kp-acts .ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:19px}
+.bcol{display:flex;flex-direction:column;gap:2px;max-width:74%;min-width:0}
+.who-nm{font-size:10px;color:var(--ink-mute);margin-left:5px}
+.bub{max-width:74%;padding:9px 12px;font-size:13.5px;line-height:1.62;white-space:pre-wrap;position:relative;border-radius:16px}
+.row.them .bub{background:#fff;color:#1d2622;border-bottom-left-radius:5px;box-shadow:0 1px 1px rgba(0,0,0,.06);max-width:100%}
+.row.me .bub{background:linear-gradient(160deg,#52a88f,#3f7a69);color:var(--ok-ink);border-bottom-right-radius:5px}
+.meta{display:flex;flex-direction:column;justify-content:flex-end;font-size:9.5px;color:#8a978f;line-height:1.3;font-family:var(--mono)}
+.row.me .meta{align-items:flex-end}.row.them .meta{align-items:flex-start}
+.meta .rd{color:var(--ok)}
+.bub.time-mark{font-variant-numeric:tabular-nums}
+.attach-card{align-self:flex-start;max-width:74%;margin:6px 0 2px 34px;background:#fff;border:1px solid var(--edge);border-radius:14px;
+  overflow:hidden;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.attach-card .pv{height:96px;background:repeating-linear-gradient(45deg,#cfd8d2 0 10px,#c6d0c9 10px 20px);display:flex;align-items:center;justify-content:center}
+.attach-card .pv svg{width:30px;height:30px;color:#6a7872}
+.attach-card .ft{display:flex;align-items:center;gap:8px;padding:9px 11px;font-size:11.5px;color:#3a443e}
+.attach-card .ft .lk{margin-left:auto;color:var(--bad);font-family:var(--mono);font-size:10px}
+.inline-pin{align-self:flex-start;max-width:78%;margin:6px 0 6px 34px;background:#10161a;border-radius:13px;padding:12px}
+.inline-pin .ip-row{display:flex;gap:8px}
+.inline-pin input{flex:1;min-width:0;background:#070b0d;border:1px solid #2b3a36;color:#e3ede8;font-family:var(--mono);font-size:16px;letter-spacing:.22em;text-align:center;padding:11px;border-radius:9px;outline:none}
+.inline-pin input:focus{border-color:var(--ok-2);box-shadow:0 0 0 2px rgba(84,161,139,.25)}
+.inline-pin button{background:linear-gradient(160deg,#54a18b,#3f7a69);color:#fff;border:none;font-weight:700;font-size:13px;letter-spacing:.12em;padding:0 18px;border-radius:9px;cursor:pointer}
+.inline-pin button:active{transform:translateY(1px)}
+.inline-pin .err{text-align:center}
+.ip-done{align-self:flex-start;max-width:80%;margin:6px 0 6px 34px;background:rgba(63,122,105,.16);border:1px solid rgba(63,122,105,.4);color:#2f6b58;border-radius:12px;padding:11px 13px;font-size:12px;line-height:1.6}
+
+/* ── 干渉モード（自分で送信できる） ── */
+.intf-banner{align-self:stretch;margin:14px 0 6px;text-align:center;position:relative;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.26em;
+  color:#ff5a4a;
+  padding:8px 10px;background:linear-gradient(90deg,transparent,rgba(120,10,6,.34) 50%,transparent);
+  animation:intfFlick 2.4s steps(3) infinite}
+.intf-banner::before,.intf-banner::after{content:"";position:absolute;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,#8a1c12,transparent)}
+.intf-banner::before{top:0}.intf-banner::after{bottom:0}
+@keyframes intfFlick{0%,100%{opacity:1}48%{opacity:.78}50%{opacity:.35}52%{opacity:.9}}
+.chat-input{display:flex;gap:8px;align-items:center;flex-shrink:0;padding:9px 11px;
+  background:linear-gradient(180deg,#11181c,#0a1014);border-top:1px solid #20302c}
+.chat-input input{flex:1;min-width:0;background:#05090b;border:1px solid #2b3a36;color:#e7efe9;
+  font-family:var(--sans);font-size:16px;letter-spacing:.02em;padding:11px 13px;border-radius:20px;outline:none}
+.chat-input input:focus{border-color:#7a2018;box-shadow:0 0 0 2px rgba(160,30,20,.3)}
+.chat-input input::placeholder{color:#5d6b64}
+.chat-input button{flex-shrink:0;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(160deg,#b9332a,#7c1d15);color:#fff;font-size:17px;line-height:1;
+  box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.chat-input button:active{transform:scale(.93)}
+.chat-input.locked{opacity:.4;pointer-events:none;filter:grayscale(.6)}
+/* 断末魔の吹き出し */
+.row.dread .bub{background:#3a1a16;color:#ffd9d2;border:1px solid #5c241d;box-shadow:0 0 12px rgba(150,20,12,.35);font-weight:600}
+.row.flood .bub{background:#3a1512;color:#ffcabf;border:1px solid #5c1f19;font-weight:700;
+  word-break:break-all;max-width:100%;text-shadow:0 0 6px rgba(220,30,16,.6);animation:floodJit .14s steps(2) infinite}
+@keyframes floodJit{0%{transform:translate(0,0)}25%{transform:translate(-1px,1px)}50%{transform:translate(1px,-1px)}75%{transform:translate(-1px,-1px)}}
+/* 退出通知（LINE退会風） */
+.ryu-exit{align-self:center;text-align:center;margin:20px 6px;color:#7a857e;font-size:12px;letter-spacing:.06em;
+  display:flex;flex-direction:column;align-items:center;gap:9px;width:100%;animation:bubin .6s ease}
+.ryu-exit .ln{width:64%;height:1px;background:linear-gradient(90deg,transparent,#3a443e,transparent)}
+.ryu-exit .tx{font-family:var(--sans)}
+/* 画面の激震 */
+@keyframes quakeA{0%,100%{transform:translate(0,0)}10%{transform:translate(-6px,4px)}20%{transform:translate(7px,-5px)}30%{transform:translate(-8px,-3px)}40%{transform:translate(6px,6px)}50%{transform:translate(-5px,5px)}60%{transform:translate(8px,-6px)}70%{transform:translate(-7px,3px)}80%{transform:translate(5px,-4px)}90%{transform:translate(-4px,5px)}}
+#os.quake{animation:quakeA .22s steps(2) infinite}
+#os.quake #grain-screen{opacity:.34!important}
+
+/* チャット切替タブ */
+.chat-tabs{display:flex;flex-shrink:0;background:#eef3f0;border-bottom:1px solid var(--edge)}
+.chat-tabs .tab{flex:1;position:relative;text-align:center;padding:10px 6px;font-size:12px;font-weight:600;color:var(--ink-mute);cursor:pointer;letter-spacing:.04em;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.chat-tabs .tab.on{color:var(--ink);border-bottom-color:#3f7a69}
+.chat-tabs .tab .new{position:absolute;top:6px;margin-left:5px;background:#c2362a;color:#fff;font-size:8px;font-weight:700;letter-spacing:.08em;padding:1px 5px;border-radius:7px;animation:newpulse 1.4s ease-in-out infinite}
+@keyframes newpulse{0%,100%{opacity:1}50%{opacity:.5}}
+/* 個人トーク登場の合図 */
+.sys-line{align-self:center;background:rgba(194,54,42,.12);border:1px solid rgba(194,54,42,.3);color:#a82e23;font-size:10.5px;letter-spacing:.04em;padding:5px 13px;border-radius:11px;margin:10px 0 4px;text-align:center}
+/* タイピング表示 */
+.typing-row{display:flex;gap:8px;align-items:flex-end;margin-top:5px}
+.typing{background:#fff;border-radius:14px;border-bottom-left-radius:5px;box-shadow:0 1px 1px rgba(0,0,0,.06);padding:11px 14px;display:flex;gap:4px;align-items:center}
+.typing i{width:6px;height:6px;border-radius:50%;background:#9aa8a1;display:inline-block;animation:typedot 1.1s ease-in-out infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes typedot{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-4px);opacity:1}}
+.row.reveal{animation:bubin .32s cubic-bezier(.2,.8,.3,1)}
+@keyframes bubin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* PIN画面 */
+.pinwrap{padding:22px 18px;text-align:center}
+.pinwrap .ic{width:44px;height:44px;border-radius:12px;margin:0 auto 12px;background:linear-gradient(155deg,#33433c,#1d2622);display:flex;align-items:center;justify-content:center;color:#cfe0d8}
+.pinwrap .q{font-size:13px;color:var(--ink);margin-bottom:14px;letter-spacing:.03em}
+.field{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.field input{width:150px;background:#fff;border:1px solid var(--edge);color:var(--ink);text-align:center;font-family:var(--mono);font-size:19px;letter-spacing:.34em;padding:12px;border-radius:9px;outline:none}
+.field input:focus{border-color:var(--ok);box-shadow:0 0 0 3px rgba(63,122,105,.22)}
+.field button{background:linear-gradient(160deg,#52a88f,#3f7a69);color:#fff;border:none;font-weight:700;font-size:13px;letter-spacing:.14em;padding:0 20px;border-radius:9px;cursor:pointer;min-height:46px}
+.field button:active{transform:translateY(1px)}
+.note{font-size:11.5px;color:var(--ink-mute);margin-top:13px;line-height:1.75}
+.note b{color:var(--ok)}
+.err{color:var(--bad-2);font-size:12px;font-family:var(--mono);min-height:1.2em;margin-top:9px}
+/* 08暗号エラー：はっきり「暗号が違う」と見せる */
+#e-uninv{color:#ff5a48;font-size:15px;font-weight:700;font-family:var(--mono);letter-spacing:.12em;min-height:1.2em;margin-top:12px;text-shadow:0 0 12px rgba(220,20,12,.6)}
+#e-uninv:empty{display:none}
+#e-uninv.flash{animation:uninvErr .45s ease}
+#i-uninv.shake{animation:uninvErr .45s ease;border-color:#c2362a!important;box-shadow:0 0 0 3px rgba(194,54,42,.32)!important}
+@keyframes uninvErr{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.ok-msg{padding:26px 20px;text-align:center}
+.ok-msg .chk{width:50px;height:50px;border-radius:50%;margin:0 auto 14px;background:var(--ok);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px}
+
+/* 記録 */
+.log{padding:20px;font-family:var(--mincho);font-size:14px;line-height:2.1;color:#222a26}
+.log h4{font-family:var(--sans);font-size:11px;letter-spacing:.22em;color:var(--ink-mute);border-bottom:1px solid var(--edge);padding-bottom:8px;margin:0 0 16px}
+.redact{background:#272824;color:transparent;border-radius:1px;padding:0 .12em;user-select:none}
+.rec{margin:18px 0;background:linear-gradient(180deg,#eef3f0,#e6ece8);border:1px solid var(--edge);border-radius:11px;padding:14px;font-family:var(--sans)}
+.rec .meta-r{font-size:11px;color:var(--ink-mute);font-family:var(--mono);display:flex;justify-content:space-between}
+.rec .wave{display:flex;gap:2px;align-items:center;height:42px;margin:11px 0}
+.rec .wave i{flex:1;background:var(--ok-2);opacity:.4;border-radius:1px;min-height:3px}
+.rec.playing .wave i{animation:wv .85s ease-in-out infinite;opacity:.85}
+@keyframes wv{0%,100%{transform:scaleY(.22)}50%{transform:scaleY(1)}}
+.rec .play{background:var(--ok);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-size:12px;letter-spacing:.1em;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.whisper{color:var(--bad-2);letter-spacing:.42em;font-weight:700;font-family:var(--mono)}
+/* 録音：再生で侵食 */
+.rec .wave i.rb{background:linear-gradient(180deg,#9a0c05,#250302)!important;opacity:1!important;transform:scaleY(1.32);box-shadow:0 0 5px rgba(150,0,0,.6)}
+.rec.playing .wave i.rb{animation:none!important}
+.rvoice{margin:9px 0;color:#d40b04;font-family:var(--mincho);font-weight:700;letter-spacing:.05em;line-height:1.7;
+  text-shadow:0 0 5px rgba(190,0,0,.45)}
+.rvoice::before{content:"◢ ";opacity:.7;font-size:9px;vertical-align:2px}
+.rvfinal{margin:16px 0 4px;text-align:center;color:#e60a04;font-family:var(--mincho);font-weight:800;font-size:18px;letter-spacing:.16em;
+  text-shadow:0 0 9px rgba(200,0,0,.8),0 1px 2px #000;background:linear-gradient(180deg,rgba(44,2,2,.7),rgba(10,0,0,.78));
+  border:1px solid rgba(120,12,8,.55);padding:9px;border-radius:6px}
+@keyframes rvJit{0%{transform:translate(0,0)}50%{transform:translate(1.4px,-1px)}100%{transform:translate(-1px,1px)}}
+#rec-meta.live{animation:metaBlink 1s steps(1) infinite}
+@keyframes metaBlink{0%,60%{opacity:1}80%{opacity:.35}}
+/* 全画面みーつけた */
+#mitsu-flood{position:fixed;inset:0;z-index:9300;background:#050202;overflow:hidden;pointer-events:none;opacity:1;transition:opacity .85s ease}
+#mitsu-flood .mt{position:absolute;color:#6e0c0c;font-family:var(--mincho);font-weight:700;white-space:nowrap;letter-spacing:.04em;text-shadow:0 0 7px rgba(130,0,0,.55);animation:mtPop .22s ease-out}
+@keyframes mtPop{from{opacity:0}}
+#mitsu-flood.red{animation:mtRed .55s ease forwards}
+#mitsu-flood.red .mt{color:#240404;text-shadow:none}
+@keyframes mtRed{0%{background:#050202}100%{background:#c20808}}
+#mitsu-flood.fade{opacity:0}
+/* ジャンプスケア */
+#jumpscare{position:absolute;inset:0;z-index:8000;display:none;align-items:center;justify-content:center;pointer-events:none;overflow:hidden}
+#jumpscare.on{display:flex;background:rgba(6,2,2,0);animation:jsBg 2.6s ease forwards}
+@keyframes jsBg{0%{background:rgba(6,2,2,0)}38%{background:rgba(10,0,0,.72)}100%{background:rgba(6,2,2,0)}}
+#jumpscare .js-noise{display:none}
+#jumpscare .js-tx{position:relative;font-family:var(--mincho);font-weight:700;color:#d8120a;font-size:clamp(26px,7vw,58px);
+  letter-spacing:.16em;line-height:1.2;text-align:center;text-shadow:0 0 14px rgba(150,0,0,.5),0 1px 2px rgba(0,0,0,.7);
+  transform:scale(.985);opacity:0}
+#jumpscare.on .js-tx{animation:jsFade 2.8s ease forwards, jsWobble 2.4s ease-in-out infinite, jsGhost 2.4s ease-in-out infinite}
+@keyframes jsFade{0%{opacity:0}32%{opacity:1}72%{opacity:1}100%{opacity:0}}
+@keyframes jsWobble{
+  0%{transform:translate(0,0) rotate(-1.4deg) scale(1)}
+  22%{transform:translate(-5px,3px) rotate(1.2deg) scale(1.012)}
+  46%{transform:translate(4px,-4px) rotate(-1.8deg) scale(.992)}
+  70%{transform:translate(-3px,4px) rotate(1.5deg) scale(1.01)}
+  100%{transform:translate(0,0) rotate(-1.4deg) scale(1)}}
+@keyframes jsGhost{
+  0%{text-shadow:0 0 14px rgba(150,0,0,.5),5px 1px 0 rgba(220,10,8,.4),-5px -1px 0 rgba(0,170,190,.26),0 1px 2px rgba(0,0,0,.7)}
+  50%{text-shadow:0 0 20px rgba(190,0,0,.62),-8px 3px 0 rgba(220,10,8,.46),8px -3px 0 rgba(0,170,190,.32),0 1px 2px rgba(0,0,0,.7)}
+  100%{text-shadow:0 0 14px rgba(150,0,0,.5),5px 1px 0 rgba(220,10,8,.4),-5px -1px 0 rgba(0,170,190,.26),0 1px 2px rgba(0,0,0,.7)}}
+
+/* 写真 */
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;padding:14px}
+.pcard{border-radius:10px;overflow:hidden;border:1px solid var(--edge);background:#0a0e10;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.pcard .ph{aspect-ratio:4/3;position:relative;cursor:pointer}
+.pcard.lockview .ph{cursor:default}
+.pcard .cap{display:flex;align-items:center;gap:6px;padding:7px 9px;background:#fff;font-size:10.5px;color:#4a544e;font-family:var(--mono)}
+.pcard .cap .dot{width:6px;height:6px;border-radius:50%;background:var(--ok-2)}
+.pcard.target .cap .dot{background:var(--bad-2)}
+.pcard.locked .ph{cursor:default}
+.photolock{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+  background:rgba(6,9,10,.74);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.photolock .pl-ic{font-size:26px;color:rgba(220,228,222,.62);line-height:1}
+.photolock .pl-tx{font-family:var(--mono);font-size:11px;letter-spacing:.32em;color:rgba(220,228,222,.82);font-weight:700}
+
+.film{position:relative;width:100%;height:100%;overflow:hidden;background:#06090a}
+.film .src,.film .src svg,.film img.src{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.06) brightness(.92) saturate(.82)}
+.film::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:radial-gradient(125% 120% at 50% 45%,transparent 56%,rgba(0,0,0,.5) 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+.film .grain{position:absolute;inset:-20%;z-index:1;opacity:.15;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");animation:grainShift .5s steps(2) infinite}
+@keyframes grainShift{0%{transform:translate(0,0)}100%{transform:translate(-6px,4px)}}
+
+.photo-view{padding:14px}
+.frame{border:1px solid var(--edge);border-radius:9px;overflow:hidden;aspect-ratio:4/3;position:relative;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.loupe-stage{position:relative;width:100%;height:100%;cursor:none;touch-action:none}
+/* 溶けるエフェクト（スマホ対応：CSS transformのみ） */
+.loupe-stage.melting{transform:scaleY(1.85) translateY(13%);transform-origin:50% 0;filter:blur(5px) brightness(.4) contrast(1.15);transition:transform 1.6s cubic-bezier(.55,0,.78,.35),filter 1.6s ease}
+.loupe-stage .photo-full{position:absolute;inset:0}
+.loupe-stage .veil{position:absolute;inset:0;background:#04070a;z-index:4;transition:opacity .4s ease;
+  -webkit-mask:radial-gradient(circle 82px at var(--mx,-300px) var(--my,-300px),transparent 0,transparent 54px,#000 96px);
+          mask:radial-gradient(circle 82px at var(--mx,-300px) var(--my,-300px),transparent 0,transparent 54px,#000 96px)}
+.loupe-stage .ring{position:absolute;width:172px;height:172px;border-radius:50%;left:var(--mx,-300px);top:var(--my,-300px);transform:translate(-50%,-50%);z-index:5;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,246,228,.12) 0%,rgba(255,246,228,.04) 45%,transparent 64%);
+  box-shadow:0 0 50px 14px rgba(255,243,222,.10) inset,0 0 26px rgba(255,243,222,.16)}
+.loupe-hint{position:absolute;left:0;right:0;bottom:10px;text-align:center;z-index:6;pointer-events:none}
+.loupe-hint span{background:rgba(8,12,14,.6);color:#d6ddd7;font-size:11px;letter-spacing:.08em;padding:5px 12px;border-radius:11px;font-family:var(--mono);text-shadow:0 1px 2px #000}
+
+/* ───────── 写真ライトボックス（タップで開く） ───────── */
+#lightbox{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;
+  background:rgba(4,6,7,.92);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .26s ease}
+#lightbox.show{display:flex;opacity:1}
+#lightbox .lb-inner{position:relative;width:min(92vw,820px);max-height:84vh;display:flex;flex-direction:column;gap:12px;
+  transform:scale(.965);transition:transform .3s cubic-bezier(.2,.85,.2,1)}
+#lightbox.show .lb-inner{transform:scale(1)}
+#lightbox .lb-frame{position:relative;width:100%;max-height:74vh;border-radius:10px;overflow:hidden;background:#06090a;
+  box-shadow:0 30px 90px rgba(0,0,0,.7),inset 0 0 0 1px rgba(255,255,255,.06)}
+#lightbox .lb-frame .film{aspect-ratio:auto}
+#lightbox .lb-frame img.src{position:relative;inset:auto;width:100%;height:auto;max-height:74vh;object-fit:contain}
+#lightbox .lb-cap{display:flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:#aeb8b1}
+#lightbox .lb-cap .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+#lightbox .lb-x{position:absolute;top:-14px;right:-6px;width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(20,28,30,.9);color:#dfe6e1;font-size:19px;line-height:1;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+#lightbox .lb-x:active{transform:scale(.92)}
+.pcard.lockview .ph{cursor:zoom-in}
+
+/* ───────── 怪異の文字（写真の裏に潜む）＋ ファイルドラッグ ───────── */
+#lightbox .lb-letter{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mincho);font-weight:800;font-size:clamp(120px,30vh,280px);color:#d40b04;line-height:1;
+  letter-spacing:.02em;text-shadow:0 0 24px rgba(200,0,0,.7),0 0 60px rgba(150,0,0,.5),0 2px 4px #000;
+  background:radial-gradient(circle at 50% 50%,rgba(40,2,2,.85),rgba(6,0,0,.95));opacity:0;pointer-events:none}
+#lightbox .lb-frame.peeled .film{opacity:0;transition:opacity .5s ease}
+#lightbox .lb-frame.peeled .lb-letter{opacity:1;animation:letterGlitch .42s steps(2) 4}
+#lightbox .lb-letter.bug{font-family:var(--mono);font-size:clamp(70px,16vh,150px);letter-spacing:-.02em;color:#b00805}
+#lightbox .lb-frame .lb-peelhint{position:absolute;left:0;right:0;bottom:12px;z-index:2;text-align:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:rgba(220,230,225,.66);text-shadow:0 1px 5px #000;
+  pointer-events:none;animation:orBlink 1.9s ease infinite}
+#lightbox .lb-frame.peeled .lb-peelhint{display:none}
+@keyframes letterGlitch{
+  0%{transform:translate(0,0) skewX(0);clip-path:inset(0 0 0 0)}
+  20%{transform:translate(-7px,3px) skewX(-6deg);clip-path:inset(18% 0 32% 0)}
+  40%{transform:translate(6px,-4px) skewX(5deg);clip-path:inset(58% 0 6% 0)}
+  60%{transform:translate(-4px,2px) skewX(-3deg);clip-path:inset(30% 0 40% 0)}
+  80%{transform:translate(5px,3px) skewX(4deg);clip-path:inset(8% 0 62% 0)}
+  100%{transform:translate(0,0) skewX(0);clip-path:inset(0 0 0 0)}}
+/* ファイルをゴミ箱へ運ぶ：掴める写真カード */
+.pcard.grabfile{cursor:grab;touch-action:pan-y;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.pcard.grabfile .ph{cursor:grab}
+.pcard.grabfile::after{content:"⠿";position:absolute;top:6px;left:8px;z-index:6;color:rgba(220,90,72,.9);
+  font-size:13px;letter-spacing:1px;text-shadow:0 0 6px rgba(180,0,0,.7);animation:orBlink 1.6s ease infinite}
+.pcard{position:relative}
+.file-ghost{position:fixed;z-index:9400;width:88px;height:88px;border-radius:10px;pointer-events:none;overflow:hidden;
+  background:#0a0d0e;border:1px solid rgba(220,90,72,.5);
+  box-shadow:0 16px 38px rgba(0,0,0,.62),0 0 20px rgba(180,0,0,.4);
+  transform:translate(-50%,-50%) rotate(-5deg) scale(1.04)}
+.file-ghost img{width:100%;height:100%;object-fit:cover}
+.pcard.lifting{opacity:.32;filter:grayscale(.4)}
+/* 写真_09 出現誘導：赤黒く点滅する枠 */
+.pcard.nine{animation:nineGlow 1.25s ease-in-out infinite}
+@keyframes nineGlow{0%,100%{box-shadow:0 0 12px 1px rgba(150,0,0,.4),0 3px 10px rgba(0,0,0,.18)}50%{box-shadow:0 0 30px 8px rgba(205,14,8,.8),0 3px 10px rgba(0,0,0,.18)}}
+.pcard.nine::after{content:"";position:absolute;inset:0;z-index:8;pointer-events:none;border-radius:10px;border:2px solid rgba(150,20,14,.5);animation:nineBorder 1.25s ease-in-out infinite}
+@keyframes nineBorder{0%,100%{border-color:rgba(140,20,14,.45);box-shadow:inset 0 0 16px rgba(90,0,0,.4)}50%{border-color:rgba(235,64,50,1);box-shadow:inset 0 0 26px rgba(160,0,0,.65)}}
+.pcard.emptied .ph{background:radial-gradient(circle at 50% 45%,rgba(30,4,4,.6),#08090a);display:flex;align-items:center;justify-content:center;cursor:default}
+.pcard.emptied .ph .film,.pcard.emptied .ph img{display:none}
+.pcard.emptied .slot-letter{font-family:var(--mincho);font-weight:800;font-size:54px;color:#d40b04;line-height:1;
+  text-shadow:0 0 16px rgba(200,0,0,.65),0 0 40px rgba(150,0,0,.4),0 2px 3px #000;animation:letterGlitch .42s steps(2) 3}
+.pcard.emptied .slot-letter.bug{font-family:var(--mono);font-size:40px;color:#a00604}
+#trash.reject .tcan{animation:trashRej .34s ease}
+@keyframes trashRej{0%{transform:translate(0,0)}20%{transform:translate(-5px,0)}40%{transform:translate(5px,0)}60%{transform:translate(-4px,0)}80%{transform:translate(3px,0)}100%{transform:translate(0,0)}}
+
+/* 長押し → ゴミ箱へ捨てる確認（スマホでスクロールと干渉しない） */
+.pcard .lp-prog{position:absolute;left:0;bottom:0;height:4px;width:0;z-index:7;background:linear-gradient(90deg,#c8362a,#ff6a55);box-shadow:0 0 8px rgba(220,0,0,.85);pointer-events:none}
+.pcard.holding{box-shadow:0 0 0 2px rgba(210,40,28,.65),0 0 22px rgba(180,0,0,.5)}
+.pcard.holding .lp-prog{animation:lpFill 2s linear forwards}
+@keyframes lpFill{from{width:0}to{width:100%}}
+#shi-confirm{position:fixed;inset:0;z-index:9600;display:none;align-items:center;justify-content:center;background:rgba(4,2,2,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+#shi-confirm.show{display:flex}
+#shi-confirm .sc-box{width:min(300px,82vw);background:linear-gradient(180deg,#1a0c0b,#0b0504);border:1px solid #5a201a;border-radius:14px;padding:22px 20px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.7),0 0 0 1px rgba(180,40,30,.22),inset 0 0 26px rgba(120,10,8,.28)}
+#shi-confirm .sc-q{font-family:var(--mincho);font-size:18px;letter-spacing:.1em;color:#f0cfc9;text-shadow:0 0 10px rgba(180,0,0,.5);line-height:1.7;margin-bottom:18px}
+#shi-confirm .sc-ch{display:block;font-size:44px;color:#ff6a55;text-shadow:0 0 16px rgba(220,0,0,.75),0 0 36px rgba(150,0,0,.4);margin-bottom:6px;letter-spacing:.08em}
+#shi-confirm .sc-acts{display:flex;gap:12px;justify-content:center}
+#shi-confirm .sc-acts button{flex:1;padding:11px 0;border-radius:9px;border:1px solid #6a241d;font-family:var(--mincho);font-size:15px;letter-spacing:.18em;cursor:pointer;transition:transform .1s}
+#shi-confirm .sc-yes{background:linear-gradient(160deg,#7c1d15,#4a1009);color:#ffd9d2}
+#shi-confirm .sc-no{background:rgba(255,255,255,.06);color:#c9d3cd}
+#shi-confirm .sc-acts button:active{transform:translateY(1px)}
+#shi-toast{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%);z-index:9700;font-family:var(--mincho);font-size:44px;letter-spacing:.3em;color:#ff5a48;text-shadow:0 0 18px rgba(220,0,0,.8),0 0 40px rgba(150,0,0,.5);opacity:0;pointer-events:none}
+#shi-toast.show{animation:shiToastA 1.1s ease forwards}
+@keyframes shiToastA{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+#redburn{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:0;transition:opacity 1s ease;mix-blend-mode:multiply;background:radial-gradient(130% 120% at 50% 45%,rgba(64,4,4,.35) 0%,rgba(40,0,0,.6) 55%,rgba(8,0,0,.95) 100%)}
+
+/* ───────── タスクバー ───────── */
+#bar{position:absolute;left:0;right:0;bottom:0;height:48px;background:var(--bar);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  z-index:200;display:flex;align-items:center;padding:0 13px;gap:9px;box-shadow:0 -1px 0 rgba(255,255,255,.05),0 -8px 24px rgba(0,0,0,.3)}
+#bar .apps{display:flex;gap:7px;flex:1}
+#bar .tb{width:36px;height:36px;border-radius:9px;border:none;background:rgba(255,255,255,.06);color:var(--bar-ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+#bar .tb:hover{background:rgba(255,255,255,.12)}
+#bar .tb.active{background:rgba(84,161,139,.22);color:#dff3ec;box-shadow:inset 0 -2px 0 var(--ok-2)}
+#bar .tray{display:flex;align-items:center;gap:15px;color:var(--bar-ink);font-family:var(--mono);font-size:12px}
+#obs{color:var(--ok-2);letter-spacing:.1em}#obs.alarm{color:var(--bad-2);animation:pulseB 1s ease infinite}
+@keyframes pulseB{50%{opacity:.5}}
+.gl-ic{width:21px;height:21px}
+
+/* グリッチ／腐食 — 進行で段階的に激化 */
+#os.lvl1{filter:saturate(.84) contrast(1.04)}
+#os.lvl2{filter:saturate(.6) contrast(1.1) hue-rotate(-8deg)}
+#os.lvl3{filter:saturate(.42) contrast(1.18) hue-rotate(-14deg);animation:shake .1s steps(2) infinite}
+@keyframes shake{0%{transform:translate(0,0)}50%{transform:translate(1px,-1px)}100%{transform:translate(-1px,1px)}}
+/* 段階的な画面ノイズ・走査線・色ズレ・横裂け */
+#os.lvl1 #grain-screen{opacity:.08}
+#os.lvl2 #grain-screen{opacity:.16;animation-duration:.3s}
+#os.lvl3 #grain-screen{opacity:.26;animation-duration:.18s}
+#os.lvl1 .win-body{animation:txAber1 2.4s steps(1) infinite}
+#os.lvl2 .win-body{animation:txAber2 1.6s steps(1) infinite}
+#os.lvl3 .win-body{animation:txAber3 .9s steps(1) infinite}
+@keyframes txAber1{0%,96%,100%{text-shadow:none}97%{text-shadow:-.6px 0 rgba(207,59,42,.5),.6px 0 rgba(70,214,200,.4)}}
+@keyframes txAber2{0%,90%,100%{text-shadow:-.5px 0 rgba(207,59,42,.45),.5px 0 rgba(70,214,200,.35)}93%{text-shadow:-1.6px 0 rgba(207,59,42,.6),1.6px 0 rgba(70,214,200,.5);transform:translateX(.5px)}}
+@keyframes txAber3{0%,100%{text-shadow:-1px 0 rgba(207,59,42,.55),1px 0 rgba(70,214,200,.45)}48%{text-shadow:-2.6px 0 rgba(207,59,42,.7),2.6px 0 rgba(70,214,200,.6);transform:translateX(1.4px)}52%{transform:translateX(-1.4px)}}
+/* 横ズレ裂け目（lvl2以降たまに走る） */
+#os.lvl2 .win::after,#os.lvl3 .win::after{content:"";position:absolute;left:0;right:0;height:14px;z-index:9;pointer-events:none;
+  background:rgba(255,255,255,.05);mix-blend-mode:overlay;opacity:0}
+#os.lvl2 .win::after{animation:tearRun 5.5s steps(1) infinite}
+#os.lvl3 .win::after{animation:tearRun 2.6s steps(1) infinite}
+@keyframes tearRun{0%,100%{opacity:0;top:0}48%{opacity:0;top:20%}49%{opacity:1;top:42%;transform:translateX(6px)}50%{opacity:0;top:60%}}
+/* 「未解決」は開いて数秒で本文の揺れを静めて読みやすくする（画面全体のグリッチは維持） */
+#win-uninv .win-body,#win-uninv.settle-read .win-body{animation:none!important;text-shadow:none!important}
+#win-uninv.settle-read .win-body{transition:filter .8s ease}
+#win-uninv .scrollable{transition:transform .9s ease,filter .9s ease}
+#win-uninv.settle-read .scrollable{transform:none!important;filter:none!important}
+#win-uninv:not(.settle-read) .scrollable{animation:uninvCalm 3s ease forwards}
+@keyframes uninvCalm{0%{transform:translateX(.6px);filter:blur(.15px)}60%{transform:translateX(.2px)}100%{transform:none;filter:none}}
+.corrupt .win-head{background:linear-gradient(180deg,#3a120c,#2a0d08)!important;border-color:#4a1810!important}
+.corrupt .win-head .t,.corrupt .win-head .x{color:#e7b3aa!important}
+.corrupt .lights .l3{background:var(--bad-2)!important}
+.corrupt #bar{background:rgba(26,10,8,.8)!important}
+.corrupt .icon .gl{background:linear-gradient(155deg,#b7948e,#7a5650)!important}
+
+/* 関係者ページ：楓 消失マーク */
+.roster-wrap{position:relative}
+.roster-x{position:absolute;left:2.5%;right:67%;top:35.5%;height:34%;pointer-events:none;z-index:3;
+  background:rgba(20,0,0,.28)}
+.roster-x.ryu{top:71%;height:27%}
+.roster-x.yuichi{top:1.5%;height:34%}
+.roster-x svg{position:absolute;inset:4% 2%;width:96%;height:92%;overflow:visible}
+.roster-x svg line{stroke:#7a0a05;stroke-width:3.4;stroke-linecap:round;
+  filter:drop-shadow(0 0 3px rgba(40,0,0,.9))}
+.roster-x .rx-tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:#e8c4be;font-weight:700;
+  background:rgba(60,4,2,.82);border:1px solid rgba(120,20,14,.7);padding:4px 10px;border-radius:4px;
+  text-shadow:0 1px 3px rgba(0,0,0,.8);white-space:nowrap}
+
+/* melt用 黒幕 */
+#melt-black{position:absolute;inset:0;background:#040506;opacity:0;z-index:7000;pointer-events:none;transition:opacity .5s ease}
+#intro{position:absolute;inset:0;z-index:9300;display:none;align-items:center;justify-content:center;padding:30px;background:radial-gradient(120% 90% at 50% 22%,#0e1417,#05080a)}
+#intro.show{display:flex;animation:rise .6s ease}
+.intro-card{max-width:450px;text-align:center;color:#d7ddd7}
+.intro-tag{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:#6a7d76;margin-bottom:16px}
+.intro-h{font-family:var(--mincho);font-size:42px;letter-spacing:.5em;margin:0 0 24px;color:#e7ede9;text-indent:.5em}
+.intro-b{font-family:var(--mincho);font-size:14.5px;line-height:2.1;color:#a9b3ac;margin:0 0 18px}
+.intro-b b{color:#dbe0da}
+.intro-b{animation:introBodyGl 5s steps(1) infinite}
+@keyframes introBodyGl{0%,93%,100%{text-shadow:none;transform:translateX(0)}94%{text-shadow:-1.2px 0 rgba(207,59,42,.6),1.2px 0 rgba(70,214,200,.5);transform:translateX(1px)}95%{text-shadow:none;transform:translateX(-1px)}96%{text-shadow:-1.6px 0 rgba(207,59,42,.55),1.6px 0 rgba(70,214,200,.45)}96.6%{text-shadow:none;transform:translateX(0)}}
+.intro-go{margin-top:16px;background:none;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:13px;letter-spacing:.2em;padding:14px 30px;border-radius:6px;cursor:pointer}
+.intro-go:active{transform:translateY(1px)}
+#profile-page{position:absolute;inset:0;z-index:9250;display:none;flex-direction:column;align-items:center;justify-content:flex-start;padding:26px 22px 40px;overflow-y:auto;background:radial-gradient(120% 90% at 50% 8%,#0e1417,#05080a)}
+#profile-page.show{display:flex;animation:rise .5s ease}
+.pp-card{max-width:520px;width:100%;text-align:center}
+.pp-img{width:100%;border-radius:10px;border:1px solid #20302c;margin:14px 0 22px;display:block;box-shadow:0 16px 44px rgba(0,0,0,.55)}
+
+#blast{position:absolute;inset:0;z-index:8000;display:none;align-items:center;justify-content:center;background:#070302;color:var(--bad-2);font-family:var(--mono);text-align:center;padding:30px}
+#blast.show{display:flex;animation:flick .08s steps(2) 7}
+@keyframes flick{0%{opacity:.35}100%{opacity:1}}
+#blast .bz{font-size:clamp(40px,16vw,110px);letter-spacing:.3em;text-shadow:0 0 30px rgba(207,59,42,.5)}
+
+#epi{position:absolute;inset:0;z-index:9500;display:none;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(120% 90% at 50% 30%,#0b0d0c,#050706);color:#d9ddd6;text-align:center;padding:38px 22px;overflow-y:auto}
+#epi.show{display:flex}
+#epi .l{font-family:var(--mincho);font-size:clamp(18px,5.2vw,25px);line-height:2;margin:5px 0;opacity:0}
+#epi .l.red{color:var(--bad-2)}
+.e1{animation:rise 1.3s ease .3s forwards}.e2{animation:rise 1.3s ease 1.9s forwards}.e3{animation:rise 1.3s ease 3.6s forwards}.e4{animation:rise 1.4s ease 5.6s forwards}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#epi .sig{margin-top:36px;opacity:0;animation:rise 1.4s ease 3.8s forwards}
+#epi .sig .nx{font-family:var(--mono);font-size:12px;color:#6a572f;letter-spacing:.2em;margin-bottom:16px}
+#epi .sig .lab{font-family:var(--mincho);letter-spacing:.5em;color:#929892;font-size:13px}
+#epi .sig .lab b{color:var(--gold)}
+#epi .share{display:inline-flex;align-items:center;gap:9px;margin-top:22px;background:#0f1419;border:1px solid #2a3540;color:#fff;text-decoration:none;font-size:13px;letter-spacing:.05em;padding:13px 24px;border-radius:999px;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+#epi .share svg{width:18px;height:18px}#epi .share:active{transform:translateY(1px)}
+#epi .replay{display:block;margin:16px auto 0;border:1px solid #34403a;color:#8a9089;background:none;font-size:11px;letter-spacing:.15em;padding:9px 16px;border-radius:6px;font-family:var(--mono);cursor:pointer}
+#epi .fn{font-size:11px;color:#444a44;margin-top:24px;line-height:1.85;font-family:var(--mono)}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}#epi .l,#epi .sig{opacity:1}.film .grain,.fog{animation:none}}
+@media (max-width:640px){.win{width:94vw;height:68vh;left:3vw!important;top:84px!important}#icons{top:90px;left:11px}#ghost-chat{width:94vw;height:80vh}}
+
+/* ═══════════ リカバリ映像レイヤー（recovered-footage） ═══════════ */
+/* 走査線 */
+#scr{position:absolute;inset:0;z-index:280;pointer-events:none;mix-blend-mode:overlay;opacity:.42;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.16) 2px 3px)}
+/* 画面全体グレイン（腐食で増す） */
+#grain-screen{position:absolute;inset:-30%;z-index:278;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='5'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation:grainShift .42s steps(2) infinite;transition:opacity .8s ease}
+.corrupt #grain-screen{opacity:.14}
+/* VHSトラッキング帯（たまに転がる） */
+#track{position:absolute;left:0;right:0;top:-15%;height:74px;z-index:282;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.05) 38%,rgba(120,255,222,.07) 50%,rgba(255,255,255,.05) 62%,transparent);
+  filter:blur(.6px);animation:trackRoll 11s linear infinite}
+@keyframes trackRoll{0%{top:-15%;opacity:0}4%{opacity:.55}11%{opacity:0}100%{top:115%;opacity:0}}
+/* 信号ドロップアウト（瞬間的な暗転） */
+#flick{position:absolute;inset:0;z-index:284;pointer-events:none;background:#02100c;opacity:0;mix-blend-mode:multiply;animation:flk 8.5s steps(1) infinite}
+@keyframes flk{0%,93%,100%{opacity:0}94%{opacity:.12}95%{opacity:0}97%{opacity:.07}98%{opacity:0}}
+/* 冷たい色被り */
+#grade{position:absolute;inset:0;z-index:276;pointer-events:none;mix-blend-mode:soft-light;opacity:.5;
+  background:linear-gradient(160deg,rgba(34,70,72,.5),rgba(8,16,18,.3) 55%,rgba(40,20,16,.35))}
+/* ビネット呼吸 */
+#vig{animation:vigBreath 9s ease-in-out infinite}
+@keyframes vigBreath{0%,100%{box-shadow:inset 0 0 240px 60px rgba(0,0,0,.6)}50%{box-shadow:inset 0 0 280px 86px rgba(0,0,0,.72)}}
+
+/* ═══════════ カムコーダーHUD（OSD） ═══════════ */
+#hud{position:absolute;inset:0;z-index:300;pointer-events:none;font-family:var(--mono);opacity:0;transition:opacity 1.3s ease}
+#hud.on{opacity:1}
+#hud.gone{opacity:0!important;transition:opacity .25s ease}
+#hud .tl{position:absolute;top:11px;left:14px;display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.13em;color:#9fb0a8;text-shadow:0 1px 3px #000}
+#hud .rec{display:flex;align-items:center;gap:6px;color:#cf3b2a;font-weight:700}
+#hud .rec i{width:9px;height:9px;border-radius:50%;background:#cf3b2a;display:block;box-shadow:0 0 9px #cf3b2a;animation:recblink 1.25s steps(1) infinite}
+@keyframes recblink{50%{opacity:.12}}
+#hud .tr{position:absolute;top:11px;right:14px;text-align:right;line-height:1.45;text-shadow:0 1px 3px #000}
+#hud .tc{font-size:13px;letter-spacing:.06em;color:#d3dcd6;font-variant-numeric:tabular-nums}
+#hud .sg{font-size:10px;color:#7a8c83;letter-spacing:.1em}
+#hud .sg b{color:#54a18b;font-weight:400}
+.corrupt #hud .sg b{color:#cf3b2a}
+/* ミュート */
+#bar .tray #mute{background:none;border:none;color:var(--bar-ink);font-size:13px;cursor:pointer;padding:4px 6px;width:30px;height:30px;border-radius:8px;line-height:1;opacity:.85;transition:.15s}
+#bar .tray #mute:hover{background:rgba(255,255,255,.1);opacity:1}
+#bar .tray #mute.off{color:#566; }
+/* 起動・イントロもフッテージ質感に */
+#boot::after,#intro::after,#profile-page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:repeating-linear-gradient(0deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.16) 2px 3px);mix-blend-mode:overlay;opacity:.62}
+.intro-card,.pp-card,#boot-grid,#boot-line,#boot-cap,#boot-pct{position:relative;z-index:2}
+.intro-h{animation:introFlicker 4.2s steps(1) infinite}
+@keyframes introFlicker{0%,90%,100%{opacity:1;text-shadow:0 0 22px rgba(120,200,180,.12)}91%{opacity:.28}92%{opacity:.9;text-shadow:0 0 34px rgba(207,59,42,.45)}93%{opacity:.5}94%{opacity:1}}
+#boot-pct{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:#54a18b;opacity:.8;margin-top:-12px}
+/* 闉じボタンのタップ領域拡大 */
+.win-head .x{display:flex;align-items:center;justify-content:center;width:30px;height:30px}
+/* ═══════════ イントロ「在無」強グリッチ恐怖演出 ═══════════ */
+#intro.show{animation:rise .6s ease,introJitter 3.4s steps(1) infinite}
+@keyframes introJitter{
+  0%,80%,100%{transform:translate(0,0)}
+  81%{transform:translate(-4px,1px)}81.5%{transform:translate(4px,-2px)}82%{transform:translate(-2px,2px)}82.5%{transform:translate(0,0)}
+  92%{transform:translate(5px,0)}92.5%{transform:translate(-6px,2px)}93%{transform:translate(3px,-2px)}93.5%{transform:translate(-2px,1px)}94%{transform:translate(0,0)}}
+#intro::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;mix-blend-mode:screen;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(207,59,42,.14) 3px 4px),linear-gradient(180deg,rgba(63,208,196,.08),transparent 32%);
+  animation:introTear 3.4s steps(1) infinite}
+@keyframes introTear{0%,80%,100%{opacity:0;transform:translateY(0)}
+  90%{opacity:.85;transform:translateY(-9px)}90.7%{opacity:0;transform:translateY(0)}
+  96%{opacity:.7;transform:translateY(11px)}96.6%{opacity:0;transform:translateY(0)}}
+.intro-h{position:relative;isolation:isolate}
+.intro-h::before,.intro-h::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;pointer-events:none;text-align:center}
+.intro-h::before{color:#cf3b2a;mix-blend-mode:screen;animation:ghRed 2.8s infinite}
+.intro-h::after{color:#46d6c8;mix-blend-mode:screen;animation:ghCyan 3.4s infinite}
+@keyframes ghRed{
+  0%,18%,100%{opacity:0;transform:translate(0,0);clip-path:inset(0 0 100% 0)}
+  20%{opacity:.92;transform:translate(-4px,-1px);clip-path:inset(8% 0 64% 0)}23%{opacity:0}
+  55%{opacity:0}57%{opacity:.85;transform:translate(5px,2px);clip-path:inset(58% 0 18% 0)}60%{opacity:0}
+  82%{opacity:0}83%{opacity:.8;transform:translate(-6px,0);clip-path:inset(30% 0 40% 0)}85%{opacity:0}}
+@keyframes ghCyan{
+  0%,30%,100%{opacity:0;transform:translate(0,0);clip-path:inset(0 0 100% 0)}
+  32%{opacity:.85;transform:translate(4px,1px);clip-path:inset(20% 0 50% 0)}35%{opacity:0}
+  68%{opacity:0}70%{opacity:.8;transform:translate(-5px,-2px);clip-path:inset(70% 0 8% 0)}73%{opacity:0}}
+
+/* ═══════════ July — 案内アシスタント ═══════════ */
+#july{position:absolute;top:100px;right:18px;z-index:11;width:232px;display:flex;flex-direction:column;align-items:flex-end;gap:9px;
+  font-family:var(--sans);opacity:0;transform:translateY(-8px);transition:opacity .5s ease,transform .5s ease}
+#july .jl-icon{display:inline-flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;padding:4px 6px;border-radius:12px;transition:background .15s}
+#july .jl-icon:hover{background:rgba(255,255,255,.07)}
+#july .jl-icon:active{transform:scale(.96)}
+#july .jl-lbl{font-size:9.5px;letter-spacing:.04em;color:#e6ede9;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+#july.show{opacity:1;transform:none}
+#july.gone{opacity:0!important;transform:translateY(-10px);pointer-events:none!important;transition:opacity 2.4s ease,transform 2.4s ease}
+#july .jl-orb{width:25px;height:25px;border-radius:8px;position:relative;flex-shrink:0;
+  background:linear-gradient(155deg,#f3f7f4 0%,#cfd9d2 100%);
+  box-shadow:0 4px 10px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -2px 5px rgba(120,140,130,.4);
+  display:flex;align-items:center;justify-content:center;transition:transform .18s ease}
+#july .jl-orb:hover{transform:translateY(-2px) scale(1.04)}
+#july .jl-orb:active{transform:scale(.95)}
+#july .jl-core{display:none}
+@keyframes jlBreath{0%,100%{transform:scale(.84);opacity:.82}50%{transform:scale(1);opacity:1}}
+#july .jl-eyes{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:4px;pointer-events:none}
+#july .jl-eyes i{width:2.2px;height:5px;border-radius:2px;background:#2a3a32;animation:jlBlink 5.2s steps(1) infinite}
+@keyframes jlBlink{0%,93%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
+#july .jl-dot{position:absolute;top:-3px;right:-3px;width:13px;height:13px;border-radius:50%;background:#54a18b;border:2px solid #0c1512;opacity:0;transform:scale(.4);transition:.2s}
+#july.has-tip .jl-dot{opacity:1;transform:none;animation:jlPing 1.9s ease-in-out infinite}
+@keyframes jlPing{0%,100%{box-shadow:0 0 0 0 rgba(84,161,139,.55)}60%{box-shadow:0 0 0 7px rgba(84,161,139,0)}}
+#july .jl-panel{width:232px;border-radius:15px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(28,40,38,.88),rgba(15,25,23,.92));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 22px 60px rgba(0,0,0,.5),inset 0 0 0 1px rgba(140,210,190,.16);
+  transform-origin:top right;opacity:0;transform:scale(.92) translateY(-6px);pointer-events:none;max-height:0;
+  transition:opacity .26s ease,transform .26s cubic-bezier(.2,.8,.3,1),max-height .26s ease}
+#july.open .jl-panel{opacity:1;transform:none;pointer-events:auto;max-height:360px}
+#july .jl-head{display:flex;align-items:center;gap:9px;padding:11px 12px 9px;border-bottom:1px solid rgba(140,210,190,.12)}
+#july .jl-ava{width:26px;height:26px;border-radius:8px;background:linear-gradient(155deg,#f3f7f4,#cfd9d2);box-shadow:inset 0 1px 0 rgba(255,255,255,.85);position:relative;flex-shrink:0}
+#july .jl-ava::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:50%;transform:translate(-50%,-50%);background:#2a3a32}
+#july .jl-id{flex:1;min-width:0;line-height:1.2}
+#july .jl-nm{font-size:13px;font-weight:700;color:#eef6f2;letter-spacing:.07em}
+#july .jl-role{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:#86948c;margin-top:1px}
+#july .jl-min{background:rgba(255,255,255,.06);border:none;color:#9fc4b8;width:24px;height:24px;border-radius:7px;cursor:pointer;font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;transition:.15s}
+#july .jl-min:hover{background:rgba(255,255,255,.13);color:#dff3ec}
+#july .jl-body{padding:12px 11px 13px}
+#july .jl-bubble{position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(140,210,190,.14);border-radius:12px;border-top-left-radius:4px;
+  padding:11px 12px;font-size:13px;line-height:1.6;color:#dfeae5;letter-spacing:0;min-height:20px;text-wrap:wrap}
+#july .jl-bubble b{color:#74bda6;font-weight:700}
+#july .jl-typing{display:flex;gap:5px;align-items:center;height:18px}
+#july .jl-typing i{width:6px;height:6px;border-radius:50%;background:#6a9b8c;animation:typedot 1.1s ease-in-out infinite}
+#july .jl-typing i:nth-child(2){animation-delay:.18s}#july .jl-typing i:nth-child(3){animation-delay:.36s}
+#july .jl-foot{display:flex;align-items:center;gap:8px;margin-top:10px}
+#july .jl-prev{background:rgba(255,255,255,.05);border:1px solid rgba(120,200,175,.2);color:#9fc4b8;font-size:11px;font-weight:600;letter-spacing:.03em;padding:6px 9px;border-radius:8px;cursor:pointer;flex-shrink:0;transition:background .15s,color .15s}
+#july .jl-prev:hover{background:rgba(255,255,255,.12);color:#dff3ec}
+#july .jl-prev[disabled]{opacity:.32;cursor:default;pointer-events:none}
+#july .jl-more{background:linear-gradient(160deg,rgba(84,161,139,.22),rgba(63,122,105,.22));border:1px solid rgba(120,200,175,.3);color:#bfeede;font-size:11.5px;font-weight:600;letter-spacing:.03em;padding:7px 12px;border-radius:9px;cursor:pointer;transition:.15s}
+#july .jl-more:hover{background:linear-gradient(160deg,rgba(84,161,139,.4),rgba(63,122,105,.4));color:#fff}
+#july .jl-more[disabled]{opacity:.4;cursor:default;pointer-events:none}
+#july .jl-step{flex:1;text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:#5d8a7d}
+#july .jl-bubble.in{animation:jlBub .34s cubic-bezier(.2,.8,.3,1)}
+@keyframes jlBub{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.corrupt #july .jl-orb{filter:saturate(.72)}
+
+/* ═══════════ 観測者・全画面リビール ═══════════ */
+#obs-reveal{position:absolute;inset:0;z-index:9450;display:none;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(120% 90% at 50% 32%,#0c0f0e,#040606 72%);color:#cfd6cf;cursor:pointer;padding:30px;text-align:center;opacity:0;transition:opacity .8s ease}
+#obs-reveal.show{display:flex;opacity:1}
+#obs-reveal .or-tag{font-family:var(--mono);font-size:12px;letter-spacing:.34em;color:#5e6f67;margin-bottom:26px}
+#obs-reveal .or-line{font-family:var(--mincho);font-size:clamp(17px,4.6vw,23px);line-height:1.9;margin:6px 0;opacity:0;transform:translateY(8px)}
+#obs-reveal.show .or-line{animation:orRise 1.1s ease forwards}
+#obs-reveal .or-line.r1{animation-delay:.5s}#obs-reveal .or-line.r2{animation-delay:1.4s}#obs-reveal .or-line.r3{animation-delay:2.6s}#obs-reveal .or-line.r4{animation-delay:4s}
+#obs-reveal .or-line.bad{color:var(--bad-2)}
+#obs-reveal .or-four{color:var(--bad-2);font-weight:700;text-shadow:0 0 14px rgba(207,59,42,.5);letter-spacing:.1em}
+@keyframes orRise{to{opacity:1;transform:none}}
+#obs-reveal .or-go{margin-top:38px;font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:#7d8a82;opacity:0;animation:orBlink 2s ease 5.4s infinite}
+@keyframes orBlink{0%,100%{opacity:.22}50%{opacity:.85}}
+
+/* ═══════════ ヨニンメ：解錠 → 08 リビール ═══════════ */
+#unlock08{position:absolute;inset:0;z-index:9300;display:none;align-items:center;justify-content:center;overflow:hidden;background:#040506}
+#unlock08.show{display:flex}
+#unlock08 .u8-photo{position:absolute;inset:0;background-size:cover;background-position:center;z-index:1;
+  opacity:0;transform:scale(1.16);filter:brightness(.3) contrast(1.18) saturate(.7) blur(7px);
+  transition:opacity 4.2s ease,transform 4.8s ease,filter 4.8s ease}
+#unlock08.reveal .u8-photo{opacity:1;transform:scale(1.04);filter:brightness(.62) contrast(1.12) saturate(.85) blur(0px)}
+#unlock08 .u8-grain{position:absolute;inset:-20%;z-index:2;opacity:.16;pointer-events:none;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");animation:grainShift .5s steps(2) infinite}
+#unlock08 .u8-vig{position:absolute;inset:0;z-index:3;pointer-events:none;box-shadow:inset 0 0 200px 70px rgba(0,0,0,.82)}
+#unlock08 .u8-lock{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:16px;color:#c2362a;transition:opacity .9s ease}
+#unlock08.reveal .u8-lock{opacity:0}
+#unlock08 .u8-lock svg{width:72px;height:72px;overflow:visible;filter:drop-shadow(0 0 16px rgba(194,54,42,.55))}
+#unlock08 .u8-shackle{transform-origin:50% 62%;transition:transform .7s cubic-bezier(.5,-0.4,.3,1.5)}
+#unlock08.opened .u8-shackle{transform:translateY(-8px) rotate(-24deg)}
+#unlock08 .u8-cap{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:#8a4a44}
+#unlock08 .u8-prompt{position:absolute;left:0;right:0;bottom:34px;z-index:6;text-align:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:#cdd8d2;opacity:0;text-shadow:0 1px 6px #000}
+#unlock08.reveal .u8-prompt{animation:orBlink 1.9s ease 1.8s infinite}
+#unlock08.shake{animation:u8shake .07s linear 7}
+@keyframes u8shake{0%{transform:translate(0,0)}25%{transform:translate(-4px,2px)}50%{transform:translate(3px,-3px)}75%{transform:translate(-2px,-2px)}100%{transform:translate(3px,2px)}}
+</style>
+</head>
+<body>
+<div id="os">
+  <div class="fog" id="fog1"></div><div class="fog" id="fog2"></div>
+  <svg id="ridge" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,600 L0,330 C190,270 330,378 540,310 C760,238 940,348 1130,286 C1290,236 1380,300 1440,282 L1440,600Z" fill="#0b1316" opacity=".92"/>
+    <path d="M0,600 L0,430 C250,392 430,462 680,410 C930,358 1110,452 1340,402 C1400,390 1440,410 1440,410 L1440,600Z" fill="#070d10"/>
+  </svg>
+  <div id="dark-figure" aria-hidden="true">
+    <svg viewBox="0 0 220 470" preserveAspectRatio="xMidYMax meet">
+      <g fill="#000">
+        <ellipse cx="110" cy="54" rx="27" ry="31"/>
+        <path d="M80,86 Q110,77 140,86 Q150,150 149,250 Q110,268 71,250 Q70,150 80,86 Z"/>
+        <path d="M70,94 Q60,96 57,112 L50,262 Q49,274 61,274 Q71,273 71,262 L78,150 Z"/>
+        <path d="M150,94 Q160,96 163,112 L170,262 Q171,274 159,274 Q149,273 149,262 L142,150 Z"/>
+        <path d="M74,248 L103,248 L101,462 Q100,470 90,470 L82,470 Q74,470 74,462 Z"/>
+        <path d="M117,248 L146,248 L146,462 Q146,470 138,470 L130,470 Q120,470 119,462 Z"/>
+      </g>
+    </svg>
+  </div>
+  <div id="vig"></div>
+  <div id="grade"></div>
+  <div id="grain-screen"></div>
+  <div id="scr"></div>
+  <div id="track"></div>
+  <div id="flick"></div>
+  <div id="hud">
+    <div class="tl"><span class="rec"><i></i>REC</span><span>CASE No.073 ／ DEVICE-A</span></div>
+    <div class="tr"><div class="tc" id="hud-tc">00:00:00:00</div><div class="sg">SIG <b id="hud-sig">▮▮▮▯</b> ／ 復元 87%</div></div>
+  </div>
+
+  <div id="icons"></div>
+  <div id="trash"><div class="tcan"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></div><div class="tlbl">ゴミ箱</div></div>
+
+  <div id="july">
+    <div class="jl-icon" title="July — 案内">
+      <div class="jl-orb">
+        <div class="jl-core"></div>
+        <div class="jl-eyes"><i></i><i></i></div>
+        <div class="jl-dot"></div>
+      </div>
+      <div class="jl-lbl">July</div>
+    </div>
+    <div class="jl-panel">
+      <div class="jl-head">
+        <div class="jl-ava"></div>
+        <div class="jl-id"><div class="jl-nm">July</div><div class="jl-role">案内アシスタント</div></div>
+        <button class="jl-min" title="閉じる">×</button>
+      </div>
+      <div class="jl-body">
+        <div class="jl-bubble"></div>
+        <div class="jl-foot"><button class="jl-prev">← 戻る</button><span class="jl-step"></span><button class="jl-more">もっと詳しく →</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bar">
+    <div class="apps" id="bar-apps"></div>
+    <div class="tray"><button id="mute" title="音量">●</button><span>観測者 <span id="obs">1</span></span><span id="clock">22:00</span></div>
+  </div>
+
+  <div id="melt-black"></div>
+  <div id="kaede-prof">
+    <div class="kp-bg"><img class="kp-img-a" src="kaede.png" alt=""><img class="kp-img-b" src="kaede2.jpg" alt=""></div>
+    <div class="kp-static"></div>
+    <div class="kp-flash"></div>
+    <div class="kp-dark"></div>
+    <div class="kp-top"><button class="kp-back" data-act="closeKaede">‹</button></div>
+    <div class="kp-body">
+      <div class="kp-ava"><img class="kp-img-a" src="kaede.png" alt="楓"><img class="kp-img-b" src="kaede2.jpg" alt=""></div>
+      <div class="kp-name">楓</div>
+      <div class="kp-msg">推しの誕生日まであと５日！</div>
+      <div class="kp-acts">
+        <div class="b" data-act="kaedeTalk"><div class="ic">✉</div>トーク</div>
+        <div class="b"><div class="ic">☎</div>音声通話</div>
+        <div class="b"><div class="ic">▷</div>ビデオ通話</div>
+      </div>
+    </div>
+  </div>
+  <div id="ryu-prof">
+    <div class="kp-bg"><img src="ryu-bg.png" alt=""></div>
+    <div class="kp-top"><button class="kp-back" data-act="closeRyu">‹</button></div>
+    <div class="kp-body">
+      <div class="kp-ava ryu">龍</div>
+      <div class="kp-name">龍之介</div>
+      <div class="kp-msg">お祓い・まじない研究中。神社めぐり同行します。</div>
+      <div class="kp-acts">
+        <div class="b"><div class="ic">✉</div>トーク</div>
+        <div class="b"><div class="ic">☎</div>音声通話</div>
+        <div class="b"><div class="ic">▷</div>ビデオ通話</div>
+      </div>
+    </div>
+  </div>
+  <div id="lightbox"><div class="lb-inner"><button class="lb-x" data-act="closeLightbox">✕</button><div class="lb-frame" id="lb-frame"></div><div class="lb-cap" id="lb-cap"></div></div></div>
+  <div id="ghost-chat">
+    <div class="gc-head"><div class="gc-av"><img src="kaede.png" alt=""></div><div class="gc-nm">豁ｻ蟆ｾ蜻?</div><button class="gc-back" data-act="closeGhost" aria-label="閉じる">✕</button></div>
+    <div class="gc-scroll" id="ghost-scroll"></div>
+  </div>
+  <div id="static-screen"><canvas id="static-cv"></canvas><div class="vline"></div><div class="vline b"></div><div class="scan"></div></div>
+  <div id="jumpscare"><div class="js-noise"></div><div class="js-tx">ハやくチをながせ</div></div>
+  <div id="blast"><div class="bz" id="blast-tx">四</div></div>
+
+  <div id="epi">
+    <p class="l e1">追加調査が終了いたしました。</p>
+    <p class="l e2">死尾呑は怪異番号７３に登録しています。</p>
+    <p class="l red e3">警告：直ちにお清めください。</p>
+    <p class="l e4">この端末は "視られたこと" を記録しました。</p>
+    <div class="sig">
+      <div class="nx">在無 ／ 資料No.073 ── 事件難易度：4</div>
+      <div class="lab">ぎみっくらぼ &nbsp;／&nbsp; <b>忌録</b> &nbsp;archive</div>
+      <a id="share" class="share" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        結果をXで共有する
+      </a>
+      <button class="replay" id="replay">もう一度起動する</button>
+      <div class="fn">※ ██神社は実在しない。ーと、この端末は記録している。<br>観測者2名のうち1名がログアウトしました。</div>
+    </div>
+  </div>
+
+  <div id="obs-reveal">
+    <div class="or-tag">端末ログ ／ 自動生成</div>
+    <div class="or-line r1">入場　0:00</div>
+    <div class="or-line r2 bad">退場　2:38</div>
+    <div class="or-line r3">観測者：祐一 ／ 楓 ／ 龍之介 ／ <span class="or-four">████（四人目）</span></div>
+    <div class="or-line r4">※ 豁ｻ蟆ｾ蜻?が被調査者からあなたに移ろうとしています。</div>
+    <div class="or-go">― 画面をタップで続行 ―</div>
+  </div>
+  <div id="unlock08">
+    <div class="u8-photo"></div>
+    <div class="u8-grain"></div>
+    <div class="u8-vig"></div>
+    <div class="u8-lock">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path class="u8-shackle" d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+      </svg>
+      <div class="u8-cap">解錠中…</div>
+    </div>
+    <div class="u8-prompt">― タップして写真を調べる ―</div>
+  </div>
+
+  <div id="profile-page">
+    <div class="pp-card">
+      <div class="intro-tag">関係者 ／ 行方不明者 3名</div>
+      <div id="pp-roster" style="margin:18px 0 22px"></div>
+      <button class="intro-go" id="profile-go">解析を開始する</button>
+    </div>
+  </div>
+
+  <div id="intro">
+    <div class="intro-card">
+      <div class="intro-tag">本件調査用端末 ／ CASE No.073</div>
+      <h2 class="intro-h" data-text="在無">在無</h2>
+      <p class="intro-b">██神社での肝試しの夜、突如として<b>消息を絶った</b><br>3人の大学生（祐一・楓・龍之介）。<br>当時の調査は原因不明のまま打ち切られたが、<br>このたび<b>追加調査</b>が決定。<br>あなたは新たな<b>調査担当</b>として、<br>回収された端末A（祐一名義）の再解析を任された。</p>
+      <p class="intro-b">残されたチャット・録音・写真から、<br>被調査者らの身に<b>何が起きたか</b>を明らかにせよ。</p>
+      <button class="intro-go" id="intro-go">関係者を確認する</button>
+    </div>
+  </div>
+
+  <div id="boot">
+    <div id="boot-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div id="boot-line"></div>
+    <div id="boot-cap"><b id="boot-tx">起動しています</b></div>
+    <div id="boot-pct">復元 0%</div>
+  </div>
+</div>
+
+<!-- melt用 SVGフィルタ -->
+<svg width="0" height="0" style="position:absolute"><filter id="melt">
+  <feTurbulence id="melt-turb" type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="2" seed="7" result="n"/>
+  <feDisplacementMap id="melt-disp" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+</filter></svg>
+
+<script>
+/* ════════ 【STORY DATA】次回はここだけ差し替え ════════ */
+const STORY = {
+  caseNo:"073",
+  xHandle:"https://x.com/kiroku_arg",
+  shareText:"【CASE073】の怪異の正体を突き止めました。\n山奥の神社で起こった███の全貌とは ——\n#忌録 #在無 #ARG\n▶︎ @kiroku_arg \n▶︎ https://kiroku-arg.com/case073/",
+  shareUrl:"https://kiroku-arg.com/case073/",
+  codes:{ pin:"0720", whisper:"ヨニンメ" },
+  members:[
+    {name:"祐一",role:"端末所有者 ／ 大学3年",bio:"このスマホの持ち主。当日の記録係。"},
+    {name:"楓",role:"撮影・録音 ／ 大学2年",bio:"心霊スポットと神社めぐりが趣味。写真と録音はいつも私の担当。アプリのロックは全部いつもの4桁。「推しの誕生日」だよ。"},
+    {name:"龍之介",role:"参加者 ／ 大学3年",bio:"お祓い・まじないに詳しい。あの夜、いちばん奥まで進んでいた。"}
+  ],
+  images:{
+    get p01(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p01||"photo-shrine.png");},
+    get p02(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p02||"photo-two.png");},
+    get p02g(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p02g||"photo-two-gone.png");},
+    get p03(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p03||"photo-floor.png");},
+    get p03g(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p03g||"photo-floor-gone.png");},
+    get p04(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p04||"photo-omamori.png");},
+    get p04g(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p04g||"photo-omamori-gone.png");},
+    get p05(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p05||"photo-honden.png");},
+    get p06(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p06||"photo-toilet.png");},
+    get p07(){var R=window.__resources||{};return (typeof flags!=='undefined'&&flags.f_cursed)?(R.p08||"photo-cursed.png"):(R.p07||"photo-torii.png");},
+    get p08(){return (window.__resources||{}).p08||"photo-cursed.png";},
+    get p09(){return (window.__resources||{}).p09||"photo-now.png";}
+  },
+  apps:[
+    { id:"profile",label:"関係者", icon:"profile" },
+    { id:"msg",   label:"メッセージ", icon:"msg" },
+    { id:"log",   label:"録音",   icon:"log",   locked:true, needs:"f_log" },
+    { id:"photo", label:"写真",   icon:"photo", locked:true, needs:"f_photo" },
+    { id:"uninv", label:"未解決", icon:"uninv", locked:true, needs:"f_ryuGone" },
+    { id:"survey",label:"端末ログ",icon:"survey",locked:true, needs:"f_end", auto:true }
+  ]
+};
+
+/* ════════ ENGINE ════════ */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const os=$("#os"); const flags={}; let z=50; let CHATVIEW="group";
+/* 文字入力中（モバイルのソフトキーボード表示中）はゴミ箱を隠す → 浮き上がりバグ防止 */
+let __kbdOff=null;
+document.addEventListener("focusin",e=>{ if(e.target&&e.target.matches&&e.target.matches("input,textarea")){ if(__kbdOff){clearTimeout(__kbdOff);__kbdOff=null;} os.classList.add("kbd-open"); } });
+document.addEventListener("focusout",e=>{ if(e.target&&e.target.matches&&e.target.matches("input,textarea")){ if(__kbdOff)clearTimeout(__kbdOff); __kbdOff=setTimeout(()=>{ if(!document.activeElement||!document.activeElement.matches||!document.activeElement.matches("input,textarea")) os.classList.remove("kbd-open"); },450); } });
+/* チャット返信バー（送信ボタン）が画面にある間はゴミ箱を常に隠す → 送信ボタンをゴミ箱が覆う事故を防ぐ */
+function updateReplybarGuard(){ const bar=document.querySelector(".win.show .chat-input, #ghost-chat.show .gc-foot"); os.classList.toggle("replybar", !!bar); }
+new MutationObserver(updateReplybarGuard).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:["class","style"]});
+
+/* 龍之介・断末魔シーケンス */
+const DREAD=["終わった","なんで外にあるんだよ","ここにいたの、神様なんかじゃなかった","俺らはもう戻れないんだ","存在なんて無いんだ","あれ、、目から血が","誰か走ってくる","なんだよ、なんで俺なんだよ","死にたくない"];
+const FLOOD_UNIT="死にたくない";
+const FLOOD_LAST="死にたくない死にたくない死にたくない死にたくない死にたくない死にたくない死にたくない死にたくない死にたくないシにたくなイ4にたくない";
+const ICONS={
+  msg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gl-ic"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/></svg>',
+  log:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gl-ic"><path d="M21 9a2.4 2.4 0 0 0-.7-1.7l-3.6-3.6A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"/><path d="M15 3v5a1 1 0 0 0 1 1h5"/></svg>',
+  photo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gl-ic"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>',
+  survey:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gl-ic"><path d="M14 2v6h6"/><path d="M4 2h10l6 6v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  profile:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gl-ic"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  uninv:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="gl-ic"><path d="M14 2v6h6"/><path d="M4 2h10l6 6v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9.2 12.3a2 2 0 0 1 3.5 1.3c0 1.4-2 1.7-2 3"/><path d="M10.7 19h.01"/></svg>'
+};
+const norm=s=>(s||"").trim().replace(/[\s　]/g,"");
+const toKata=s=>s.replace(/[\u3041-\u3096]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x60));
+const toHira=s=>(s||"").replace(/[\u30A1-\u30F6]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60));
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const toHalf=s=>s.replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0));
+
+/* ════════ AUDIO（完全合成・依存ゼロ） ════════ */
+const AUD=(()=>{
+  let ctx,master,started=false,muted=false,disAdded=false;
+  let droneGain,windGain,windFilt,tension=0,beatTimer=null,ambTimer=null;
+  let horrorOn=false,horrorTimer=null,pulseTimer=null,padNodes=null;
+  function noiseBuf(sec){ const n=Math.floor(ctx.sampleRate*sec),b=ctx.createBuffer(1,n,ctx.sampleRate),d=b.getChannelData(0);
+    for(let i=0;i<n;i++)d[i]=Math.random()*2-1; return b; }
+  function start(){
+    if(started)return; started=true;
+    try{ ctx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ started=false; return; }
+    if(ctx.state==="suspended")ctx.resume();
+    master=ctx.createGain(); master.gain.value=muted?0:0.9; master.connect(ctx.destination);
+    /* 低層ドローン（うなり） */
+    droneGain=ctx.createGain(); droneGain.gain.value=0;
+    const dlp=ctx.createBiquadFilter(); dlp.type="lowpass"; dlp.frequency.value=200;
+    droneGain.connect(dlp).connect(master);
+    [55,55.6,82.5].forEach((f,i)=>{ const o=ctx.createOscillator(); o.type=i===2?"sine":"triangle"; o.frequency.value=f;
+      const g=ctx.createGain(); g.gain.value=i===2?0.12:0.3; o.connect(g).connect(droneGain); o.start(); });
+    const lfo=ctx.createOscillator(); lfo.frequency.value=0.07; const lg=ctx.createGain(); lg.gain.value=0.05;
+    lfo.connect(lg).connect(droneGain.gain); lfo.start();
+    droneGain.gain.setTargetAtTime(0.10,ctx.currentTime,3);
+    /* 風（フィルタノイズ） */
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(4); wn.loop=true;
+    windFilt=ctx.createBiquadFilter(); windFilt.type="bandpass"; windFilt.frequency.value=380; windFilt.Q.value=0.6;
+    windGain=ctx.createGain(); windGain.gain.value=0;
+    wn.connect(windFilt).connect(windGain).connect(master); wn.start();
+    windGain.gain.setTargetAtTime(0.05,ctx.currentTime,5);
+    const wlfo=ctx.createOscillator(); wlfo.frequency.value=0.05; const wlg=ctx.createGain(); wlg.gain.value=250;
+    wlfo.connect(wlg).connect(windFilt.frequency); wlfo.start();
+    scheduleAmb();
+  }
+  function scheduleAmb(){ clearTimeout(ambTimer); const wait=4500+Math.random()*9000;
+    ambTimer=setTimeout(()=>{ if(ctx)creak(); scheduleAmb(); },wait); }
+  function creak(){ const t=ctx.currentTime; const o=ctx.createOscillator(); o.type="sawtooth";
+    const f0=90+Math.random()*120; o.frequency.setValueAtTime(f0,t); o.frequency.exponentialRampToValueAtTime(f0*1.7,t+.5);
+    const bp=ctx.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=600; bp.Q.value=6;
+    const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.035+tension*.02,t+.15); g.gain.exponentialRampToValueAtTime(.0001,t+.8);
+    o.connect(bp).connect(g).connect(master); o.start(t); o.stop(t+.9); }
+  function blip(freq,dur,type,vol){ if(!ctx)return; const t=ctx.currentTime;
+    const o=ctx.createOscillator(); o.type=type||"sine"; o.frequency.value=freq;
+    const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol||.18,t+.005); g.gain.exponentialRampToValueAtTime(.0001,t+(dur||.12));
+    o.connect(g).connect(master); o.start(t); o.stop(t+(dur||.12)+.02); }
+  function ui(kind){ if(!ctx)return;
+    if(kind==="click")blip(420,.06,"square",.04);
+    else if(kind==="open"){ blip(330,.12,"triangle",.07); setTimeout(()=>blip(495,.13,"sine",.05),55); }
+    else if(kind==="close")blip(240,.1,"triangle",.05);
+    else if(kind==="error"){ blip(150,.18,"sawtooth",.11); setTimeout(()=>blip(118,.2,"sawtooth",.09),70); }
+    else if(kind==="confirm"){ blip(523,.12,"sine",.08); setTimeout(()=>blip(784,.16,"sine",.07),90); } }
+  function unlock(){ if(!ctx)return; const t=ctx.currentTime;
+    const o=ctx.createOscillator(); o.type="sine"; o.frequency.setValueAtTime(70,t); o.frequency.exponentialRampToValueAtTime(40,t+.25);
+    const g=ctx.createGain(); g.gain.setValueAtTime(.25,t); g.gain.exponentialRampToValueAtTime(.0001,t+.4);
+    o.connect(g).connect(master); o.start(t); o.stop(t+.45);
+    setTimeout(()=>{ blip(440,.1,"sine",.08); setTimeout(()=>blip(660,.13,"sine",.07),100); setTimeout(()=>blip(880,.2,"sine",.05),200); },120); }
+  function recording(sec){ if(!ctx)return; const t=ctx.currentTime,d=sec||2.4;
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(d+.5);
+    const hp=ctx.createBiquadFilter(); hp.type="highpass"; hp.frequency.value=1800;
+    const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.05,t+.1); g.gain.setValueAtTime(.05,t+d-.3); g.gain.linearRampToValueAtTime(0,t+d);
+    wn.connect(hp).connect(g).connect(master); wn.start(t); wn.stop(t+d);
+    const o=ctx.createOscillator(); o.type="sine"; o.frequency.value=58; const og=ctx.createGain(); og.gain.value=0;
+    og.gain.linearRampToValueAtTime(.12,t+.2); og.gain.setValueAtTime(.12,t+d-.4); og.gain.linearRampToValueAtTime(0,t+d);
+    o.connect(og).connect(master); o.start(t); o.stop(t+d); }
+  function whisper(){ if(!ctx)return; const t=ctx.currentTime;
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(1.6);
+    const bp=ctx.createBiquadFilter(); bp.type="bandpass"; bp.Q.value=8; bp.frequency.setValueAtTime(900,t); bp.frequency.linearRampToValueAtTime(1700,t+1.2);
+    const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.1,t+.3); g.gain.linearRampToValueAtTime(.06,t+.9); g.gain.exponentialRampToValueAtTime(.0001,t+1.5);
+    wn.connect(bp).connect(g).connect(master); wn.start(t); wn.stop(t+1.6); }
+  function darkrise(sec){ if(!ctx)return; const t=ctx.currentTime,d=sec||2.6;
+    // じわじわ迫る低音ドローン＋忍び寄るノイズ
+    const o=ctx.createOscillator(); o.type="sine"; o.frequency.setValueAtTime(46,t); o.frequency.linearRampToValueAtTime(33,t+d);
+    const og=ctx.createGain(); og.gain.setValueAtTime(0,t); og.gain.linearRampToValueAtTime(.32,t+d*.85); og.gain.linearRampToValueAtTime(.0001,t+d+.2);
+    o.connect(og).connect(master); o.start(t); o.stop(t+d+.3);
+    const o2=ctx.createOscillator(); o2.type="sine"; o2.frequency.setValueAtTime(47.3,t);
+    const o2g=ctx.createGain(); o2g.gain.setValueAtTime(0,t); o2g.gain.linearRampToValueAtTime(.14,t+d*.85); o2g.gain.linearRampToValueAtTime(.0001,t+d+.2);
+    o2.connect(o2g).connect(master); o2.start(t); o2.stop(t+d+.3);
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(d+.4); wn.loop=true;
+    const bp=ctx.createBiquadFilter(); bp.type="bandpass"; bp.Q.value=2; bp.frequency.setValueAtTime(400,t); bp.frequency.linearRampToValueAtTime(2200,t+d);
+    const wg=ctx.createGain(); wg.gain.setValueAtTime(0,t); wg.gain.linearRampToValueAtTime(.16,t+d*.9); wg.gain.linearRampToValueAtTime(.0001,t+d+.2);
+    wn.connect(bp).connect(wg).connect(master); wn.start(t); wn.stop(t+d+.3); }
+  function staticBurst(sec){ if(!ctx)return; const t=ctx.currentTime,d=sec||1.1;
+    // 新・迫り上がる気配：掃き集める逆再生風ホワッ＋不協和の低音クラスター（警報音・ブザーなし）
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(d+.3); wn.loop=true;
+    const lp=ctx.createBiquadFilter(); lp.type="lowpass"; lp.frequency.setValueAtTime(280,t); lp.frequency.linearRampToValueAtTime(3200,t+d*.7); lp.frequency.linearRampToValueAtTime(600,t+d); lp.Q.value=.8;
+    const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.3,t+d*.55); g.gain.setValueAtTime(.3,t+d*.7); g.gain.exponentialRampToValueAtTime(.0001,t+d+.2);
+    wn.connect(lp).connect(g).connect(master); wn.start(t); wn.stop(t+d+.3);
+    [49,58,69.3].forEach((f,i)=>{ const o=ctx.createOscillator(); o.type="triangle"; o.frequency.setValueAtTime(f*.97,t); o.frequency.linearRampToValueAtTime(f,t+d);
+      const og=ctx.createGain(); og.gain.setValueAtTime(0,t); og.gain.linearRampToValueAtTime(i===2?.05:.1,t+d*.8); og.gain.exponentialRampToValueAtTime(.0001,t+d+.3);
+      o.connect(og).connect(master); o.start(t); o.stop(t+d+.35); });
+    const sub=ctx.createOscillator(); sub.type="sine"; sub.frequency.setValueAtTime(58,t); sub.frequency.exponentialRampToValueAtTime(30,t+d*.9);
+    const sg=ctx.createGain(); sg.gain.setValueAtTime(0,t); sg.gain.linearRampToValueAtTime(.34,t+d*.6); sg.gain.exponentialRampToValueAtTime(.0001,t+d+.25);
+    sub.connect(sg).connect(master); sub.start(t); sub.stop(t+d+.3); }
+  function heart(){ const t=ctx.currentTime;
+    const thump=(tt,v)=>{ const o=ctx.createOscillator(); o.type="sine"; o.frequency.setValueAtTime(70,tt); o.frequency.exponentialRampToValueAtTime(36,tt+.18);
+      const g=ctx.createGain(); g.gain.setValueAtTime(0,tt); g.gain.linearRampToValueAtTime(v,tt+.02); g.gain.exponentialRampToValueAtTime(.0001,tt+.22);
+      o.connect(g).connect(master); o.start(tt); o.stop(tt+.24); };
+    thump(t,.3); thump(t+.16,.2); }
+  function proximity(on){ if(!ctx)return;
+    if(on){ if(beatTimer)return; let bpm=64; const beat=()=>{ if(!ctx)return; heart(); bpm=Math.min(150,bpm+6); beatTimer=setTimeout(beat,60000/bpm); }; beat(); droneGain.gain.setTargetAtTime(.2,ctx.currentTime,.4); }
+    else{ clearTimeout(beatTimer); beatTimer=null; droneGain.gain.setTargetAtTime(.1+tension*.04,ctx.currentTime,1); } }
+  function tens(lv){ tension=lv; if(!ctx)return;
+    droneGain.gain.setTargetAtTime(.1+lv*.05,ctx.currentTime,1.2);
+    windGain.gain.setTargetAtTime(.05+lv*.03,ctx.currentTime,2);
+    if(lv>=1&&!disAdded){ disAdded=true; const o=ctx.createOscillator(); o.type="sine"; o.frequency.value=58*Math.pow(2,6/12);
+      const g=ctx.createGain(); g.gain.value=0; g.gain.setTargetAtTime(.04,ctx.currentTime,3); o.connect(g).connect(droneGain); o.start(); } }
+  function climax(){ if(!ctx)return; const t=ctx.currentTime;
+    const o=ctx.createOscillator(); o.type="sine"; o.frequency.setValueAtTime(120,t); o.frequency.exponentialRampToValueAtTime(28,t+2);
+    const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.4,t+.4); g.gain.setValueAtTime(.4,t+1.6); g.gain.exponentialRampToValueAtTime(.0001,t+2.4);
+    o.connect(g).connect(master); o.start(t); o.stop(t+2.5);
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(2);
+    const lp=ctx.createBiquadFilter(); lp.type="lowpass"; lp.frequency.setValueAtTime(300,t); lp.frequency.exponentialRampToValueAtTime(6000,t+1.9);
+    const wg=ctx.createGain(); wg.gain.setValueAtTime(0,t); wg.gain.linearRampToValueAtTime(.25,t+1.8); wg.gain.linearRampToValueAtTime(0,t+2);
+    wn.connect(lp).connect(wg).connect(master); wn.start(t); wn.stop(t+2); }
+  function hit(){ if(!ctx)return; const t=ctx.currentTime;
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(1.2);
+    const g=ctx.createGain(); g.gain.setValueAtTime(.5,t); g.gain.exponentialRampToValueAtTime(.0001,t+1.1);
+    wn.connect(g).connect(master); wn.start(t); wn.stop(t+1.2);
+    const o=ctx.createOscillator(); o.type="sine"; o.frequency.setValueAtTime(60,t); o.frequency.exponentialRampToValueAtTime(20,t+1);
+    const og=ctx.createGain(); og.gain.setValueAtTime(.5,t); og.gain.exponentialRampToValueAtTime(.0001,t+1);
+    o.connect(og).connect(master); o.start(t); o.stop(t+1.1); }
+  function unlatch(){ if(!ctx)return; const t=ctx.currentTime;
+    // 鍵が外れる「カチャ」＋解除の安堵チャイム（上行する3音）
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(.12);
+    const bp=ctx.createBiquadFilter(); bp.type="bandpass"; bp.Q.value=6; bp.frequency.value=2400;
+    const ng=ctx.createGain(); ng.gain.setValueAtTime(.4,t); ng.gain.exponentialRampToValueAtTime(.0001,t+.13);
+    wn.connect(bp).connect(ng).connect(master); wn.start(t); wn.stop(t+.14);
+    const clk=ctx.createOscillator(); clk.type="square"; clk.frequency.setValueAtTime(180,t); clk.frequency.exponentialRampToValueAtTime(60,t+.06);
+    const cg=ctx.createGain(); cg.gain.setValueAtTime(.18,t); cg.gain.exponentialRampToValueAtTime(.0001,t+.08);
+    clk.connect(cg).connect(master); clk.start(t); clk.stop(t+.09);
+    [523.25,659.25,783.99].forEach((f,i)=>{ const tt=t+.12+i*.085; const o=ctx.createOscillator(); o.type="sine"; o.frequency.value=f;
+      const g=ctx.createGain(); g.gain.setValueAtTime(0,tt); g.gain.linearRampToValueAtTime(.12,tt+.03); g.gain.exponentialRampToValueAtTime(.0001,tt+.9);
+      o.connect(g).connect(master); o.start(tt); o.stop(tt+1); }); }
+  function silence(fade){ if(!ctx)return; horrorOn=false; clearTimeout(horrorTimer); horrorTimer=null; clearTimeout(pulseTimer); pulseTimer=null; clearTimeout(beatTimer); beatTimer=null; clearTimeout(ambTimer); if(padNodes){ const pn=padNodes; pn.pad.gain.setTargetAtTime(0,ctx.currentTime,1.2); setTimeout(()=>{ pn.oscs.forEach(x=>{try{x.o.stop();x.lfo.stop();}catch(e){}}); },1400); padNodes=null; } master.gain.setTargetAtTime(0,ctx.currentTime,fade||1.5); }
+  function tinnitus(sec){ if(!ctx)return; const t=ctx.currentTime,d=sec||7;
+    // 高周波の耳鳴り
+    const o=ctx.createOscillator(); o.type="sine"; o.frequency.setValueAtTime(9200,t); o.frequency.linearRampToValueAtTime(9600,t+d);
+    const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.13,t+.6); g.gain.setValueAtTime(.13,t+d-1.2); g.gain.linearRampToValueAtTime(.0001,t+d);
+    o.connect(g).connect(master); o.start(t); o.stop(t+d+.1);
+    const o2=ctx.createOscillator(); o2.type="sine"; o2.frequency.setValueAtTime(11800,t);
+    const g2=ctx.createGain(); g2.gain.setValueAtTime(0,t); g2.gain.linearRampToValueAtTime(.05,t+.7); g2.gain.linearRampToValueAtTime(.0001,t+d);
+    o2.connect(g2).connect(master); o2.start(t); o2.stop(t+d+.1);
+    // 砂嵐ベッド
+    const wn=ctx.createBufferSource(); wn.buffer=noiseBuf(d+.4); wn.loop=true;
+    const hp=ctx.createBiquadFilter(); hp.type="highpass"; hp.frequency.value=1800;
+    const ng=ctx.createGain(); ng.gain.setValueAtTime(0,t); ng.gain.linearRampToValueAtTime(.2,t+1); ng.gain.setValueAtTime(.2,t+d-1); ng.gain.linearRampToValueAtTime(.0001,t+d);
+    wn.connect(hp).connect(ng).connect(master); wn.start(t); wn.stop(t+d);
+    // 低サブの圧
+    const sub=ctx.createOscillator(); sub.type="sine"; sub.frequency.setValueAtTime(48,t);
+    const sg=ctx.createGain(); sg.gain.setValueAtTime(0,t); sg.gain.linearRampToValueAtTime(.18,t+.8); sg.gain.linearRampToValueAtTime(.0001,t+d);
+    sub.connect(sg).connect(master); sub.start(t); sub.stop(t+d); }
+  function epilogue(){ if(!ctx)return; silence(2.2);
+    // 余韻のキーン：数秒で完全フェードアウト（不快に残さない）
+    const t=ctx.currentTime;
+    const o=ctx.createOscillator(); o.type="sine"; o.frequency.value=660; const g=ctx.createGain(); g.gain.value=0;
+    o.connect(g).connect(ctx.destination); o.start(t);
+    g.gain.setValueAtTime(0,t+1.4);
+    g.gain.linearRampToValueAtTime(.02,t+2.2);
+    g.gain.linearRampToValueAtTime(.0001,t+5.2);
+    o.stop(t+5.4); }
+  function dread(sec){ if(!ctx)return; const t=ctx.currentTime,d=sec||3.2;
+    // 不協和な弦のライザー（半音ぶつかり）＋サブの膚らみ
+    [185,196].forEach((base)=>{ const o=ctx.createOscillator(); o.type="sawtooth";
+      o.frequency.setValueAtTime(base*.5,t); o.frequency.linearRampToValueAtTime(base,t+d);
+      const det=ctx.createOscillator(); det.type="sawtooth"; det.frequency.setValueAtTime(base*.504,t); det.frequency.linearRampToValueAtTime(base*1.008,t+d);
+      const lp=ctx.createBiquadFilter(); lp.type="lowpass"; lp.frequency.setValueAtTime(300,t); lp.frequency.linearRampToValueAtTime(2600,t+d);
+      const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.1,t+d*.92); g.gain.linearRampToValueAtTime(.0001,t+d+.4);
+      o.connect(lp); det.connect(lp); lp.connect(g).connect(master); o.start(t); o.stop(t+d+.5); det.start(t); det.stop(t+d+.5); });
+    const sub=ctx.createOscillator(); sub.type="sine"; sub.frequency.setValueAtTime(40,t); sub.frequency.linearRampToValueAtTime(30,t+d);
+    const sg=ctx.createGain(); sg.gain.setValueAtTime(0,t); sg.gain.linearRampToValueAtTime(.3,t+d*.9); sg.gain.exponentialRampToValueAtTime(.0001,t+d+.6);
+    sub.connect(sg).connect(master); sub.start(t); sub.stop(t+d+.7); }
+  // ホラーBGMベッド（ドローン膨らみ＋不協和パッド＋遅い心臓音＋ささやき）—— 09復元からエピローグまで
+  function ambientHorror(on){ if(!ctx)return;
+    if(on){ if(horrorOn)return; horrorOn=true; wake();
+      droneGain.gain.setTargetAtTime(.2,ctx.currentTime,4);
+      windGain.gain.setTargetAtTime(.09,ctx.currentTime,5);
+      const pad=ctx.createGain(); pad.gain.value=0; pad.gain.setTargetAtTime(.045,ctx.currentTime,6);
+      const plp=ctx.createBiquadFilter(); plp.type="lowpass"; plp.frequency.value=1500; pad.connect(plp).connect(master);
+      const freqs=[110,164.81,220,233.08];
+      const oscs=freqs.map((f,i)=>{ const o=ctx.createOscillator(); o.type=i%2?"sine":"triangle"; o.frequency.value=f;
+        const g=ctx.createGain(); g.gain.value=i===3?.03:.07;
+        const lfo=ctx.createOscillator(); lfo.frequency.value=.025+i*.013; const lg=ctx.createGain(); lg.gain.value=3;
+        lfo.connect(lg).connect(o.detune); lfo.start();
+        o.connect(g).connect(pad); o.start(); return {o,lfo}; });
+      padNodes={pad,oscs};
+      let bpm=44; const beat=()=>{ if(!horrorOn)return; if(!beatTimer) heart(); bpm=Math.min(60,bpm+.5); pulseTimer=setTimeout(beat,60000/bpm); }; beat();
+      const tickH=()=>{ if(!horrorOn)return; (Math.random()<.55?whisper:creak)(); horrorTimer=setTimeout(tickH,3200+Math.random()*5200); };
+      horrorTimer=setTimeout(tickH,2800);
+    } else { horrorOn=false; clearTimeout(horrorTimer); horrorTimer=null; clearTimeout(pulseTimer); pulseTimer=null;
+      if(padNodes){ const pn=padNodes; pn.pad.gain.setTargetAtTime(0,ctx.currentTime,2.2); setTimeout(()=>{ pn.oscs.forEach(x=>{try{x.o.stop();x.lfo.stop();}catch(e){}}); },2600); padNodes=null; }
+      droneGain.gain.setTargetAtTime(.1+tension*.04,ctx.currentTime,3); } }
+  function setMute(m){ muted=m; if(master)master.gain.setTargetAtTime(m?0:.9,ctx.currentTime,.2); }
+  function wake(){ if(ctx&&!muted) master.gain.setTargetAtTime(.9,ctx.currentTime,1.6); }
+  return {start,ui,unlock,unlatch,recording,whisper,darkrise,staticBurst,tinnitus,proximity,tens,climax,hit,silence,epilogue,dread,ambientHorror,wake,setMute,get muted(){return muted;},get on(){return started;}};
+})();
+
+function scene(n){
+  let fig="";const xs=[140,176,212];
+  for(let i=0;i<Math.min(n,3);i++){const x=xs[i];fig+=`<g fill="#000"><ellipse cx="${x}" cy="${172+(x%6)}" rx="10" ry="12"/><rect x="${x-8}" y="${182+(x%6)}" width="16" height="42" rx="6"/></g>`;}
+  return `<svg viewBox="0 0 340 250" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block">
+    <defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1316"/><stop offset="1" stop-color="#05090a"/></linearGradient></defs>
+    <rect width="340" height="250" fill="url(#sk)"/>
+    <g fill="#01040566" stroke="#0a0d0f" stroke-width="2"><rect x="96" y="56" width="150" height="8"/><rect x="112" y="64" width="8" height="150"/><rect x="222" y="64" width="8" height="150"/></g>${fig}</svg>`;
+}
+function film(key,n){
+  const src=STORY.images[key];
+  const inner=src?`<img class="src" src="${src}" alt="">`:`<div class="src">${scene(n)}</div>`;
+  return `<div class="film">${inner}<div class="grain"></div></div>`;
+}
+/* チャット吹き出し（時刻・既読つき） */
+function bub(side,text,time,read,who){
+  const av=side==="them"?(who==="楓"?`<div class="av kaede-av" data-act="kaedeProfile"><img src="kaede.png" alt="楓"></div>`:(who==="龍之介"?`<div class="av ryu-av" data-act="ryuProfile">龍</div>`:`<div class="av">${(who||"?").slice(0,1)}</div>`)):"";
+  const nm=side==="them"&&who?`<span class="who-nm">${who}</span>`:"";
+  const meta=`<div class="meta">${read?'<span class="rd">既読</span>':''}<span>${time}</span></div>`;
+  const inner=side==="me"?`${meta}<div class="bub">${text}</div>`:`${av}<div class="bcol">${nm}<div class="bub">${text}</div></div>${meta}`;
+  return `<div class="row ${side}">${inner}</div>`;
+}
+/* 関係者カード */
+function memberCard(m,bio,dark){
+  const base=dark?"background:linear-gradient(180deg,rgba(18,26,28,.92),rgba(10,16,18,.92));border:1px solid #1d2a27":"background:linear-gradient(180deg,#ffffff,#eef3f0);border:1px solid var(--edge)";
+  const nameC=dark?"#e6ede9":"#1d2622",roleC=dark?"#67756d":"#8a978f",bioC=dark?"#9fb0a8":"#3a443e";
+  return `<div style="display:flex;gap:13px;align-items:flex-start;${base};border-radius:12px;padding:14px;margin-bottom:11px;text-align:left">
+    <div style="width:46px;height:46px;border-radius:50%;flex-shrink:0;background:linear-gradient(150deg,#5a6e66,#2c3a34);display:flex;align-items:center;justify-content:center;color:#dfeae4;font-size:18px;font-family:var(--mincho)">${m.name.charAt(0)}</div>
+    <div style="flex:1;min-width:0">
+      <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap"><span style="font-size:16px;color:${nameC};font-weight:600">${m.name}</span><span style="font-size:10.5px;color:${roleC};font-family:var(--mono);letter-spacing:.07em">${m.role}</span></div>
+      ${bio?`<div style="margin-top:8px;font-size:12.5px;line-height:1.72;color:${bioC}"><span style="color:${roleC};font-family:var(--mono);font-size:10px;letter-spacing:.14em">ひとこと</span><br>${m.bio}</div>`:`<div style="margin-top:6px;font-size:11px;color:${roleC};font-family:var(--mono);letter-spacing:.08em">— 消息不明 —</div>`}
+    </div>
+  </div>`;
+}
+function roster(bio,dark){return STORY.members.map(m=>memberCard(m,bio,dark)).join("");}
+
+const RENDER={
+  msg(){
+    const tabs = flags.f_log ? `<div class="chat-tabs">
+      <div class="tab ${CHATVIEW==="group"?"on":""}" data-act="chatTab" data-view="group">オカルト研（3人）</div>
+      <div class="tab ${CHATVIEW==="ryu"?"on":""}" data-act="chatTab" data-view="ryu">龍之介${(!flags.f_ryu||(flags.f_ryu2&&!flags.f_ryu2seen))?'<span class="new">NEW</span>':""}</div>
+    </div>` : "";
+    const head = CHATVIEW==="ryu"
+      ? `<div class="msg-head"><div class="av">龍</div><div><div class="nm">龍之介</div><div class="st">個人トーク</div></div></div>`
+      : `<div class="msg-head"><div class="av">研</div><div><div class="nm">オカルト研（3人）</div><div class="st">祐一 ・ 楓 ・ 龍之介</div></div></div>`;
+    const body = CHATVIEW==="ryu" ? RENDER.chatRyu() : RENDER.chatGroup();
+    const intfBar = (CHATVIEW==="ryu" && flags.f_intf && !flags.f_ryuGone)
+      ? `<div class="chat-input" id="intf-bar">
+           <input id="i-intf" placeholder="メッセージを入力…" autocomplete="off" maxlength="40">
+           <button data-act="sendIntf" aria-label="送信">➤</button>
+         </div>`
+      : "";
+    return `<div class="msgapp">${head}${tabs}<div class="msg-scroll" id="msg-scroll">${body}</div>${intfBar}</div>`;
+  },
+  chatGroup(){
+    const pinBlock = flags.f_log
+      ? `<div class="ip-done">✓ 解除 ── 記録ファイルを展開。デスクトップに「録音」が出現しました。</div>`
+      : `<div class="inline-pin" id="inline-pin">
+        <div class="ip-row">
+          <input id="i-pin" inputmode="numeric" maxlength="6" placeholder="PIN（4桁）" autocomplete="off">
+          <button data-act="subPin">解除</button>
+        </div>
+        <div class="err" id="e-pin"></div>
+      </div>`;
+    const ryuNote = flags.f_log
+      ? `<div class="sys-line">［ 個人トーク：龍之介 が復元されました ］</div>`
+      : "";
+    return `
+      <div class="daychip">七月十五日</div>
+      ${bub("me","楓どこいる？","23:46",true)}
+      ${bub("me","流石に怖くなって先に車戻った？笑","23:46",true)}
+      ${bub("them","え、ずっと一緒いたけど","23:48",false,"楓")}
+      ${bub("them","なんで逆にいないわけ？","23:48",false,"楓")}
+      ${bub("them","そういうのホントいいってば","23:48",false,"楓")}
+      <div style="height:16px"></div>
+      ${bub("them","怖がらせたいとかでしょ？","23:50",false,"楓")}
+      ${bub("them","早く出てきてよ、そんなの怖くないから","23:50",false,"楓")}
+      ${bub("me","いや待って、楓の姿なんてここ30分くらい見てないけど、、","23:51",true)}
+      ${bub("them","は、、？","23:51",false,"楓")}
+      ${bub("me","てっきり先戻ったんかと思った。りゅーのお祓いまがいなの付き合ってたから連絡してなかったけど","23:52",true)}
+      ${bub("them","私まだ神社にいるんだけど、なんでみんなの声聞こえないの","23:53",false,"楓")}
+      ${bub("them","ちょっと無理かもしれない","23:57",false,"楓")}
+      ${bub("them","お願い、2人どこいるの？ねえ","23:57",false,"楓")}
+      ${bub("me","待って落ち着けって、一旦車戻ろう","23:58",true)}
+      ${bub("them","録音したやつ、やばいよこれ","23:59",false,"楓")}
+      ${bub("me","？","23:59",true)}
+      <div class="daychip">七月十六日</div>
+      ${bub("them","ちょっと送る","00:00",false,"楓")}
+      <div class="attach-card" data-act="focusPin">
+        <div class="pv">${ICONS.lock}</div>
+        <div class="ft"><span>survey_pack.zip</span><span class="lk">🔒 ロック中</span></div>
+      </div>
+      ${bub("them","ピンコードはあれね","00:01",false,"楓")}
+      ${pinBlock}
+      ${bub("them","あーもう、ほんとやばい","00:02",false,"楓")}
+      ${bub("them","なにこれ、、、","00:03",false,"楓")}
+      ${bub("them","ああああアあああああ","00:03",false,"楓")}
+      ${bub("them","ｧ","00:04",false,"楓")}
+      ${bub("me","楓？？","00:06",false)}
+      ${bub("me","待ってなんだよ何が起きてんの、、","00:06",false)}
+      ${bub("me","あれ、りゅーはどこ行った","00:09",false)}
+      ${bub("me","@龍之介 どこいるの？着いてきてないの？","00:10",false)}
+      ${ryuNote}`;
+  },
+  chatRyu(){
+    const full = `
+      <div class="daychip">七月十六日</div>
+      ${bub("me","りゅー、無事？どこ","00:10",true)}
+      ${bub("them","楓の存在が消えた気がする","00:16",false,"龍之介")}
+      ${bub("them","それに社殿の形がおかしい。ここもう日本じゃないかもしれない","00:16",false,"龍之介")}`;
+    const intro = `
+      <div class="daychip">七月十六日</div>
+      ${bub("me","りゅー、無事？どこ","00:10",true)}`;
+    const full2 = (flags.f_ryu||flags.f_ryu2)?1:0;
+    const cont = flags.f_ryu2 ? `
+      <div class="sys-line" id="ryu-restore">［ 録音より 龍之介の通信を追加復元 ］</div>
+      ${bub("them","ゆーちゃん、引き返せそう？","00:18",false,"龍之介")}
+      ${bub("me","無理だよ<br>もう何もわかんねえ","00:19",true)}
+      ${bub("me","どうしよう","00:19",true)}
+      ${bub("me","怖いよ","00:20",true)}
+      ${bub("me","こんなことやめとけばよかった","00:20",true)}
+      ${bub("them","とりあえず落ち着いて","00:21",false,"龍之介")}
+      ${bub("them","道中で俺のお守りの写真撮ってたよね","00:21",false,"龍之介")}
+      ${bub("them","どこかで落としたみたいでさ","00:21",false,"龍之介")}
+      ${bub("them","あれがあれば大丈夫なはずなんだ","00:22",false,"龍之介")}
+      ${bub("them","写真確認して何か写ってないか教えてほしい","00:22",false,"龍之介")}` : "";
+    // 既に見た後は全表示、初回は intro だけ置いて JS で段階表示
+    const intfStatic = flags.f_intf ? `
+      ${bub("them","写真は確認できた？","00:23",false,"龍之介")}
+      ${bub("them","どこにあるかわかったか？","00:23",false,"龍之介")}
+      <div class="intf-banner">― 干渉モード解除 ―</div>` : "";
+    const goneStatic = flags.f_ryuGone ? (DREAD.map(t=>bub("them",t,"00:24",false,"龍之介").replace('class="row them"','class="row them dread"')).join("")
+      + bub("them",FLOOD_LAST,"00:24",false,"龍之介").replace('class="row them"','class="row them flood"')
+      + `<div class="ryu-exit"><div class="ln"></div><div class="tx">龍之介がこの世から退出しました。</div><div class="ln"></div></div>`) : "";
+    return `<div id="ryu-list" data-full="${full2}">${full2?full:intro}${flags.f_ryu2?cont:""}${intfStatic}${goneStatic}</div>`;
+  },
+  pin(){return `<div class="scrollable"><div class="pinwrap">
+    <div class="ic">${ICONS.lock}</div>
+    <div class="q">survey_pack.zip ── PINを入力</div>
+    <div class="field"><input id="i-pin" inputmode="numeric" maxlength="6" placeholder="＿＿＿＿" autocomplete="off"><button data-act="subPin">解除</button></div>
+    <div class="err" id="e-pin"></div>
+    <div class="note">ヒント：<b>楓</b>の「関係者」プロフィールを開き、<b>ひとこと</b>に書かれたロックの暗証（4桁）を探す。</div>
+    <div class="note"><span data-act="backMsg" style="color:var(--ok);cursor:pointer">← トークに戻る</span></div>
+  </div></div>`;},
+  log(){return `<div class="scrollable"><div class="log"><h4>録音メモ ／ 解析レポート</h4>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--ink-mute);letter-spacing:.08em">記録番号：A-██-17</p>
+    <p>██神社境内にて回収された音響記録から、発生源不明の音声を検出。</p>
+    <p>行方不明となった被験者が最後に録音したとされる原因不明の音声データを回収。</p>
+    <p>記録内には人間の発声と推定される複数の音声、および既知の環境音と一致しない<span class="redact">低周波ノイズ</span>が含まれていた。</p>
+    <p>特筆すべき点として、録音終了時刻以降も約<b>131秒間</b>にわたり音声データが継続しており、機器の動作記録との整合性が確認できていない。</p>
+    <p>調査班はこれを、対象者らが移行した<span class="redact">未知の空間</span>から送信された残留記録である可能性があると判断している。</p>
+    <p style="color:var(--bad-2)"><b>警告：当該データの反復再生は禁止。</b> 過去の試験では、再生後に方向感覚の喪失、幻聴、失踪者の目撃証言など複数の異常事例が報告されている。</p>
+    <div class="rec" id="rec">
+      <div class="meta-r"><span>録音_03.wav</span><span id="rec-meta" style="color:var(--bad)">02:11</span></div>
+      <div class="wave" id="wave"></div>
+      <button class="play" data-act="play">▶ 再生する</button>
+      <div id="rec-after" style="display:none;margin-top:14px;font-size:13px;line-height:1.95">
+        <div style="border-left:2px solid var(--edge);padding-left:13px">
+          <p style="margin:2px 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">楓</p>
+          <p style="margin:0 0 9px">「うわ、なにこれめっちゃ不吉」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">祐一</p>
+          <p style="margin:0 0 9px">「赤い札でお出迎えってか」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">龍之介</p>
+          <p style="margin:0 0 9px">「鳥居の外側に、、一体なんのためだろう」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">祐一</p>
+          <p style="margin:0 0 9px">「神様監禁事件かもな」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">楓</p>
+          <p style="margin:0 0 9px">「意味わかんないこと言わないよほら」</p>
+          <p style="margin:2px 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">龍之介</p>
+          <p style="margin:0 0 9px">「昔の人ってさ、神隠しを本気で信じてたんだよ。」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">楓</p>
+          <p style="margin:0 0 9px">「また怖い話？」</p>
+          <div id="rv-a"></div>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">龍之介</p>
+          <p style="margin:0 0 9px">「怖いっていうか記録。急に人が消えたら『神様に連れて行かれた』って考えてた。」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">祐一</p>
+          <p style="margin:0 0 9px">「いいねいいね、雰囲気出るね！」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">龍之介</p>
+          <p style="margin:0 0 9px">「面白いのはさ、その手の話って決まって境界で起きるんだよ。」</p>
+          <div id="rv-b"></div>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">楓</p>
+          <p style="margin:0 0 9px">「なに境界って」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">龍之介</p>
+          <p style="margin:0 0 9px">「山の入口とか、村外れとか、神社とか。」</p>
+          <p style="margin:12px 0;text-align:center;font-size:11px;color:var(--ink-mute);font-style:italic">（草を踏む音）</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">楓</p>
+          <p style="margin:0 0 9px">「あ、あそこじゃない？」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">祐一</p>
+          <p style="margin:0 0 9px">「写真撮ろうぜ」</p>
+          <p style="margin:12px 0;text-align:center;font-size:11px;color:var(--ink-mute);font-style:italic">（シャッター音）</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">楓</p>
+          <p style="margin:0 0 9px">「ゆーいち、いろんな写真撮っときなね」</p>
+          <p style="margin:0 0 1px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-mute)">祐一</p>
+          <p style="margin:0 0 9px">「調査資料増やさなきゃな！」</p>
+          <div id="rv-c"></div>
+          <p style="margin:12px 0 4px;text-align:center;font-size:11px;color:var(--ink-mute);font-style:italic">（録音終了）</p>
+        </div>
+        <div id="rec-pin" style="display:none;margin-top:14px">
+          <div class="field"><input id="i-rec" inputmode="numeric" maxlength="6" placeholder="＿＿＿＿" autocomplete="off"><button data-act="subRec">復元</button></div>
+          <div class="err" id="e-rec"></div>
+          <div class="note">この声は<b>逆位相</b>で刻まれている。聞こえたものを<b>4桁</b>に直して入力せよ。</div>
+        </div>
+      </div></div></div></div>`;},
+  profile(){
+    const yuichiX = flags.f_yuichiGone ? `
+      <div class="roster-x yuichi" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="8" y1="10" x2="92" y2="90"/><line x1="92" y1="10" x2="8" y2="90"/></svg>
+        <div class="rx-tag">観測不能</div>
+      </div>` : "";
+    const kaedeX = flags.f_log ? `
+      <div class="roster-x" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="8" y1="10" x2="92" y2="90"/><line x1="92" y1="10" x2="8" y2="90"/></svg>
+        <div class="rx-tag">観測不能</div>
+      </div>` : "";
+    const ryuX = flags.f_ryuGone ? `
+      <div class="roster-x ryu" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="8" y1="10" x2="92" y2="90"/><line x1="92" y1="10" x2="8" y2="90"/></svg>
+        <div class="rx-tag">観測不能</div>
+      </div>` : "";
+    return `<div class="scrollable"><div style="padding:14px">
+    <div style="font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--ink-mute);margin-bottom:10px">関係者 ／ 行方不明者 3名</div>
+    <div class="roster-wrap">
+      <img src="roster.jpg" alt="関係者プロフィール" style="width:100%;border-radius:10px;border:1px solid var(--edge);display:block">
+      ${yuichiX}
+      ${kaedeX}
+      ${ryuX}
+    </div>
+    <div class="note" style="margin-top:10px">※ 端末内の連絡先・SNSプロフィールから自動復元。</div>
+  </div></div>`;},
+  photo(){
+    const gone=flags.f_ryuGone;
+    const k2=gone?"p02g":"p02", c2=gone?"写真_02 あと1人":"写真_02 2人";
+    const k3=gone?"p03g":"p03";
+    const k4=gone?"p04g":"p04";
+    const nine = flags.f_nine ? `
+    <div class="pcard lockview nine" data-pn="9"><div class="ph" data-act="lightbox" data-key="p09" data-cap="写真_09 今">${film("p09",0)}</div><div class="cap"><span class="dot"></span>写真_09 今</div></div>` : "";
+    return `<div class="scrollable"><div class="gallery" style="${gone?'filter:brightness(1.5) contrast(1.05);':''}">
+    <div class="pcard lockview" data-pn="1"><div class="ph" data-act="lightbox" data-key="p01" data-cap="写真_01 祠">${film("p01",3)}</div><div class="cap"><span class="dot"></span>写真_01 祠</div></div>
+    <div class="pcard lockview" data-pn="2"><div class="ph" data-act="lightbox" data-key="${k2}" data-cap="${c2}">${film(k2,0)}</div><div class="cap"><span class="dot"></span>${c2}</div></div>
+    <div class="pcard lockview" data-pn="3"><div class="ph" data-act="lightbox" data-key="${k3}" data-cap="写真_03">${film(k3,0)}</div><div class="cap"><span class="dot"></span>写真_03</div></div>
+    <div class="pcard lockview" data-pn="4"><div class="ph" data-act="lightbox" data-key="${k4}" data-cap="写真_04 お守り">${film(k4,0)}</div><div class="cap"><span class="dot"></span>写真_04 お守り</div></div>
+    <div class="pcard lockview" data-pn="5"><div class="ph" data-act="lightbox" data-key="p05" data-cap="写真_05 本殿内">${film("p05",0)}</div><div class="cap"><span class="dot"></span>写真_05 本殿内</div></div>
+    <div class="pcard lockview" data-pn="6"><div class="ph" data-act="lightbox" data-key="p06" data-cap="写真_06 トイレ">${film("p06",0)}</div><div class="cap"><span class="dot"></span>写真_06 トイレ</div></div>
+    <div class="pcard lockview" data-pn="7"><div class="ph" data-act="lightbox" data-key="p07" data-cap="写真_07 鳥居（赤いお札？）">${film("p07",0)}</div><div class="cap"><span class="dot"></span>写真_07 鳥居（赤いお札？）</div></div>
+    <div class="pcard locked"><div class="ph"><div class="film"><img class="src" src="photo-cursed.png" alt="" style="width:100%;height:100%;object-fit:cover"><div class="grain"></div><div class="photolock"><span class="pl-ic">⊗</span><span class="pl-tx">ロック中</span></div></div></div><div class="cap"><span class="dot"></span>写真_08 下山前・集合</div></div>${nine}
+  </div></div>`;},
+  photoView(){return `<div class="scrollable"><div class="photo-view"><div class="frame">
+    <div class="loupe-stage" id="stage">
+      <div class="photo-full">${film("p08",4)}</div>
+      <div class="veil" id="veil"></div>
+      <div class="ring" id="ring"></div>
+      <div class="loupe-hint" id="lhint"><span>ライトをドラッグして写真を確認</span></div>
+    </div></div>
+    <div class="note" style="text-align:center;margin-top:11px;color:#9aa49d;line-height:1.7">時空が歪んでいるせいか、<b>3人の顔が判断できない</b></div>
+  </div></div>`;},
+  uninv(){return `<div class="scrollable"><div class="log">
+    <h4>未解決</h4>
+    <p>本件に関する調査はここで終了している。</p>
+    <p>回収された記録媒体内には、本来「<b>写真_08.jpg</b>」が存在していた形跡が確認されているが、現在は閲覧不能となっている。</p>
+    <p>複数回にわたり復元を試みたものの、当該データのみ正常に展開されない。</p>
+    <p>破損ファイルとしては挙動が不自然であり、記録領域そのものが欠落しているような状態となっている。</p>
+    <p style="color:var(--bad-2)">原因は不明。</p>
+    <div style="border-top:1px dashed var(--edge);margin:20px 0 16px"></div>
+    <p style="font-family:var(--mono);letter-spacing:.06em;color:var(--gold)">写真_08を開くための暗号を記入せよ</p>
+    <div class="field" style="margin:10px 0 4px"><input id="i-uninv" maxlength="12" placeholder="＿＿＿＿" autocomplete="off"><button data-act="subUninv">展開</button></div>
+    <div class="err" id="e-uninv"></div>
+    <div style="border-top:1px dashed var(--edge);margin:16px 0 14px"></div>
+    <p style="color:var(--bad-2);font-weight:700;letter-spacing:.04em">警告：</p>
+    <p>写真_08には本件の真相に関わる情報が含まれている可能性があります。</p>
+    <p>暗号を入力した時点で、あなたは本調査の正式な<b>継承者</b>として扱われます。</p>
+    <p>閲覧後に発生したいかなる現象、体調不良、記憶障害、異常体験についても当機関は責任を負いません。</p>
+  </div></div>`;},
+  survey(){return `<div class="scrollable"><div class="log"><h4>端末ログ ／ 自動生成</h4>
+    <p style="color:var(--bad-2)">入場　0:00</p>
+    <p style="color:var(--bad-2)">退場　2:38</p>
+    <p>観測者：祐一 ／ 楓 ／ 龍之介 ／ <span style="color:var(--bad-2)">████（四人目）</span></p>
+    <p class="note" style="margin-top:18px">※ 豁ｻ蟆ｾ蜻?が被調査者からあなたに移ろうとしています。</p></div></div>`;}
+};
+
+function makeWin(id,title){
+  if($("#win-"+id))return $("#win-"+id);
+  const w=document.createElement("div");w.className="win";w.id="win-"+id;
+  w.style.left=(70+Object.keys(flags).length*20)+"px";w.style.top=(46+Object.keys(flags).length*16)+"px";
+  w.innerHTML=`<div class="win-head"><span class="t">${title}</span><button class="x" data-close="${id}">×</button></div><div class="win-body"></div>`;
+  os.insertBefore(w,$("#bar"));dragify(w);return w;
+}
+function openApp(id,sub){
+  // 干渉モードで正解を送った後、龍之介が退出するまで他ページを開けない
+  if(flags.f_intfAnswered && !flags.f_ryuGone && id!=="msg"){ AUD.ui&&AUD.ui("error"); return; }
+  const meta=STORY.apps.find(a=>a.id===id)||{label:id};
+  // PCでは前に開いていたウィンドウも残す（複数同時表示）。スマホ等は従来どおり1枚だけ表示
+  if(!window.matchMedia("(min-width:641px) and (pointer:fine)").matches){
+    document.querySelectorAll(".win.show").forEach(el=>{ if(el.id!=="win-"+id) el.classList.remove("show"); });
+  }
+  const w=makeWin(id,meta.label);w.querySelector(".win-body").innerHTML=RENDER[sub||id]?RENDER[sub||id]():"";
+  const wasOpen=w.classList.contains("show");w.classList.add("show");w.style.zIndex=++z;
+  if(!wasOpen)AUD.ui("open");
+  if((sub||id)==="log"){ buildWave(); restoreRVoices();
+    { const ra=$("#rec-after"); if(ra && (window.__recDone||flags.f_photo||flags.f_ryu2))ra.style.display="block"; if(window.__recDone && !flags.f_photo){ const rp=$("#rec-pin"); if(rp)rp.style.display="block"; const rh=$("#rec-hint"); if(rh)rh.style.display="none"; } }
+  }
+  if((sub||id)==="photoView")initLoupe();
+  if((sub||id)==="photo")setTimeout(initFileDrag,30);
+  if((sub||id)==="msg")setTimeout(()=>afterMsg(),40);
+  if(id==="uninv"){ const w=$("#win-uninv"); if(w){ w.classList.remove("settle-read"); setTimeout(()=>{ const ww=$("#win-uninv"); if(ww&&ww.classList.contains("show")) ww.classList.add("settle-read"); }, 2600); } }
+  // 未解決の本文を読んだあと → ゴミ箱が「シ」に変わり、関係者バッジがドラッグ可能に
+  if(id==="uninv" && !flags.f_unsolvedRead){
+    setTimeout(()=>{ if(!flags.f_unsolvedRead){ flags.f_unsolvedRead=true;
+      const tr=$("#trash"); if(tr){ tr.classList.add("shi"); const l=tr.querySelector(".tlbl"); if(l)l.textContent="シ"; }
+      renderIcons(); AUD.whisper&&AUD.whisper(); } }, 2800);
+  }
+  renderBar();
+}
+function lockScreen(ms){
+  let o=document.getElementById('evt-lock');
+  if(!o){o=document.createElement('div');o.id='evt-lock';
+    o.style.cssText='position:fixed;inset:0;z-index:7900;background:transparent';
+    document.body.appendChild(o);
+    const swallow=e=>{e.stopPropagation();e.preventDefault();};
+    o.addEventListener('click',swallow,true);
+    o.addEventListener('pointerdown',swallow,true);
+    o.addEventListener('touchstart',swallow,{capture:true,passive:false});
+  }
+  o.style.display='block';
+  clearTimeout(window.__lockT);
+  window.__lockT=setTimeout(()=>{o.style.display='none';},ms||3000);
+}
+function showKaede(force){
+  const p=$("#kaede-prof"); if(!p)return;
+  const msg=p.querySelector(".kp-msg");
+  const goScary=()=>{msg.classList.add("bloody");msg.textContent="あーア、4んじゃっタ";p.classList.add("corrupt");};
+  p.style.display="flex";requestAnimationFrame(()=>p.classList.add("show"));
+  // 変貌はPIN解除（force）でのみ発生。アイコンを何回開いても自分からは変わらない
+  const doTransform = force;
+  if(window.__kaedeDone){ // 既に変貌済み → そのまま赤黒
+    flags.f_kaedeGone=true; renderIcons();
+    p.classList.remove("zaza","dimming","blackout","lifting","creep");goScary();AUD.ui&&AUD.ui("open");
+  } else if(doTransform){ // じっくり暗転→砂嵐→変貌
+    window.__kaedeDone=true;
+    flags.f_kaedeGone=true;
+    lockScreen(6500);
+    p.classList.remove("corrupt","dimming","blackout","lifting","creep","zaza");
+    msg.classList.remove("bloody");msg.textContent="推しの誕生日まであと５日！";
+    AUD.ui&&AUD.ui("open");
+    setTimeout(()=>{ p.classList.add("dimming","creep"); AUD.darkrise&&AUD.darkrise(3.4); },1600);
+    setTimeout(()=>{ p.classList.add("blackout"); },3600);
+    setTimeout(()=>{ p.classList.remove("blackout"); p.classList.add("zaza"); AUD.staticBurst&&AUD.staticBurst(1.4); goScary(); renderIcons(); },4500);
+    setTimeout(()=>{ p.classList.remove("zaza","creep"); p.classList.add("lifting"); },5900);
+    setTimeout(()=>{ p.classList.remove("dimming","lifting"); },7800);
+  } else { // 1回目：通常
+    p.classList.remove("zaza","corrupt");msg.classList.remove("bloody");msg.textContent="推しの誕生日まであと５日！";
+    AUD.ui&&AUD.ui("open");
+  }
+}
+function afterMsg(){
+  const s=$("#msg-scroll");
+  if(CHATVIEW==="ryu"){ flags.f_ryu2seen=true; revealRyu(); maybeInterference(); }
+  else if(s){ s.scrollTop=0; }
+}
+/* 写真を一通り見た後、龍之介チャットを開くと干渉モードが解禁される */
+function maybeInterference(){
+  if(!(flags.f_ryu2 && flags.f_photoseen) || flags.f_intf || window.__intfAnimating) return;
+  const list=$("#ryu-list"), s=$("#msg-scroll"); if(!list||!s) return;
+  if(window.__ryuAnimating){ setTimeout(maybeInterference,900); return; }
+  window.__intfAnimating=true;
+  const typing=`<div class="typing-row" id="ryu-typing"><div class="av">龍</div><div class="typing"><i></i><i></i><i></i></div></div>`;
+  const showType=()=>{ list.insertAdjacentHTML("beforeend",typing); s.scrollTop=s.scrollHeight; };
+  const rmType=()=>{ const t=$("#ryu-typing"); if(t)t.remove(); };
+  const addBub=(text,time)=>{ const d=document.createElement("div"); d.innerHTML=bub("them",text,time,false,"龍之介").trim();
+    const row=d.firstChild; row.classList.add("reveal"); list.appendChild(row); s.scrollTop=s.scrollHeight; AUD.ui&&AUD.ui("open"); notify("龍之介",text); };
+  setTimeout(showType,900);
+  setTimeout(()=>{ rmType(); addBub("写真は確認できた？","00:18"); },2500);
+  setTimeout(showType,3100);
+  setTimeout(()=>{ rmType(); addBub("どこにあるかわかったか？","00:18"); },4900);
+  setTimeout(()=>{
+    flags.f_intf=true; window.__intfAnimating=false;
+    glitch(Math.max(window.__glLv||0,2));   // 視覚のみ・エフェクト音なし
+    setInner("msg","msg");                 // 入力バー＋干渉バナーを正式描画
+    const sc=$("#msg-scroll"); if(sc)sc.scrollTop=sc.scrollHeight;
+    const i=$("#i-intf"); if(i)i.focus();
+  },5800);
+}
+/* 干渉モード：プレイヤーの送信 */
+function submitIntf(){
+  if(flags.f_ryuGone||flags.f_intfAnswered) return;
+  const inp=$("#i-intf"); if(!inp) return;
+  const raw=(inp.value||"").trim(); if(!raw) return;
+  const list=$("#ryu-list"), s=$("#msg-scroll"); if(!list) return;
+  const me=document.createElement("div"); me.innerHTML=bub("me",esc(raw),"00:19",true).trim();
+  me.firstChild.classList.add("reveal"); list.appendChild(me.firstChild);
+  inp.value=""; if(s)s.scrollTop=s.scrollHeight; AUD.ui&&AUD.ui("open");
+  const txt=toHira(raw);
+  const ok=/鳥居|とりい/.test(txt) || /外|そと|がい/.test(txt);
+  if(ok){
+    flags.f_intfAnswered=true;
+    const bar=$("#intf-bar"); if(bar)bar.classList.add("locked");
+    setTimeout(runDread,1500);
+  } else {
+    setTimeout(()=>{
+      const d=document.createElement("div"); d.innerHTML=bub("them","なんか違うみたいだな","00:19",false,"龍之介").trim();
+      d.firstChild.classList.add("reveal"); list.appendChild(d.firstChild); if(s)s.scrollTop=s.scrollHeight; AUD.ui&&AUD.ui("open"); notify("龍之介","なんか違うみたいだな");
+    },1600);
+  }
+}
+/* 正解後：断末魔 → フラッド → 退出 */
+function runDread(){
+  const list=$("#ryu-list"), s=$("#msg-scroll"); if(!list) return;
+  glitch(3);   // 視覚の崩れのみ
+  const addThem=(text,cls)=>{ const d=document.createElement("div"); d.innerHTML=bub("them",text,"00:19",false,"龍之介").trim();
+    const row=d.firstChild; row.classList.add("reveal"); if(cls)row.classList.add(cls); list.appendChild(row); if(s)s.scrollTop=s.scrollHeight; };
+  let t=700;
+  DREAD.forEach((line,idx)=>{
+    setTimeout(()=>{ addThem(line,"dread"); AUD.ui&&AUD.ui("open"); }, t);   // 通知音ピコン
+    t += Math.max(1000, 1500-idx*70);   // ゆっくり、徐々に詰める
+  });
+  setTimeout(startFlood, t+300);
+}
+function startFlood(){
+  const list=$("#ryu-list"), s=$("#msg-scroll"); if(!list) return;
+  os.classList.add("quake");
+  const total=18; let n=0;
+  const tick=()=>{
+    n++;
+    const text = n>=total ? FLOOD_LAST : FLOOD_UNIT.repeat(Math.min(2+n,24));
+    const d=document.createElement("div"); d.innerHTML=bub("them",text,"00:19",false,"龍之介").trim();
+    d.firstChild.classList.add("flood"); list.appendChild(d.firstChild);
+    if(s)s.scrollTop=s.scrollHeight;
+    AUD.ui&&AUD.ui("open");   // ピコンピコン連続
+    if(n<total){ setTimeout(tick, 80+Math.random()*70); } else { endFlood(); }
+  };
+  tick();
+}
+function endFlood(){
+  const list=$("#ryu-list"), s=$("#msg-scroll");
+  setTimeout(()=>{
+    os.classList.remove("quake");
+    flags.f_ryuGone=true;
+    const bar=$("#intf-bar"); if(bar)bar.remove();
+    setTimeout(()=>{
+      if(list){ const ex=document.createElement("div"); ex.className="ryu-exit";
+        ex.innerHTML='<div class="ln"></div><div class="tx">龍之介がこの世から退出しました。</div><div class="ln"></div>';
+        list.appendChild(ex); if(s)s.scrollTop=s.scrollHeight; }
+      AUD.silence&&AUD.silence(2.6);
+    },1600);
+    // 龍之介消失後→「未調査」アプリがピコンと出現。無音にならないよう環境音を戻す
+    setTimeout(()=>{ renderIcons(); renderBar(); AUD.ui&&AUD.ui("open"); }, 4200);
+    setTimeout(()=>{ AUD.wake&&AUD.wake(); AUD.tens&&AUD.tens(3); AUD.darkrise&&AUD.darkrise(4.5); }, 4600);
+  },500);
+}
+/* 復元されたチャットは、一番下ではなく「復元された地点」から表示する */
+function ryuScrollToRestore(s){
+  if(!s)return;
+  const a=$("#ryu-restore");
+  if(a){ const ar=a.getBoundingClientRect(), sr=s.getBoundingClientRect(); s.scrollTop += (ar.top - sr.top) - 10; }
+  else { s.scrollTop=s.scrollHeight; }
+}
+function revealRyu(){
+  const list=$("#ryu-list"), s=$("#msg-scroll"); if(!list||!s)return;
+  if(list.getAttribute("data-full")==="1"){ ryuScrollToRestore(s); return; }
+  if(window.__ryuAnimating)return; window.__ryuAnimating=true;
+  const typing=`<div class="typing-row" id="ryu-typing"><div class="av">龍</div><div class="typing"><i></i><i></i><i></i></div></div>`;
+  const addBub=(text,time)=>{ const d=document.createElement("div"); d.innerHTML=bub("them",text,time,false,"龍之介").trim();
+    const row=d.firstChild; row.classList.add("reveal"); list.appendChild(row); s.scrollTop=s.scrollHeight; notify("龍之介",text); };
+  const showType=()=>{ list.insertAdjacentHTML("beforeend",typing); s.scrollTop=s.scrollHeight; };
+  const rmType=()=>{ const t=$("#ryu-typing"); if(t)t.remove(); };
+  setTimeout(showType,500);
+  setTimeout(()=>{ rmType(); addBub("楓の存在が消えた気がする","00:16"); AUD.ui&&AUD.ui("open"); },1550);
+  setTimeout(showType,1950);
+  setTimeout(()=>{ rmType(); addBub("それに社殿の形がおかしい。ここもう日本じゃないかもしれない","00:16"); AUD.ui&&AUD.ui("open");
+    list.setAttribute("data-full","1"); flags.f_ryu=true; window.__ryuAnimating=false;
+    const nb=document.querySelector(".chat-tabs .new"); if(nb)nb.remove();
+  },3150);
+}
+function closeApp(id){const w=$("#win-"+id);if(w&&w.classList.contains("show")){w.classList.remove("show");AUD.ui("close");}renderBar();
+}
+function setInner(winId,sub){$("#win-"+winId+" .win-body").innerHTML=RENDER[sub]();if(sub==="photoView")initLoupe();if(sub==="photo")setTimeout(initFileDrag,30);if(sub==="log"){buildWave(); restoreRVoices(); { const ra=$("#rec-after"); if(ra && (window.__recDone||flags.f_photo||flags.f_ryu2))ra.style.display="block"; if(window.__recDone && !flags.f_photo){ const rp=$("#rec-pin"); if(rp)rp.style.display="block"; const rh=$("#rec-hint"); if(rh)rh.style.display="none"; } }}}
+
+function renderBar(){const bar=$("#bar-apps");bar.innerHTML="";STORY.apps.forEach(a=>{
+  if(a.locked&&!flags[a.needs])return;if(a.auto)return;
+  const open=$("#win-"+a.id)&&$("#win-"+a.id).classList.contains("show");
+  const b=document.createElement("button");b.className="tb"+(open?" active":"");b.innerHTML=ICONS[a.icon]||"▣";b.title=a.label;
+  b.onclick=()=>{const w=$("#win-"+a.id);(w&&w.classList.contains("show"))?closeApp(a.id):openApp(a.id);};
+  bar.appendChild(b);});}
+function renderIcons(){const box=$("#icons");box.innerHTML="";STORY.apps.forEach((a,i)=>{
+  if(a.locked&&!flags[a.needs])return;if(a.auto)return;
+  const d=document.createElement("div");d.className="icon";d.style.animationDelay=(i*.08)+"s";
+  let badgeVal=a.badge;
+  if(a.id==="profile"){ const c=(flags.f_kaedeGone?1:0)+(flags.f_ryuGone?1:0); badgeVal=(flags.f_kaedeGhostUsed?null:(c||null)); if(window.__badgeFreed&&!flags.f_kaedeGhostUsed)badgeVal=null; }
+  const dragOk = a.id==="profile" && flags.f_unsolvedRead && !flags.f_kaedeGhostUsed && badgeVal>=2;
+  d.innerHTML=`<div class="gl">${ICONS[a.icon]}</div><div class="lbl">${a.label}</div>`+(badgeVal?`<span class="badge${dragOk?' drag-ok':''}">${badgeVal}</span>`:"");
+  d.onclick=()=>openApp(a.id);box.appendChild(d);
+  if(dragOk){ const bd=d.querySelector(".badge"); if(bd)initBadgeDrag(bd); }
+});}
+function initBadgeDrag(badge){
+  let dragging=false,ox=0,oy=0;
+  const trashRect=()=>$("#trash").getBoundingClientRect();
+  const over=(x,y)=>{const r=trashRect();return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;};
+  // バッジを画面座標に固定（アイコンから切り離して自由配置できるようにする）
+  const freeFloat=()=>{
+    if(badge.dataset.free==="1") return;
+    const r=badge.getBoundingClientRect();
+    document.body.appendChild(badge);
+    badge.style.position="fixed"; badge.style.margin="0";
+    badge.style.left=r.left+"px"; badge.style.top=r.top+"px"; badge.style.right="auto";
+    badge.style.zIndex="9000"; badge.classList.add("free");
+    badge.dataset.free="1"; window.__badgeFreed=true;
+  };
+  const stop=()=>{ dragging=false; badge.style.cursor="grab"; window.removeEventListener("pointermove",move); window.removeEventListener("pointerup",up); window.removeEventListener("pointercancel",up); $("#trash").classList.remove("over"); };
+  const start=e=>{ e.stopPropagation(); e.preventDefault(); if(dragging)return; dragging=true;
+    freeFloat();
+    const r=badge.getBoundingClientRect(); ox=e.clientX-r.left; oy=e.clientY-r.top;
+    badge.style.cursor="grabbing";
+    // ウィンドウ全体で追跡（再ペアレント後もポインタを取りこぼさない）
+    window.addEventListener("pointermove",move); window.addEventListener("pointerup",up); window.addEventListener("pointercancel",up);
+  };
+  const move=e=>{ if(!dragging)return; e.preventDefault();
+    badge.style.left=(e.clientX-ox)+"px"; badge.style.top=(e.clientY-oy)+"px";
+    const hot=over(e.clientX,e.clientY); $("#trash").classList.toggle("over",hot);
+    if(hot){ stop(); dropBadgeInTrash(badge); }   // ゴミ箱に重なった瞬間に楓ページへ
+  };
+  const up=e=>{ if(!dragging)return; const hit=over(e.clientX,e.clientY); stop();
+    if(hit){ dropBadgeInTrash(badge); }   // ゴミ箱以外で離したら、その場に置いたまま残る
+  };
+  badge.style.touchAction="none";
+  badge.addEventListener("pointerdown",start);
+  badge.addEventListener("click",e=>e.stopPropagation());
+}
+function dropBadgeInTrash(badge){
+  flags.f_kaedeGhostUsed=true; flags.f_kaedeGhost=true;
+  os.classList.add("ghosting");
+  if(badge)badge.remove();
+  const tr=$("#trash"); if(tr){tr.classList.add("over"); setTimeout(()=>tr.classList.remove("over"),300);}
+  AUD.hit&&AUD.hit(); glitch(Math.max(window.__glLv||0,2));
+  setTimeout(()=>showKaede(true),360);
+}
+function openGhostChat(){
+  const g=$("#ghost-chat"); if(!g)return;
+  AUD.wake&&AUD.wake(); AUD.tens&&AUD.tens(3);
+  g.style.display="flex"; requestAnimationFrame(()=>g.classList.add("show"));
+  const sc=$("#ghost-scroll");
+  if(g.getAttribute("data-done")==="1"){ if(sc)sc.scrollTop=sc.scrollHeight; return; }
+  g.setAttribute("data-done","1"); runGhostScript();
+}
+function runGhostScript(){
+  const sc=$("#ghost-scroll"); if(!sc)return;
+  let gsec=2*3600+13*60+5;  // 深夜02:13開始
+  const tt=()=>{ gsec+=2+Math.floor(Math.random()*9); const h=Math.floor(gsec/3600)%24,m=Math.floor(gsec/60)%60; return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0"); };
+  const addMe=t=>{ const d=document.createElement("div"); d.innerHTML=bub("me",t,tt(),false).trim(); const r=d.firstChild; r.classList.add("reveal"); sc.appendChild(r); sc.scrollTop=sc.scrollHeight; AUD.ui&&AUD.ui("open"); };
+  const addThem=t=>{ const d=document.createElement("div"); d.innerHTML=bub("them",t,tt(),false,"豁ｻ蟆ｾ蜻?").trim(); const r=d.firstChild; r.classList.add("reveal"); sc.appendChild(r); sc.scrollTop=sc.scrollHeight; AUD.whisper&&AUD.whisper(); notify("豁ｻ蟆ｾ蜻?",t,{alarm:true,glyph:"█"}); };
+  // ヨニンメ以降：祐一の名前が怪異（██）の名前に変わる＝祐一側だが怪異の発話
+  const addMeGhost=(t,red)=>{
+    const row=document.createElement("div"); row.className="row me reveal";
+    const bubStyle=red?' style="background:linear-gradient(160deg,#6e0c0c,#1c0606);color:#ff5040;text-shadow:0 0 7px rgba(255,50,36,.6);font-weight:700;letter-spacing:.1em"':'';
+    row.innerHTML=`<div class="meta"><span>${tt()}</span></div><div class="bcol" style="align-items:flex-end"><span class="who-nm" style="color:#e0726a;margin-right:5px;margin-left:0">豁ｻ蟆ｾ蜻?</span><div class="bub bub-1line"${bubStyle}>${t}</div></div>`;
+    sc.appendChild(row); sc.scrollTop=sc.scrollHeight; AUD.whisper&&AUD.whisper();
+  };
+  const typ=()=>{ sc.insertAdjacentHTML("beforeend",`<div class="typing-row" id="gtyp"><div class="av">█</div><div class="typing"><i></i><i></i><i></i></div></div>`); sc.scrollTop=sc.scrollHeight; };
+  const rmtyp=()=>{ const t=$("#gtyp"); if(t)t.remove(); };
+  const NAMU="南無阿弥陀仏".repeat(14)+"死死死死死シ死死死死死死死死死シ死死死死死死死死4";
+  // kind: me / them / nm(南無阿弥陀・高速) / flood(全画面みーつけた) / ghostred / ghost
+  const seq=[
+    ["me","、、楓？"],
+    ["me","やめてくれ頼む"],
+    ["themf","縺ｯ縺ｯ縺ｯ縺ｯ縺ｯ縺ｯ縺ｯ"],
+    ["me","無理だもうむり"],["me","こわいやだ"],
+    ["themf","繧ゅ≧謇矩≦繧?"],["themf","蜈ｨ驛ｨ縺雁燕縺ｮ縺帙＞"],
+    ["me","ても顔も"],["me","あせで"],["me","もじが"],["me","うてなち"],
+    ["themf","縺溘?縺励＞縺溘?縺励＞縺溘?縺励＞"],["them","さんにンめ"],
+    ["pause",1800],
+    ["flood"],
+    ["me","し、しにたくない、"],
+    ["me","南無阿弥陀仏南無阿弥陀仏南無阿弥陀仏"],
+    ["pause",2000],
+    ["me","あ、、"],
+    ["me","しに、、、4に"],
+    ["ghostred","ヨニンメ"],
+    ["pause",1600],
+    ["ghost","みーつけた"]
+  ];
+  let t=900; let prevSide=null;
+  const sideOf=k=>(k==="me"||k==="nm")?"me":((k==="them"||k==="themf"||k==="ghost"||k==="ghostred")?"them":null);
+  seq.forEach(step=>{
+    if(step[0]==="pause"){ t+=step[1]; return; }
+    // 話者が入れ替わるたびに「間」を多めに取る
+    const side=sideOf(step[0]);
+    if(side&&prevSide&&side!==prevSide) t+=1100;
+    if(side) prevSide=side;
+    if(step[0]==="them"){ setTimeout(typ,t); t+=1500; setTimeout(()=>{ rmtyp(); addThem(step[1]); },t); t+=1500; }
+    else if(step[0]==="themf"){ setTimeout(typ,t); t+=380; setTimeout(()=>{ rmtyp(); addThem(step[1]); },t); t+=560; }
+    else if(step[0]==="flood"){ setTimeout(mitsuketaFlood,t); t+=5400; }   // 全画面みーつけた→真っ赤
+    else if(step[0]==="nm"){ setTimeout(()=>{ addMe(step[1]); AUD.whisper&&AUD.whisper(); },t); t+=600; }   // 南無阿弥陀だけ高速
+    else if(step[0]==="ghostred"){ setTimeout(()=>addMeGhost(step[1],true),t); t+=1900; }
+    else if(step[0]==="ghost"){ setTimeout(()=>addMeGhost(step[1],false),t); t+=1900; }
+    else { setTimeout(()=>addMe(step[1]),t); t+=1500; }   // 通常はゆっくり
+  });
+  // 会話が終わったら戻るボタンを解禁
+  setTimeout(()=>{ flags.f_ghostDone=true; flags.f_yuichiGone=true; os.classList.add("ghost-done"); }, t+800);
+}
+/* 全画面「みーつけた」── 赤黒い文字が画面いっぱいに貼り出され、そのまま真っ赤になる */
+function mitsuketaFlood(){
+  let ov=$("#mitsu-flood");
+  if(ov)ov.remove();
+  ov=document.createElement("div"); ov.id="mitsu-flood"; document.body.appendChild(ov);
+  AUD.staticBurst&&AUD.staticBurst(2.4); glitch(3); os.classList.add("quake");
+  const N=96; let i=0;
+  const spawn=()=>{
+    const s=document.createElement("span"); s.className="mt"; s.textContent="みーつけた";
+    const sz=13+Math.random()*70;
+    s.style.fontSize=sz.toFixed(0)+"px";
+    s.style.left=(Math.random()*100).toFixed(1)+"%";
+    s.style.top=(Math.random()*100).toFixed(1)+"%";
+    s.style.transform=`translate(-50%,-50%) rotate(${(Math.random()*26-13).toFixed(1)}deg)`;
+    s.style.opacity=(.45+Math.random()*.55).toFixed(2);
+    ov.appendChild(s);
+    if(AUD.whisper && i%7===0) AUD.whisper();
+    i++;
+    if(i<N) setTimeout(spawn, 14+Math.random()*16);
+    else setTimeout(()=>ov.classList.add("red"), 280);   // そのまま真っ赤に
+  };
+  spawn();
+  setTimeout(()=>{ os.classList.remove("quake"); ov.classList.add("fade"); setTimeout(()=>{ if(ov)ov.remove(); }, 950); }, 4400);
+}
+function dragify(w){const h=w.querySelector(".win-head");let sx,sy,ox,oy,drag=false;
+  const down=e=>{if(e.target.closest("[data-close]"))return;drag=true;w.style.zIndex=++z;const p=e.touches?e.touches[0]:e;sx=p.clientX;sy=p.clientY;ox=w.offsetLeft;oy=w.offsetTop;e.preventDefault();};
+  const move=e=>{if(!drag)return;const p=e.touches?e.touches[0]:e;w.style.left=(ox+p.clientX-sx)+"px";w.style.top=Math.max(0,oy+p.clientY-sy)+"px";};
+  const up=()=>drag=false;
+  h.addEventListener("mousedown",down);h.addEventListener("touchstart",down,{passive:false});
+  addEventListener("mousemove",move);addEventListener("touchmove",move,{passive:false});addEventListener("mouseup",up);addEventListener("touchend",up);}
+function buildWave(){const w=$("#wave");if(!w)return;w.innerHTML="";for(let i=0;i<44;i++){const b=document.createElement("i");b.style.height=(14+Math.random()*86)+"%";w.appendChild(b);}restoreRedden();}
+/* 上から降ってくるプッシュ通知（全チャット共通） */
+function notify(name,text,opts){
+  opts=opts||{};
+  let n=$("#notif");
+  if(!n){ n=document.createElement("div"); n.id="notif";
+    n.innerHTML='<div class="nf-ic"></div><div class="nf-tx"><div class="nf-nm"><span class="nf-who"></span><span class="nf-t">今</span></div><div class="nf-msg"></div></div>';
+    os.appendChild(n);
+    n.addEventListener("click",()=>{ n.classList.remove("show"); });
+  }
+  const ic=n.querySelector(".nf-ic");
+  if(opts.img){ ic.innerHTML='<img src="'+opts.img+'" alt="">'; }
+  else { ic.innerHTML=""; ic.textContent=opts.glyph||(name||"").charAt(0)||"●"; }
+  n.querySelector(".nf-who").textContent=name||"";
+  n.querySelector(".nf-msg").textContent=text||"";
+  n.classList.toggle("alarm",!!opts.alarm);
+  clearTimeout(window.__notifT1); clearTimeout(window.__notifT2);
+  const showIt=()=>{ n.classList.add("show"); window.__notifT2=setTimeout(()=>n.classList.remove("show"),3200); };
+  if(n.classList.contains("show")){ n.classList.remove("show"); window.__notifT1=setTimeout(showIt,260); }
+  else showIt();
+}
+function reddenWave(k){const all=[...document.querySelectorAll('#wave i')];const bars=all.filter(b=>!b.classList.contains('rb'));window.__reddenIdx=window.__reddenIdx||[];for(let i=0;i<(k||1)&&bars.length;i++){const j=Math.floor(Math.random()*bars.length);const bar=bars[j];bar.classList.add('rb');window.__reddenIdx.push(all.indexOf(bar));bars.splice(j,1);}}
+/* 波形の赤黒化を再描画時に復元（タップ演出はバツで閉じても消えない） */
+function restoreRedden(){const idx=window.__reddenIdx;if(!idx||!idx.length)return;const all=[...document.querySelectorAll('#wave i')];idx.forEach(i=>{if(all[i])all[i].classList.add('rb');});}
+function insertRVoice(id,text){window.__rvoices=window.__rvoices||{};window.__rvoices[id]=`<p class="rvoice">「${text}」</p>`;const a=$("#"+id);if(!a)return;a.innerHTML=`<p class="rvoice" style="animation:rvJit .5s steps(2) 3">「${text}」</p>`;const s=a.closest(".scrollable");}
+/* 録音の怪異赤文字を再描画時に復元（復元完了＝f_ryu2 までは全部残す。完了後は3人の声だけ） */
+function restoreRVoices(){
+  if(flags.f_ryu2) return;            // 復元完了後は赤文字を消す
+  const v=window.__rvoices||{};
+  Object.keys(v).forEach(id=>{ const a=$("#"+id); if(a&&!a.innerHTML){ a.innerHTML=v[id]; } });
+}
+function recJumpScare(){lockScreen(3000);const j=$("#jumpscare");if(j){j.querySelector(".js-tx").textContent="ハやくチをながせ";j.classList.add("on");}
+  if(AUD.whisper)AUD.whisper(); glitch(Math.max(window.__glLv||0,2));
+  setTimeout(()=>{ if(j)j.classList.remove("on");
+    const c=$("#rv-c"); if(c)c.innerHTML='<p class="rvoice">ハやくチをながせ</p>'; window.__rvoices=window.__rvoices||{}; window.__rvoices["rv-c"]='<p class="rvoice">ハやくチをながせ</p>';
+    const hint=$("#rec-hint"); if(hint)hint.style.display="none";
+    const rp=$("#rec-pin"); if(rp){rp.style.display="block"; const i=$("#i-rec"); if(i)i.focus();}
+    window.__recDone=true;
+  },2700);
+}
+
+/* ルーペ */
+let foundTimer=null,fired=false,nearFour=false;
+function initLoupe(){fired=false;const stage=$("#stage");if(!stage)return;
+  const hint=$("#lhint");
+  function pos(e){const r=stage.getBoundingClientRect();const p=e.touches?e.touches[0]:e;
+    const x=p.clientX-r.left,y=p.clientY-r.top;
+    stage.style.setProperty("--mx",x+"px");stage.style.setProperty("--my",y+"px");
+    const fx=x/r.width,fy=y/r.height;
+    const onFourth=fx>0.54&&fx<0.78&&fy>0.30&&fy<0.58;   // 写真右側の怪異（場所は明示しない）
+    if(onFourth&&!fired){ if(hint)hint.innerHTML='<span style="color:var(--bad-2)">…そこに、誰かいる</span>';
+      if(!nearFour){nearFour=true;AUD.proximity(true);}
+      if(!foundTimer)foundTimer=setTimeout(()=>{if(!fired){fired=true;finale();}},1400);
+    }else{clearTimeout(foundTimer);foundTimer=null; if(nearFour){nearFour=false;AUD.proximity(false);}}
+    e.preventDefault();}
+  stage.addEventListener("mousemove",pos);stage.addEventListener("touchmove",pos,{passive:false});stage.addEventListener("touchstart",pos,{passive:false});}
+
+function glitch(lv){os.classList.remove("lvl1","lvl2","lvl3","fig1","fig2","fig3");if(lv>=1)os.classList.add("lvl"+Math.min(lv,3));if(lv>=1)os.classList.add("fig"+Math.min(lv,3));if(lv>=2){os.classList.add("corrupt");}AUD.tens(Math.min(lv,3));window.__glLv=lv;startTextRot();}
+/* 進行に応じて文字がバグる（チラッと別字に化ける） */
+const GL_GLYPHS="█▓▒░╳〇◆※╱╲ﾉ卄丂卩龴ㄣﾒ#@¥".split("");
+let __glTimer=null;
+function startTextRot(){
+  if(__glTimer)clearInterval(__glTimer);
+  const lv=window.__glLv||0; if(lv<1)return;
+  const interval=lv>=3?620:lv>=2?1100:2000;
+  const count=lv>=3?3:lv>=2?2:1;
+  __glTimer=setInterval(()=>{
+    const nodes=[...document.querySelectorAll(".win.show .win-body .bub, .win.show .win-body .log p, .win.show .win-body h4, .win.show .win-body .daychip")];
+    if(!nodes.length)return;
+    for(let c=0;c<count;c++){
+      const el=nodes[Math.floor(Math.random()*nodes.length)];
+      if(!el||el.dataset.gl)continue;
+      const txt=el.childNodes;
+      // テキストノードを集める
+      const tn=[...txt].filter(n=>n.nodeType===3&&n.textContent.trim().length>1);
+      if(!tn.length)continue;
+      const node=tn[Math.floor(Math.random()*tn.length)];
+      const orig=node.textContent; const i=Math.floor(Math.random()*orig.length);
+      if(orig[i]===" "||orig[i]==="\n")continue;
+      const g=GL_GLYPHS[Math.floor(Math.random()*GL_GLYPHS.length)];
+      node.textContent=orig.slice(0,i)+g+orig.slice(i+1);
+      el.dataset.gl="1";
+      setTimeout(()=>{node.textContent=orig;delete el.dataset.gl;}, lv>=3?180:120);
+    }
+  },interval);
+}
+
+/* ════════ クライマックス：照らす→暗転→melt→四→エピローグ ════════ */
+function finale(){
+  flags.f_end=true;
+  AUD.dread&&AUD.dread(2.8);
+  AUD.proximity(false);
+  const veil=$("#veil"),ring=$("#ring"),h=$("#lhint"),stage=$("#stage");
+  if(veil)veil.style.opacity="0";          // 一瞬、写真全体（＝あの顔）が見える
+  if(ring)ring.style.display="none";
+  if(h)h.innerHTML='<span style="color:var(--bad-2)">四人目が、こちらを見ている</span>';
+  // 怪異を照らした → 端末ログ（入場/退場/四人目）→ melt → 四 → エピローグ
+  if(stage)stage.classList.add("melting");
+  setTimeout(()=>{const o=$("#obs");o.textContent="2";o.classList.add("alarm");},250);
+  setTimeout(()=>{ glitch(3); showObsReveal(); },700);
+}
+function startStatic(){
+  const sc=$("#static-screen"),cv=$("#static-cv"); if(!sc||!cv)return;
+  sc.classList.remove("fade"); sc.classList.add("show");
+  const cx=cv.getContext("2d",{alpha:false});
+  function resize(){ cv.width=Math.max(2,Math.floor(cv.clientWidth/2.4)); cv.height=Math.max(2,Math.floor(cv.clientHeight/2.4)); }
+  resize(); window.addEventListener("resize",resize);
+  let img=null;
+  function draw(){
+    const w=cv.width,h=cv.height;
+    if(!img||img.width!==w||img.height!==h) img=cx.createImageData(w,h);
+    const d=img.data;
+    for(let i=0;i<d.length;i+=4){ const v=(Math.random()*255)|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; }
+    cx.putImageData(img,0,0);
+    if(Math.random()<0.4){ const y=(Math.random()*h)|0; cx.fillStyle="rgba(255,255,255,.6)"; cx.fillRect(0,y,w,1+(Math.random()*2|0)); }
+    window.__staticRaf=requestAnimationFrame(draw);
+  }
+  draw();
+  // 砂嵐を一定時間見せたあとフェードアウト → 前の終幕（エピローグ）を出す
+  setTimeout(()=>{
+    sc.classList.add("fade");
+    setTimeout(()=>{
+      cancelAnimationFrame(window.__staticRaf); sc.classList.remove("show","fade");
+      $("#epi").classList.add("show"); AUD.epilogue&&AUD.epilogue();
+      const sh=$("#share"); if(sh)sh.href="https://twitter.com/intent/tweet?text="+encodeURIComponent(STORY.shareText);
+    },1250);
+  },3800);
+}
+function meltDown(){
+  const disp=$("#melt-disp"),turb=$("#melt-turb"),black=$("#melt-black");
+  $("#hud").classList.add("gone");
+  AUD.climax();
+  const t0=performance.now(),dur=1900;
+  function step(now){
+    const k=Math.min(1,(now-t0)/dur),e=k*k;
+    disp.setAttribute("scale",(e*130).toFixed(1));
+    turb.setAttribute("baseFrequency",(0.008+e*0.018).toFixed(4)+" "+(0.02+e*0.07).toFixed(4));
+    os.style.filter="url(#melt) blur("+(e*3).toFixed(2)+"px) brightness("+(1-e*0.92).toFixed(3)+")";
+    os.style.transform="translateY("+(e*12).toFixed(1)+"px) scaleY("+(1+e*0.09).toFixed(3)+")";
+    if(k<1)requestAnimationFrame(step);
+    else{ black.style.opacity="1";
+      setTimeout(()=>{ os.style.filter="none";os.style.transform="none";
+        const b=$("#blast");$("#blast-tx").textContent="四";b.classList.add("show");
+        setTimeout(()=>{b.classList.remove("show");
+          $("#epi").classList.add("show");AUD.epilogue();
+          $("#share").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(STORY.shareText);
+        },1500);
+      },520);
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+/* 観測者の全画面リビール → タップで終幕へ */
+function showObsReveal(){
+  const o=$("#obs-reveal"); if(!o){ meltDown(); return; }
+  o.classList.add("show");
+  AUD.tens&&AUD.tens(3); AUD.whisper&&AUD.whisper(); AUD.dread&&AUD.dread(3.2);
+  let used=false;
+  const go=()=>{ if(used)return; used=true; o.removeEventListener("click",go);
+    // 写真ウィンドウを閉じてから melt へ（「四」の前に写真ファイルが映り込まないように）
+    const pw=$("#win-photo"); if(pw){ pw.classList.remove("show"); }
+    o.style.opacity="0";
+    setTimeout(()=>{ o.classList.remove("show"); o.style.opacity=""; meltDown(); },520); };
+  setTimeout(()=>{ o.addEventListener("click",go); }, 1500);   // 最低表示時間（誤タップ防止）
+}
+
+/* ヨニンメ：解錠演出 → ゆっくり08が現れる → タップでルーペ調査へ */
+function revealCursed(){
+  const u=$("#unlock08"); if(!u){ openApp("photo","photoView"); return; }
+  const ph=u.querySelector(".u8-photo"); if(ph) ph.style.backgroundImage="url('"+STORY.images.p08+"')";
+  u.style.display="flex"; u.classList.remove("reveal","opened","shake");
+  void u.offsetWidth; u.classList.add("show");
+  glitch(3);
+  AUD.ambientHorror&&AUD.ambientHorror(true);
+  AUD.tens&&AUD.tens(3); AUD.tinnitus&&AUD.tinnitus(9); AUD.whisper&&AUD.whisper();
+  setTimeout(()=>{ AUD.whisper&&AUD.whisper(); },1400);
+  setTimeout(()=>{ u.classList.add("shake"); },900);
+  setTimeout(()=>{ u.classList.add("opened"); AUD.unlatch&&AUD.unlatch(); AUD.unlock&&AUD.unlock(); },1500);
+  setTimeout(()=>{ u.classList.remove("shake"); AUD.hit&&AUD.hit(); },1900);
+  setTimeout(()=>{ u.classList.add("reveal"); },2300);   // ゆっくり08が現れる
+  let used=false;
+  const go=()=>{ if(used)return; used=true; u.removeEventListener("click",go);
+    u.style.transition="opacity .6s ease"; u.style.opacity="0";
+    setTimeout(()=>{ u.classList.remove("show","reveal","opened"); u.style.display="none"; u.style.opacity=""; u.style.transition="";
+      openApp("photo","photoView"); },650); };
+  setTimeout(()=>{ u.addEventListener("click",go); }, 6000);
+}
+
+/* 進行 */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-act],[data-close]");if(!t)return;
+  const close=t.getAttribute("data-close");if(close){closeApp(close);return;}
+  const act=t.getAttribute("data-act");
+  if(act==="chatTab"){const v=t.getAttribute("data-view"); if(v!==CHATVIEW){CHATVIEW=v; setInner("msg","msg"); afterMsg();} return;}
+  if(act==="focusPin"){const i=$("#i-pin");if(i)i.focus();}
+  if(act==="kaedeProfile"){ showKaede(false); }
+  if(act==="ryuProfile"){const p=$("#ryu-prof");if(p){p.style.display="flex";requestAnimationFrame(()=>p.classList.add("show"));AUD.ui&&AUD.ui("open");}}
+  if(act==="closeRyu"){const p=$("#ryu-prof");if(p){p.classList.remove("show");setTimeout(()=>p.style.display="none",240);}}
+  if(act==="closeKaede"){ if(flags.f_kaedeGhost && !flags.f_ghostDone)return; const p=$("#kaede-prof");if(p){p.classList.remove("show");setTimeout(()=>p.style.display="none",240);}}
+  if(act==="kaedeTalk"){ if(flags.f_kaedeGhost) openGhostChat(); }
+  if(act==="closeGhost"){ if(flags.f_kaedeGhost && !flags.f_ghostDone)return; const g=$("#ghost-chat");if(g){g.classList.remove("show");setTimeout(()=>g.style.display="none",300);} const o=$("#obs"); if(o){o.textContent="2";o.classList.add("alarm");} }
+  if(act==="subPin"){const v=toHalf(norm($("#i-pin").value)).replace(/\D/g,"");
+    if(v===STORY.codes.pin){flags.f_log=true;glitch(1);AUD.unlock();
+      CHATVIEW="group"; setInner("msg","msg");
+      const s=$("#msg-scroll");if(s)s.scrollTop=s.scrollHeight;
+      renderIcons();renderBar();
+      // 楓の変貌を未だ見ていない人には、強制的に演出を見せる
+      if(!window.__kaedeDone){ setTimeout(()=>showKaede(true),700); }
+    }
+    else{AUD.ui("error");$("#e-pin").textContent=v?"× PINが違う":"× 入力なし";}}
+  if(act==="play"){
+    const r=$("#rec"); if(!r)return;
+    if(window.__recDone){ r.classList.add("playing");AUD.recording(1.6);setTimeout(()=>r.classList.remove("playing"),1600); return; }
+    window.__recTaps=(window.__recTaps||0)+1; const n=window.__recTaps;
+    r.classList.add("playing"); $("#rec-after").style.display="block";
+    if(n>=4){ AUD.recording(1.2); lockScreen(1600);
+      setTimeout(()=>{ r.classList.remove("playing");
+        reddenWave(1);
+        const m=$("#rec-meta"); if(m){m.textContent="逆位相あり ／ 02:11";m.classList.add("live");}
+        recJumpScare();
+      },1400);
+    } else {
+      reddenWave(1); AUD.recording(2.0);
+      setTimeout(()=>{ r.classList.remove("playing");
+        if(n===2){ insertRVoice("rv-a","ひきずロうか、クるしめようか"); AUD.whisper(); }
+        else if(n===3){ insertRVoice("rv-b","ニぶそうだ潰そうかななナなナ"); AUD.whisper(); }
+      },2000);
+    }
+  }
+  if(act==="subRec"){const v=toHalf(norm($("#i-rec").value)).replace(/\D/g,"");
+    if(v==="8726"){flags.f_ryu2=true;flags.f_photo=true;glitch(Math.max(window.__glLv||0,2));AUD.unlock();
+      $("#e-rec").textContent="";$("#i-rec").disabled=true; notify("龍之介","新しいチャットが復元されました",{glyph:"龍"});
+      $("#rec-pin").insertAdjacentHTML("beforeend",`<div class="note" style="color:var(--ok);margin-top:12px">✓ 復元成功 → 龍之介との<b>個人トーク</b>に<b>新しいチャットが復元</b>されました。メッセージを確認してください。</div>`);
+      renderIcons();renderBar();
+      if($("#win-msg")&&$("#win-msg").classList.contains("show")&&CHATVIEW==="ryu"){ setInner("msg","msg"); afterMsg(); }
+    }
+    else{AUD.ui("error");$("#e-rec").textContent=v?"× コードが違う":"× 入力なし";}}
+  if(act==="openPhoto"){setInner("photo","photoView");}
+  if(act==="subUninv"){const raw=norm($("#i-uninv").value);
+    const ok = raw==="シシシシ";   // カタカナ「シシシシ」のみ正解
+    if(ok){ $("#e-uninv").textContent=""; const i=$("#i-uninv"); if(i)i.disabled=true; AUD.unlock&&AUD.unlock();
+      // 「ヨニンメ」を打った後 → 写真01～07が呈い画像に変わる
+      flags.f_cursed=true;
+      revealCursed();
+    } else { AUD.ui("error"); const e=$("#e-uninv"); e.textContent=raw?"✕ 暗号が違う":"✕ 入力なし"; e.classList.remove("flash"); void e.offsetWidth; e.classList.add("flash"); const iu=$("#i-uninv"); if(iu){ iu.classList.remove("shake"); void iu.offsetWidth; iu.classList.add("shake"); } } }
+  if(act==="sendIntf"){submitIntf();}
+  if(act==="lightbox"){ if(window.__suppressLb && Date.now()-window.__suppressLb<350){window.__suppressLb=0;return;} openLightbox(t.getAttribute("data-key"),t.getAttribute("data-cap"));}
+  if(act==="closeLightbox"){closeLightbox();}
+});
+
+/* 写真ライトボックス */
+function keyToNum(key){const m=/^p0?(\d+)/.exec(key||"");return m?+m[1]:0;}
+function bugGlyph(pn){return ({1:"縺",4:"ｿ",6:"翫"})[pn]||"縺";}
+const SHI_LETTERS={1:{bug:true},2:{c:"ン"},3:{c:"ヨ"},4:{bug:true},5:{c:"メ"},6:{bug:true},7:{c:"ニ"}};
+function ninePuzzleActive(){return flags.f_ghostDone && !flags.f_cursed;}
+function openLightbox(key,cap){
+  const src=STORY.images[key]; if(!src)return;
+  const br=flags.f_ryuGone?' style="filter:brightness(1.5) contrast(1.05)"':'';
+  const num=keyToNum(key);
+  const m=(ninePuzzleActive()&&SHI_LETTERS[num])?SHI_LETTERS[num]:null;
+  const letterHTML=m?`<div class="lb-letter${m.bug?' bug':''}">${m.bug?bugGlyph(num):m.c}</div>`:"";
+  const hintHTML=m?`<div class="lb-peelhint">― もう一度タップ ―</div>`:"";
+  const frame=$("#lb-frame"); frame.classList.remove("peeled");
+  frame.innerHTML=`${letterHTML}<div class="film"><img class="src" src="${src}"${br} alt=""><div class="grain"></div></div>${hintHTML}`;
+  $("#lb-cap").innerHTML=cap?`<span class="dot"></span>${cap}`:"";
+  const lb=$("#lightbox"); lb.style.display="flex"; requestAnimationFrame(()=>lb.classList.add("show"));
+  AUD.ui&&AUD.ui("open");
+  // 写真を1枚でも見たら記録 → 龍之介チャットで干渉モードが解禁される
+  if(flags.f_ryu2 && !flags.f_photoseen){
+    flags.f_photoseen=true;
+    setTimeout(()=>notify("龍之介","写真確認できた？",{glyph:"龍"}), 700);
+    // チャットを開いている最中なら、戻ったときに龍之介の追撃が出るよう仕込む
+    if($("#win-msg")&&$("#win-msg").classList.contains("show")&&CHATVIEW==="ryu"){ setTimeout(maybeInterference,600); }
+  }
+}
+function closeLightbox(){
+  const lb=$("#lightbox"); lb.classList.remove("show");
+  setTimeout(()=>{lb.style.display="none";$("#lb-frame").innerHTML="";},280);
+  AUD.ui&&AUD.ui("close");
+}
+$("#lightbox").addEventListener("click",e=>{ if(e.target.id==="lightbox") closeLightbox(); });
+/* 2回目のタップ：写真の裏に潜む怪異の文字をめくる */
+$("#lb-frame").addEventListener("click",e=>{ const f=$("#lb-frame"); if(f.querySelector(".lb-letter")){ f.classList.toggle("peeled"); if(f.classList.contains("peeled")){ AUD.whisper&&AUD.whisper(); glitch(Math.max(window.__glLv||0,1)); } } });
+/* ───── 怪異の文字ファイルをゴミ箱へ運ぶパズル（ヨ→ニ→ン→メ）→ 写真_09「今」 ───── */
+window.__shiSeq=[];
+function trashAccept(){const tr=$("#trash"); if(tr){tr.classList.add("over"); setTimeout(()=>tr.classList.remove("over"),260);} }
+function trashReject(){const tr=$("#trash"); if(tr){tr.classList.add("reject"); setTimeout(()=>tr.classList.remove("reject"),360);} AUD.ui&&AUD.ui("error"); }
+/* 長押し→確認ダイアログ系（スマホ用） */
+function shiOrdinalLabel(){ return ["一枚目","二枚目","三枚目","四枚目","五枚目","六枚目","七枚目"][window.__shiSeq.length] || "次"; }
+function ensureRedburn(){ let rb=document.getElementById('redburn'); if(!rb){ rb=document.createElement('div'); rb.id='redburn'; document.body.appendChild(rb);} return rb; }
+function shiRedden(){ window.__shiMiss=(window.__shiMiss||0)+1; const rb=ensureRedburn(); rb.style.opacity=Math.min(0.9, window.__shiMiss*0.2); glitch(Math.max(window.__glLv||0,1)); }
+function shiToast(txt){ let t=document.getElementById('shi-toast'); if(!t){ t=document.createElement('div'); t.id='shi-toast'; document.body.appendChild(t);} t.textContent=txt; t.classList.remove('show'); void t.offsetWidth; t.classList.add('show'); }
+function shiConfirm(pn,card){
+  let box=document.getElementById('shi-confirm');
+  if(!box){ box=document.createElement('div'); box.id='shi-confirm';
+    box.innerHTML='<div class="sc-box"><div class="sc-q"></div><div class="sc-acts"><button class="sc-yes">はイ</button><button class="sc-no">いイえ</button></div></div>';
+    document.body.appendChild(box); }
+  const m=SHI_LETTERS[pn]; const ch=m?(m.bug?bugGlyph(pn):m.c):'';
+  box.querySelector('.sc-q').innerHTML='<span class="sc-ch">「'+ch+'」</span>を'+shiOrdinalLabel()+'に捨テますか？';
+  box.classList.add('show'); AUD.ui&&AUD.ui('open');
+  const yes=box.querySelector('.sc-yes'), no=box.querySelector('.sc-no');
+  const close=()=>{ box.classList.remove('show'); yes.onclick=null; no.onclick=null; };
+  yes.onclick=()=>{ close(); window.__suppressLb=Date.now(); fileToTrash(pn,card); };
+  no.onclick=()=>{ close(); AUD.ui&&AUD.ui('close'); };
+}
+function fileToTrash(pn,card){
+  const m=SHI_LETTERS[pn]; if(!m)return;
+  const expected=["ヨ","ニ","ン","メ"];
+  // 順番が違う／バグ文字 → ゴミ箱が弾く（ファイルはその場に残る）
+  if(m.bug || m.c!==expected[window.__shiSeq.length]){ trashReject(); shiRedden(); shiToast("ちがう"); return; }
+  window.__shiSeq.push(m.c); AUD.hit&&AUD.hit(); trashAccept();
+  if(card) emptyCard(card,pn);   // ファイルごと消す → 余白に文字だけ残す
+  if(window.__shiSeq.length===expected.length){ solveNine(); }
+}
+function emptyCard(card,pn){
+  window.__trashed=window.__trashed||{}; window.__trashed[pn]=true;
+  const m=SHI_LETTERS[pn]; const ph=card.querySelector('.ph');
+  card.classList.remove('grabfile'); card.dataset.grab=''; card.classList.add('emptied');
+  if(ph){ ph.removeAttribute('data-act'); ph.innerHTML=`<div class="slot-letter${m.bug?' bug':''}">${m.bug?bugGlyph(pn):m.c}</div>`; }
+  const cap=card.querySelector('.cap'); if(cap) cap.style.opacity='.35';
+}
+function solveNine(){
+  if(flags.f_nine)return; flags.f_nine=true; window.__shiSeq=[];
+  glitch(Math.max(window.__glLv||0,2)); AUD.unlatch&&AUD.unlatch(); AUD.unlock&&AUD.unlock(); AUD.staticBurst&&AUD.staticBurst(1.4); AUD.dread&&AUD.dread(3.6); AUD.ambientHorror&&AUD.ambientHorror(true);
+  notify("写真","写真_09 の画像ファイルが復元されました",{glyph:"今",alarm:true});
+  if($("#win-photo")&&$("#win-photo").classList.contains("show")){ setInner("photo","photo");
+    setTimeout(()=>{ const sc=$("#win-photo .scrollable"); if(sc){ sc.scrollTo?sc.scrollTo({top:sc.scrollHeight,behavior:"smooth"}):(sc.scrollTop=sc.scrollHeight); } }, 160);
+  }
+}
+function initFileDrag(){
+  const win=document.querySelector('#win-photo'); if(!win) return;
+  const trashed=window.__trashed||{};
+  win.querySelectorAll('.pcard.lockview[data-pn]').forEach(card=>{
+    const pn=+card.getAttribute('data-pn'); if(!SHI_LETTERS[pn]) return;
+    if(trashed[pn]){ emptyCard(card,pn); return; }            // 既に捨てたファイル → 空きスロット（文字だけ）
+    if(!ninePuzzleActive()||flags.f_nine||card.dataset.grab==="1") return;
+    card.dataset.grab="1"; card.classList.add('grabfile');
+    if(!card.querySelector('.lp-prog')){ const pb=document.createElement('div'); pb.className='lp-prog'; card.appendChild(pb); }
+    let sx=0,sy=0,dragging=false,ghost=null,lpTimer=null,lpFired=false;
+    const trOver=(x,y)=>{const r=$("#trash").getBoundingClientRect();return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;};
+    const clearLP=()=>{ if(lpTimer){clearTimeout(lpTimer);lpTimer=null;} card.classList.remove('holding'); };
+    const spawn=e=>{ ghost=document.createElement('div'); ghost.className='file-ghost'; const img=card.querySelector('img.src'); ghost.innerHTML=img?`<img src="${img.getAttribute('src')}" alt="">`:''; ghost.style.left=e.clientX+'px'; ghost.style.top=e.clientY+'px'; document.body.appendChild(ghost); card.classList.add('lifting'); AUD.ui&&AUD.ui("open"); };
+    const move=e=>{ const dx=e.clientX-sx,dy=e.clientY-sy; if(Math.hypot(dx,dy)>=8) clearLP(); if(!dragging){ if(Math.hypot(dx,dy)<8)return; dragging=true; spawn(e);} if(ghost){ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';} $("#trash").classList.toggle('over',trOver(e.clientX,e.clientY)); };
+    const up=e=>{ clearLP(); window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); window.removeEventListener('pointercancel',up); const wasDrag=dragging; dragging=false; if(ghost){ghost.remove();ghost=null;} card.classList.remove('lifting'); $("#trash").classList.remove('over'); if(wasDrag){ window.__suppressLb=Date.now(); if(trOver(e.clientX,e.clientY)) fileToTrash(pn,card); } else if(lpFired){ window.__suppressLb=Date.now(); } };
+    card.addEventListener('pointerdown',e=>{ if(!ninePuzzleActive()||flags.f_nine)return; sx=e.clientX; sy=e.clientY; dragging=false; lpFired=false; card.classList.add('holding');
+      lpTimer=setTimeout(()=>{ lpTimer=null; lpFired=true; card.classList.remove('holding'); window.__suppressLb=Date.now(); AUD.whisper&&AUD.whisper(); shiConfirm(pn,card); }, 2000);
+      window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); window.addEventListener('pointercancel',up); });
+  });
+}
+document.addEventListener("keydown",e=>{ if(e.key==="Enter" && e.target && e.target.id==="i-intf"){ e.preventDefault(); submitIntf(); }});
+$("#replay").addEventListener("click",()=>location.reload());
+
+
+/* ════════ July — 一方的・段階的アドバイス案内 ════════ */
+const JULY=(()=>{
+  const STAGES={
+    pin:{praise:null,tips:[
+      "楓ちゃんからなんだか<b>ファイル</b>が届いたね。<b>4桁の数字</b>を入れなきゃみたいだ。何か情報落ちてたりしないかな〜。",
+      "楓っちの<b>チャットプロフィール</b>になんか書いてるね。推しがいるんだ！人生楽しそ〜。",
+      "<b>推しの誕生日</b>っていつなんだろう。<b>会話中の日付</b>から推測できそうだね。",
+      "流石に日付けが<b>変わったばかり</b>だからひとことは肝試しに来る前に書いてそうだよね。"]},
+    recording:{praise:"PIN、通ったね。やるじゃん。",tips:[
+      "ふふ、驚いた？今回の怪異はなかなか手強そう。お、新しくデスクトップに『<b>録音</b>』が増えてるみたいだね。",
+      "<b>警告</b>が出てるね。そんなこと言われたら、聞きたくなるよね。どんどん聞いてみちゃおうよ！",
+      "逆位相ってことは<b>後ろから</b>見ていけば何かわかるのかな。怪異の声はところどころ<b>特徴</b>があるみたい。『<b>復元</b>』に繋がる何かがあるかも。",
+      "怪異の導きの声の部分だけ、どうやら<b>カタカナ</b>になっているみたいだね。面白い怪異〜。"]},
+    photo:{praise:"声の復元、お見事。次いくよ。",tips:[
+      "<b>龍之介</b>からまたなんか来たみたい。まずはひらいてみよ〜。",
+      "お守り落とすなんておっちょこちょいだね〜。新しく追加された『<b>写真</b>』を確認してみようよ！",
+      "龍ちゃんがなんか言ってるね。深層まで調査するために彼らの会話に<b>干渉</b>できるようにしておいたよ。お守りがある場所を特定して、龍ちゃんに<b>伝えてあげよう</b>。",
+      "面白い写真がたくさんあるね〜。お守りの写真はどれだろう。写真に<b>場所を特定できる何か</b>が写ってたらいいけど。",
+      "お守りの写真、よく見たら何か<b>赤いもの</b>が写ってるね。なんだろう〜あやしいな〜。",
+      "そういえば<b>録音機</b>に録音されていた会話で3人が何か見つけてたよね。<b>他の写真</b>の情報も合わせたら、何かわかるかな？"]},
+    unsolved:{praise:"……龍之介のこと、残念だったね。",tips:[
+      "ふふふ、龍之介くんの断末魔最高だったね。何かを閉じ込めていた<b>領域</b>に3人は入ってしまったみたい。あれ、なんだか調査が進むたびに何かがこちらに近づいて来ている気がする。気のせいかな？",
+      "新しく『<b>未解決</b>』の資料がえつらんできるね。ここから先が追加調査の本領になりそう。",
+      "<b>08</b>の写真ファイルが何ものかによって<b>ロック</b>されてるみたい。これは手強そう〜。干渉できるのは、どうやら僕たちだけじゃないみたいだ。",
+      "とりあえずやれることをやっていこう。<b>ゴミ箱</b>の名前が変わってる？このデスクトップ画面で何か起きてそうだね。",
+      "どうやら人が消えるたびに<b>通知</b>みたいに数字が増えている部分があるね。これ、何かできそう。",
+      "通知マークをゴミ箱に<b>捨てられる</b>わけか！シに2人を追いやった演出？粋な怪異〜。"]},
+    endgame:{praise:"未解決、読んだんだね。",tips:[
+      "とりあえずやれることをやっていこう。<b>ゴミ箱</b>の名前が変わってる？このデスクトップ画面で何か起きてそうだね。",
+      "どうやら人が消えるたびに<b>通知</b>みたいに数字が増えている部分があるね。これ、何かできそう。",
+      "通知マークをゴミ箱に<b>捨てられる</b>わけか！シに2人を追いやった演出？粋な怪異〜。"]},
+    ninep:{praise:null,tips:[
+      "ははは！3人とも消えちゃったね！<br>祐一くんは怪異を直接見れたのかな〜。<br>「<b>ヨニンメ</b>」って何かのキーワードとかかな？",
+      "あれれ、写真ファイルに<b>異変</b>が起きてるみたいだね。<br>調べてみようよ。",
+      "お守り破れてる、、相当呪いが強そうだよ。<br>写真の<b>裏</b>に何か<b>メッセージ</b>が隠れてるみたい？",
+      "なるほど、いくつかの写真に「ヨ、ニ、ン、メ」が隠れてるんだね！",
+      "<b>順番</b>とかあったりするのかな。",
+      "どうやら<b>長押し</b>したり<b>掴んだり</b>したら捨てられるみたいだね。「ヨ」から順に捨ててみよ！",
+      "お！<b>09</b>のファイル！<br>ん？これって、、君？<br>薄気味悪い状況だけど、とにかく画面の怪しい文字が<b>4文字</b>ってのが何かありそうだね。<br><br>後は調査がんばって！<br>ご武運を〜！"]},
+    done:{praise:null,tips:[]}
+  };
+  const INTRO="はじめまして。ぼくの名前は<b>July</b>。あなたの調査を補佐するよ。3人はどこへ行ってしまったんだろう。わくわk...いや、心配だね。もしかしたら予期せぬ影響が及んだりする可能性があるから、十分注意していこう。<br>それじゃ、慎重に！";
+  let root,bubble,more,prev,step,collapseT=null,reshowT=null;
+  let curStage=null,ti=0,open=false;
+  const RESHOW_MS=42000, VISIBLE_MS=15000;
+  function detect(){
+    if(flags.f_end) return "done";
+    if(flags.f_ghostDone) return "ninep";
+    if(flags.f_unsolvedRead) return "unsolved";
+    if(flags.f_ryuGone) return "unsolved";
+    if(flags.f_photo) return "photo";
+    if(flags.f_log) return "recording";
+    return "pin";
+  }
+  let introMode=false;
+  function maxTi(){return STAGES[curStage].tips.length-1;}
+  function reveal(htmlStr){ bubble.innerHTML=htmlStr; bubble.classList.remove("in"); void bubble.offsetWidth; bubble.classList.add("in"); }
+  function updateFoot(){
+    if(!more)return;
+    if(introMode){
+      if(prev)prev.style.visibility="hidden";
+      if(step)step.textContent="";
+      more.removeAttribute("disabled"); more.textContent="つづける →";
+      return;
+    }
+    const max=maxTi();
+    if(prev){ prev.style.visibility="visible"; if(ti<=0)prev.setAttribute("disabled",""); else prev.removeAttribute("disabled"); }
+    if(step)step.textContent=(ti+1)+" / "+(max+1);
+    if(ti>=max){ more.setAttribute("disabled",""); more.textContent="これで全部だよ"; }
+    else { more.removeAttribute("disabled"); more.textContent="もっと詳しく →"; }
+  }
+  function setTip(withTyping){
+    updateFoot();
+    // 初回だけ：どの段階でJulyを開いても、まず「はじめまして」を一度だけ出す
+    const txt = introMode ? INTRO : STAGES[curStage].tips[ti];
+    if(introMode) window.__jlIntroSeen=true;
+    if(withTyping){
+      reveal('<div class="jl-typing"><i></i><i></i><i></i></div>');
+      clearTimeout(window.__jlType);
+      window.__jlType=setTimeout(()=>{ reveal(txt); AUD&&AUD.ui&&AUD.ui("open"); },820);
+    } else { reveal(txt); }
+  }
+  function showPanel(withTyping){
+    open=true; root.classList.add("open");
+    setTip(withTyping);
+  }
+  function collapse(){ open=false; introMode=false; root.classList.remove("open"); }
+  // 受け身：自動では一切開かない。アイコンを押した時だけ現在の助言を出す。
+  function tick(){
+    const s=detect(); if(s===curStage) return;
+    curStage=s; ti=0;
+    if(s==="done"){ collapse(); root.classList.add("gone"); return; }
+    if(open) setTip(false);   // 既に自分で開いている時のみ内容を更新
+  }
+  function init(){
+    if(root) return;
+    root=document.getElementById("july"); if(!root) return;
+    bubble=root.querySelector(".jl-bubble");
+    more=root.querySelector(".jl-more");
+    prev=root.querySelector(".jl-prev");
+    step=root.querySelector(".jl-step");
+    root.querySelector(".jl-icon").addEventListener("click",()=>{ if(open){ collapse(); AUD&&AUD.ui&&AUD.ui("close"); } else { if(!window.__jlIntroSeen) introMode=true; showPanel(false); AUD&&AUD.ui&&AUD.ui("open"); } });
+    root.querySelector(".jl-min").addEventListener("click",e=>{ e.stopPropagation(); collapse(); AUD&&AUD.ui&&AUD.ui("close"); });
+    more.addEventListener("click",()=>{ if(introMode){ introMode=false; ti=0; showPanel(true); return; } if(ti<maxTi())ti++; showPanel(true); });
+    if(prev)prev.addEventListener("click",()=>{ if(introMode)return; if(ti>0){ ti--; showPanel(false); } });
+    setTimeout(()=>{ root.classList.add("show"); tick(); },700);
+    setInterval(tick,3500);
+  }
+  return {init,tick};
+})();
+
+/* 起動 */
+const bootMsgs=["起動しています","ファイルシステムを確認","Aのセッションを復元","――誰かが既にログインしています"];
+let bi=0;const bt=setInterval(()=>{bi++;if(bi<bootMsgs.length){$("#boot-tx").textContent=bootMsgs[bi];if(bi===3)$("#boot-tx").style.color="var(--bad-2)";}},900);
+(function bootPct(){const el=$("#boot-pct"),t0=performance.now();function s(now){const k=Math.min(1,(now-t0)/3800);const p=Math.floor(k*87);if(el)el.textContent="復元 "+p+"%";if(k<1&&$("#boot").style.display!=="none")requestAnimationFrame(s);}requestAnimationFrame(s);})();
+function clock(){const d=new Date();$("#clock").textContent=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");}
+clock();setInterval(clock,15000);
+/* HUD タイムコード（カムコーダーOSD） */
+const hudStart=Date.now();
+(function hudTick(){const el=$("#hud-tc");if(el){const ms=Date.now()-hudStart,tot=Math.floor(ms/1000);
+  el.textContent=String(Math.floor(tot/3600)).padStart(2,"0")+":"+String(Math.floor(tot/60)%60).padStart(2,"0")+":"+String(tot%60).padStart(2,"0")+":"+String(Math.floor((ms%1000)/41.6)).padStart(2,"0");}
+  requestAnimationFrame(hudTick);})();
+setInterval(()=>{const s=$("#hud-sig");if(s)s.textContent=["▮▮▮▯","▮▮▮▮","▮▮▯▯","▮▮▮▯"][Math.floor(Math.random()*4)];},2300);
+/* ミュート */
+const muteBtn=$("#mute");
+muteBtn.addEventListener("click",()=>{const m=!AUD.muted;AUD.setMute(m);muteBtn.textContent=m?"◌":"●";muteBtn.classList.toggle("off",m);});
+setTimeout(()=>{clearInterval(bt);$("#boot").style.opacity="0";setTimeout(()=>$("#boot").style.display="none",1000);$("#intro").classList.add("show");},4200);
+$("#intro-go").addEventListener("click",()=>{AUD.start();AUD.ui("confirm");$("#intro").classList.remove("show");const r=$("#pp-roster");if(r)r.innerHTML='<img class="pp-img" src="roster.jpg" alt="関係者プロフィール">';$("#profile-page").classList.add("show");});
+$("#profile-go").addEventListener("click",()=>{AUD.ui("open");$("#profile-page").classList.remove("show");$("#hud").classList.add("on");renderIcons();renderBar();JULY.init();});
+
+console.log("%c在無 // recovered fragment","color:#c19a55;letter-spacing:.2em");
+console.log("%c怪異特別捜査用資料：危険度4","color:#cf3b2a");
+console.log("%c座標断片 → 26.7██,128.2██ ／ next: ?work=074","color:#54a18b");
+</script>
+</body>
+</html>
